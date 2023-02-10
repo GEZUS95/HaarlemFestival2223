@@ -18,9 +18,9 @@ class PerformerService
         $this->REPOSITORY->insertOne($user);
     }
     public function getOneById(int $id){
-        $this->REPOSITORY->getOneById($id);
+        return $this->REPOSITORY->getOneById($id);
     }
     public function getOneByName(string $name){
-        $this->REPOSITORY->getOneByName($name);
+        return $this->REPOSITORY->getOneByName($name);
     }
 }

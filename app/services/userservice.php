@@ -21,13 +21,13 @@ class UserService
     }
 
     public function getOneByEmail(string $email){
-        $this->REPOSITORY->getOneByEmail($email);
+        return $this->REPOSITORY->getOneByEmail($email);
     }
     public function getOneByName(string $name){
-        $this->REPOSITORY->getOneByEmail($name);
+        return $this->REPOSITORY->getOneByEmail($name);
     }
     public function getOneById(int $id){
-        $this->REPOSITORY->getOneByEmail($id);
+        return $this->REPOSITORY->getOneByEmail($id);
     }
 
 
