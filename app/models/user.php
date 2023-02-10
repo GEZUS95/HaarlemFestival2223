@@ -5,7 +5,8 @@ class User
     private int $id;
     private string $name;
     private string $email;
-    private string $password;
+    private string $passwordhash;
+    private string $description;
     private int $role; // role is een Foreign Key
 
     /**
@@ -59,17 +60,17 @@ class User
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getPasswordhash(): string
     {
-        return $this->password;
+        return $this->passwordhash;
     }
 
     /**
-     * @param string $password
+     * @param string $passwordhash
      */
-    public function setPassword(string $password): void
+    public function setPasswordhash(string $passwordhash): void
     {
-        $this->password = $password;
+        $this->passwordhash = $passwordhash;
     }
 
     /**
@@ -87,6 +88,23 @@ class User
     {
         $this->role = $role;
     }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
 
 
 }
