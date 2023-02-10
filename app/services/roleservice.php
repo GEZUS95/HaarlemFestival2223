@@ -19,7 +19,7 @@ class RoleService
         $this->REPOSITORY->insertOne($user);
     }
     public function getOneById(int $id){
-        $this->REPOSITORY->getOneByEmail($id);
+        $this->REPOSITORY->getOneById($id);
     }
 
 }
