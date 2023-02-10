@@ -77,4 +77,22 @@ class UserRepository extends Repository{
             echo $e;
         }
     }
+
+    public function updateOne(User $user)
+    {
+        try {
+            $stmt = $this->connection->prepare("
+                UPDATE user 
+                SET name = ?, email = ?,  passwordhash = ?, description = ?, role = ?
+                WHERE id = ?");
+            $name = $user->getName();
+            $stmt->bindParam('ssssii', $name, $user->getEmail(), $user->getPasswordhash(), $user->getDescription(), $user->getRole(), $user->getId());
+            $stmt->execute();
+            return $this->getOneById($user->getId());
+
+        } catch (PDOException $e)
+        {
+            echo $e;
+        }
+    }
 }
