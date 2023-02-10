@@ -24,8 +24,7 @@ class UserRepository extends Repository{
             $name = $user->getName(); //todo: blijkbaar werkt het niet als deze statement direct in de bindparam zit
             $stmt->bindParam('ssssi', $name, $user->getEmail(), $user->getPasswordhash(), $user->getDescription(), $user->getRole());
 
-            $stmt->execute();
-            return $this->getOneByEmail($user->getEmail());
+            return $stmt->execute();
         }
         catch (PDOException $e){
             echo $e;
@@ -87,8 +86,7 @@ class UserRepository extends Repository{
                 WHERE id = ?");
             $name = $user->getName();
             $stmt->bindParam('ssssii', $name, $user->getEmail(), $user->getPasswordhash(), $user->getDescription(), $user->getRole(), $user->getId());
-            $stmt->execute();
-            return $this->getOneById($user->getId());
+            return $stmt->execute();
 
         } catch (PDOException $e)
         {

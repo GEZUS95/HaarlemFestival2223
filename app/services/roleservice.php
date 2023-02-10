@@ -1,13 +1,12 @@
 <?php
-require __DIR__ . '/../repositories/userrepository.php';
 
-class UserService
+require __DIR__ . '/../repositories/rolerepository.php';
+class RoleService
 {
-
-    private UserRepository $REPOSITORY;
+    private RoleRepository $REPOSITORY;
     public function __construct()
     {
-        $this->REPOSITORY = new UserRepository();
+        $this->REPOSITORY = new RoleRepository();
     }
 
     public function getAll() {
@@ -19,16 +18,8 @@ class UserService
     public function insertOne(User $user){
         $this->REPOSITORY->insertOne($user);
     }
-
-    public function getOneByEmail(string $email){
-        $this->REPOSITORY->getOneByEmail($email);
-    }
-    public function getOneByName(string $name){
-        $this->REPOSITORY->getOneByEmail($name);
-    }
     public function getOneById(int $id){
         $this->REPOSITORY->getOneByEmail($id);
     }
-
 
 }
