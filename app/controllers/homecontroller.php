@@ -11,4 +11,8 @@ class HomeController
     {
         require __DIR__ . '/../views/home/about.php';
     }
+    public function login()
+    {
+        require __DIR__ . '/../views/home/login.php';
+    }
 }

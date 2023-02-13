@@ -7,7 +7,7 @@ class User
     private string $email;
     private string $passwordhash;
     private string $description;
-    private int $role; // role is een Foreign Key
+    private int $role_id;
 
     /**
      * @return int
@@ -76,17 +76,17 @@ class User
     /**
      * @return int
      */
-    public function getRole(): int
+    public function getRoleId(): int
     {
-        return $this->role;
+        return $this->role_id;
     }
 
     /**
-     * @param int $role
+     * @param int $role_id
      */
-    public function setRole(int $role): void
+    public function setRoleId(int $role_id): void
     {
-        $this->role = $role;
+        $this->role_id = $role_id;
     }
 
     /**

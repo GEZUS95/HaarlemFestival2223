@@ -22,7 +22,7 @@ class UserRepository extends Repository{
         try {
             $stmt = $this->connection->prepare("INSERT INTO user ('name', 'email', 'passwordhash', 'description', 'role_id')");
             $name = $user->getName(); //todo: blijkbaar werkt het niet als deze statement direct in de bindparam zit
-            $stmt->bindParam('ssssi', $name, $user->getEmail(), $user->getPasswordhash(), $user->getDescription(), $user->getRole());
+            $stmt->bindParam('ssssi', $name, $user->getEmail(), $user->getPasswordhash(), $user->getDescription(), $user->getRoleId());
 
             return $stmt->execute();
         }
@@ -85,7 +85,7 @@ class UserRepository extends Repository{
                 SET name = ?, email = ?,  passwordhash = ?, description = ?, role = ?
                 WHERE id = ?");
             $name = $user->getName();
-            $stmt->bindParam('ssssii', $name, $user->getEmail(), $user->getPasswordhash(), $user->getDescription(), $user->getRole(), $user->getId());
+            $stmt->bindParam('ssssii', $name, $user->getEmail(), $user->getPasswordhash(), $user->getDescription(), $user->getRoleId(), $user->getId());
             return $stmt->execute();
 
         } catch (PDOException $e)

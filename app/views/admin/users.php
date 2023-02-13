@@ -8,8 +8,8 @@ include __DIR__ . '/admin-header.php';
     <thead>
     <tr>
         <th>Id</th>
-        <th>username</th>
-        <th>email</th>
+        <th>Username</th>
+        <th>Email</th>
         <th></th>
     </tr>
     </thead>
@@ -19,9 +19,9 @@ include __DIR__ . '/admin-header.php';
         ?>
 
         <tr>
-            <td><?php $user->getId() ?></td>
-            <td><?php $user->getName() ?></td>
-            <td><?php $user->getEmail() ?></td>
+            <td><?php echo $user->getId() ?></td>
+            <td><?php echo $user->getName() ?></td>
+            <td><?php echo $user->getEmail() ?></td>
             <td>
                 <button>Change Password</button>
                 <button>Update User</button>
