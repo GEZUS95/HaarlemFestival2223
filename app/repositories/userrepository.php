@@ -39,7 +39,7 @@ class UserRepository extends Repository{
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
-            return $stmt->fetchAll();
+            return $stmt->fetch();
 
         } catch (PDOException $e)
         {
@@ -54,7 +54,7 @@ class UserRepository extends Repository{
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
-            return $stmt->fetchAll();
+            return $stmt->fetch();
 
         } catch (PDOException $e)
         {
@@ -69,7 +69,7 @@ class UserRepository extends Repository{
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
-            return $stmt->fetchAll();
+            return $stmt->fetch();
 
         } catch (PDOException $e)
         {
