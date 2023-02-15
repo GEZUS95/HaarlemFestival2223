@@ -4,32 +4,32 @@ require __DIR__ . '/../repositories/userrepository.php';
 class UserService
 {
 
-    private UserRepository $REPOSITORY;
+    private UserRepository $repository;
     public function __construct()
     {
-        $this->REPOSITORY = new UserRepository();
+        $this->repository = new UserRepository();
     }
 
     public function getAll() {
-        return $this->REPOSITORY->getAll();
+        return $this->repository->getAll();
     }
     public function updateOne(User $user){
         $user->setPasswordhash($this->hashPassword($user->getPasswordhash()));
-        $this->REPOSITORY->updateOne($user);
+        $this->repository->updateOne($user);
     }
     public function insertOne(User $user){
         $user->setPasswordhash($this->hashPassword($user->getPasswordhash()));
-        $this->REPOSITORY->insertOne($user);
+        $this->repository->insertOne($user);
     }
 
     public function getOneByEmail(string $email){
-        return $this->REPOSITORY->getOneByEmail($email);
+        return $this->repository->getOneByEmail($email);
     }
     public function getOneByName(string $name){
-        return $this->REPOSITORY->getOneByEmail($name);
+        return $this->repository->getOneByEmail($name);
     }
     public function getOneById(int $id){
-        return $this->REPOSITORY->getOneByEmail($id);
+        return $this->repository->getOneByEmail($id);
     }
 
     private function hashPassword(string $password){
