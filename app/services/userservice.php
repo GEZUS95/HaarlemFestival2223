@@ -62,7 +62,7 @@ class UserService
     {
         $user = $this->getOneById($_SESSION['user']->getId());
         $user->setPasswordHash('');
-        if (!$user === $_SESSION['user']) {
+        if (!$user == $this->getUserFromSession()) {
             $this->redirect('/login?error=Session_corrupted');
         }
     }
@@ -87,6 +87,7 @@ class UserService
         $_SESSION['user']['id'] = $user->getId();
         $_SESSION['user']['name'] = $user->getName();
         $_SESSION['user']['email'] = $user->getEmail();
+        $_SESSION['user']['password'] = $user->getPasswordhash();
         $_SESSION['user']['roleId'] = $user->getRoleId();
     }
 
@@ -98,5 +99,9 @@ class UserService
     private function verifyPassword(string $password, string $hashedPassword): bool
     {
         return password_verify($password, $hashedPassword);
+    }
+
+    private function getUserFromSession(): User{
+        return new  User($_SESSION['user']['id'],$_SESSION['user']['name'],$_SESSION['user']['email'],$_SESSION['user']['password'],$_SESSION['user']['role_id']);
     }
 }
