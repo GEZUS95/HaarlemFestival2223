@@ -36,11 +36,11 @@ class RoleRepository extends Repository{
     {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM role WHERE id = ? LIMIT 1");
-            $stmt->bindParam('i', $id);
+            $stmt->bindParam(1, $id);
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Role');
-            return $stmt->fetchAll();
+            return $stmt->fetch();
 
         } catch (PDOException $e)
         {
