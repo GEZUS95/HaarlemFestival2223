@@ -1,4 +1,5 @@
 <?php
+
 class User
 {
 
@@ -6,7 +7,6 @@ class User
     private string $name;
     private string $email;
     private string $passwordhash;
-    private string $description;
     private int $role_id;
 
     /**
@@ -88,23 +88,4 @@ class User
     {
         $this->role_id = $role_id;
     }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-
-
 }
