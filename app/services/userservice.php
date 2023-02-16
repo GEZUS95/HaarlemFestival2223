@@ -46,6 +46,9 @@ class UserService
         }
         // do login
         $this->setSession($user);
+        var_dump($_SESSION['user']);
+        //redirect to home page
+        http_redirect('/');
     }
 
     private function setSession(User $user){

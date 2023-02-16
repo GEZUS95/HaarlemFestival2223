@@ -34,8 +34,8 @@ class UserRepository extends Repository{
     public function getOneByEmail(string $email)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM user WHERE email = ? LIMIT 1");
-            $stmt->bindParam('s', $email);
+            $stmt = $this->connection->prepare("SELECT * FROM user WHERE email=? LIMIT 1");
+            $stmt->bindParam(1, $email);
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
@@ -50,7 +50,7 @@ class UserRepository extends Repository{
     {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM user WHERE name = ? LIMIT 1");
-            $stmt->bindParam('s', $name);
+            $stmt->bindParam(1, $name);
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
@@ -65,7 +65,7 @@ class UserRepository extends Repository{
     {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM user WHERE id = ? LIMIT 1");
-            $stmt->bindParam('i', $id);
+            $stmt->bindParam(1, $id);
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
