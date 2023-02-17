@@ -1,5 +1,7 @@
 <?php
 
+namespace repositories;
+
 class Repository
 {
     protected $connection;

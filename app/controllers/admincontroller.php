@@ -1,6 +1,8 @@
 <?php
-require __DIR__ . '/../services/userservice.php';
 
+namespace controllers;
+
+require __DIR__ . '/../services/userservice.php';
 class AdminController
 {
     private $userService;

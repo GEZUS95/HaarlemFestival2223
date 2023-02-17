@@ -1,7 +1,10 @@
 {
-  "require": {
-    "php": "^7.2||^8.0",
-    "monolog/monolog": "2.0.*||^3.0",
-    "symfony/mailer": "^6.2"
-  }
+    "require": {
+        "symfony/mailer": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "controllers\\": "app/controllers"
+        }
+    }
 }

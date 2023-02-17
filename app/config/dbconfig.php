@@ -1,4 +1,6 @@
 <?php
+namespace config;
+
 $type = "mysql";
 $servername = "mysql";
 $username = "root";
