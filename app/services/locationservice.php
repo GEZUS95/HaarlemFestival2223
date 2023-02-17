@@ -1,6 +1,6 @@
 <?php
-
-require __DIR__ . '/../repositories/locationrepository.php';
+namespace services;
+use repositories\ArticleRepository;
 class LocationService
 {
     private LocationRepository $REPOSITORY;

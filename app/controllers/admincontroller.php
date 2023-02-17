@@ -1,11 +1,10 @@
 <?php
 
 namespace controllers;
-
-require __DIR__ . '/../services/userservice.php';
+use services\UserService;
 class AdminController
 {
-    private $userService;
+    private UserService $userService;
 
     function __construct()
     {

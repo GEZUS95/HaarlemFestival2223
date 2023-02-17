@@ -1,10 +1,10 @@
 <?php
 
 namespace controllers;
-require __DIR__ . '/../services/articleservice.php';
+use services\ArticleService;
 class ArticleController
 {
-    private $articleService;
+    private ArticleService $articleService;
 
     function __construct()
     {

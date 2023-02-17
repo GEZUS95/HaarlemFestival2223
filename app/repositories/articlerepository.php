@@ -1,8 +1,8 @@
 <?php
 
 namespace repositories;
-require __DIR__ . '/repository.php';
-require __DIR__ . '/../models/article.php';
+use repositories\Repository;
+use models\Article;
 
 class ArticleRepository extends Repository {
 

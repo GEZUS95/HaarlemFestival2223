@@ -1,6 +1,6 @@
 <?php
-
-require __DIR__ . '/../repositories/rolerepository.php';
+namespace services;
+use repositories\RoleRepository;
 class RoleService
 {
     private RoleRepository $REPOSITORY;

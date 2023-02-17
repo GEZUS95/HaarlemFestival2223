@@ -1,5 +1,5 @@
 <?php
-
+namespace routers;
 class PatternRouter
 {
     private function stripParameters($uri)
@@ -27,7 +27,7 @@ class PatternRouter
         }
         $methodName = $explodedUri[1];
 
-        $filename = __DIR__ . '/../controllers/' . $controllerName . '.php';
+        $filename = __DIR__ . '../controllers/' . $controllerName . '.php';
 
         if (file_exists($filename)) {
             require($filename);
