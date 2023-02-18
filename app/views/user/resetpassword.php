@@ -7,7 +7,7 @@ if (($_SESSION['user']['role_id'] == 2) || ($_SESSION['user']['role_id'] == 3)) 
 ?>
 
 <h1>Login page</h1>
-<form action="/login" method="post" class="form-horizontal">
+<form action="/user/resetpassword" method="post" class="form-horizontal">
     <fieldset>
 
         <?php if (($_SESSION['user']['role_id'] == 2) || ($_SESSION['user']['role_id'] == 3)) { ?>
@@ -43,7 +43,7 @@ if (($_SESSION['user']['role_id'] == 2) || ($_SESSION['user']['role_id'] == 3)) 
         <div class="form-group">
             <label class="col-md-4 control-label" for="submit"></label>
             <div class="col-md-4">
-                <button id="submit" name="submit" class="btn btn-primary">Change Password</button>
+                <button id="submit" name="submit" class="btn btn-primary">Reset Password</button>
             </div>
         </div>
     </fieldset>
