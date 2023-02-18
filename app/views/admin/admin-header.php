@@ -27,6 +27,19 @@
                     <a class="nav-link" href="/admin/events">Events</a>
                 </li>
             </ul>
+            <?php if (!isset($_SESSION['user'])) {
+                echo '
+                <form class="form-inline" action="/login">
+                    <button class="btn btn-outline-success" type="submit">Login</button>
+                </form>
+            ';
+            } else {
+                echo ' 
+                 <form class="form-inline" action="/login/logout">
+                    <button class="btn btn-outline-danger" type="submit">Logout</button>
+                </form>
+            ';
+            } ?>
         </div>
     </div>
 </nav>

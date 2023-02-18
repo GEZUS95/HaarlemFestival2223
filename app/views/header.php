@@ -28,6 +28,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/home/about">About</a>
                 </li>
+                <?php
+                if ((isset($_SESSION['user'])) && ($_SESSION['user']['role_id'] == 2) || ($_SESSION['user']['role_id'] == 3)) {
+                    echo '<li class="nav-item">
+                            <a class="nav-link" href="/admin">Admin Panel</a>
+                        </li>';
+                }
+                ?>
             </ul>
             <?php if (!isset($_SESSION['user'])) {
                 echo '
@@ -38,7 +45,7 @@
             } else {
                 echo ' 
                  <form class="form-inline" action="/login/logout">
-                    <button class="btn btn-outline-success" type="submit">Logout</button>
+                    <button class="btn btn-outline-danger" type="submit">Logout</button>
                 </form>
             ';
             } ?>

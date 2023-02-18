@@ -37,12 +37,12 @@ class UserService
 
     public function getOneByName(string $name): User
     {
-        return $this->repository->getOneByEmail($name);
+        return $this->repository->getOneByName($name);
     }
 
     public function getOneById(int $id): User
     {
-        return $this->repository->getOneByEmail($id);
+        return $this->repository->getOneById($id);
     }
 
     public function login(string $email, string $password): void
@@ -61,11 +61,11 @@ class UserService
         $this->redirect('/?success=you have been successfully logged in');
     }
 
-    public function checkPermissions(string $level): bool
+    public function checkPermissions(string $role_name): bool
     {
         $this->verifySession();
         $role = $this->roleRepository->getOneById($_SESSION['user']['role_id']);
-        if ($role->getName() !== $level) {
+        if ($role->getName() !== $role_name) {
             return false;
         }
         return true;
@@ -112,7 +112,7 @@ class UserService
 
     private function verifySession(): void
     {
-        $user = $this->getOneById($_SESSION['user']->getId());
+        $user = $this->getOneById($_SESSION['user']['id']);
         $user->setPasswordHash('');
         if (!$user == $this->getUserFromSession()) {
             $this->redirect('/login?error=Session_corrupted');
