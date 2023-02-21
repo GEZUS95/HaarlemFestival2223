@@ -2,7 +2,7 @@
 include __DIR__ . '/header.php';
 ?>
 
-    <h1>Login page</h1>
+    <h1>Register page</h1>
     <form action="/user/register" method="post" class="form-horizontal">
         <fieldset>
             <!-- Text input-->
