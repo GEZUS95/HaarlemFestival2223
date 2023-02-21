@@ -1,20 +1,23 @@
 <?php
+
 namespace repositories;
 
-use Repository;
+use PDO;
+use PDOException;
 use models\Role;
 
-class RoleRepository extends Repository{
-    function getAll() {
+class RoleRepository extends Repository
+{
+    function getAll()
+    {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM role");
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Role');
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Role::class);
             return $stmt->fetchAll();
 
-        } catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e;
         }
     }
@@ -27,8 +30,7 @@ class RoleRepository extends Repository{
             $stmt->bindParam('ss', $name, $role->getDescription());
 
             return $stmt->execute();
-        }
-        catch (PDOException $e){
+        } catch (PDOException $e) {
             echo $e;
         }
     }
@@ -41,11 +43,10 @@ class RoleRepository extends Repository{
             $stmt->bindParam(1, $id);
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Role');
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Role::class);
             return $stmt->fetch();
 
-        } catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e;
         }
     }
@@ -61,8 +62,7 @@ class RoleRepository extends Repository{
             $stmt->bindParam('ssi', $name, $role->getDescription(), $role->getId());
             return $stmt->execute();
 
-        } catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e;
         }
     }
