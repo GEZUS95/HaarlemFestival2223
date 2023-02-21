@@ -15,7 +15,7 @@ class LoginController
 
     public function login()
     {
-        require_once __DIR__ . '/../views/login.php';
+        require_once __DIR__ . '/../views/user/login.php';
     }
 
     public function loginPost()

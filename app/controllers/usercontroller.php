@@ -24,22 +24,17 @@ class UserController
 
     public function register(): void
     {
-        if (isset($_POST['name'])) {
-            $this->userService->register(
-                $_POST['name'],
-                $_POST['email'],
-                $_POST['emailVerify'],
-                $_POST['password'],
-                $_POST['passwordVerify']
-            );
-        }
-        require_once __DIR__ . '/../views/register.php';
+        require_once __DIR__ . '/../views/user/register.php';
     }
 
-    public function delete()
+    public function registerPost(): void
     {
-        //$_SESSION['modifyUserId'];
-        //todo: get an id with it
-        $this->userService->deleteOne();
+        $this->userService->register(
+            $_POST['name'],
+            $_POST['email'],
+            $_POST['emailVerify'],
+            $_POST['password'],
+            $_POST['passwordVerify']
+        );
     }
 }

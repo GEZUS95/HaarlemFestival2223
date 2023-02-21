@@ -33,6 +33,14 @@ $router->get('/logout', function () {
     $controller = new controllers\LoginController();
     $controller->logout();
 });
+$router->get('/register', function () {
+    $controller = new controllers\UserController();
+    $controller->register();
+});
+$router->post('/register', function () {
+    $controller = new controllers\UserController();
+    $controller->registerPost();
+});
 
 
 //Admin routes
