@@ -246,6 +246,12 @@ ALTER TABLE `orderline`
     ADD PRIMARY KEY (`uuid`);
 
 --
+-- Indexes for table `passwordreset`
+--
+ALTER TABLE `passwordreset`
+    ADD PRIMARY KEY (`uuid`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -408,6 +414,9 @@ ALTER TABLE restauranttypelink ADD FOREIGN KEY (restaurant_type_id) REFERENCES r
 
 -- user table
 ALTER TABLE user ADD FOREIGN KEY (role_id) REFERENCES role (id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- passwordreset table
+ALTER TABLE passwordreset ADD FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
