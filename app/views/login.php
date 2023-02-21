@@ -1,5 +1,7 @@
 <?php
 include __DIR__ . '/header.php';
+
+echo uniqid();
 ?>
 
     <h1>Login page</h1>

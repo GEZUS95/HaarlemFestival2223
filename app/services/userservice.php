@@ -27,6 +27,7 @@ class UserService
     public function insertOne(User $user): void
     {
         $user->setPasswordhash($this->hashPassword($user->getPasswordhash()));
+        $user->setCreatedAt(date("Y-m-d H:i:s"));
         $this->repository->insertOne($user);
     }
 

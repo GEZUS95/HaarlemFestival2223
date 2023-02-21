@@ -43,7 +43,7 @@
                 </form>
             ';
             } else {
-                echo ' 
+                echo '
                  <form class="form-inline" action="/login/logout">
                     <button class="btn btn-outline-danger" type="submit">Logout</button>
                 </form>

@@ -1,5 +1,7 @@
 <?php
 
+use Cassandra\Date;
+
 class User
 {
 
@@ -7,7 +9,25 @@ class User
     private string $name;
     private string $email;
     private string $passwordhash;
+    private Date $created_at;
     private int $role_id;
+
+
+    /**
+     * @return Date
+     */
+    public function getCreatedAt(): Date
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param Date $created_at
+     */
+    public function setCreatedAt(Date $created_at): void
+    {
+        $this->created_at = $created_at;
+    }
 
     /**
      * @return int

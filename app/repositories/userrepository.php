@@ -93,4 +93,9 @@ class UserRepository extends Repository{
             echo $e;
         }
     }
+
+    public function resetPasswordRequestAdd()
+    {
+        //DATE_ADD(NOW(), INTERVAL 15 MINUTE));
+    }
 }
