@@ -1,6 +1,9 @@
 <?php
 
+namespace models;
+
 use Cassandra\Date;
+
 
 class User
 {

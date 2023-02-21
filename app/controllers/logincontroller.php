@@ -1,6 +1,7 @@
 <?php
 require './../services/userservice.php';
 
+namespace controllers;
 class LoginController
 {
 

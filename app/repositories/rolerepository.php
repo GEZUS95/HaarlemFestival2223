@@ -1,6 +1,8 @@
 <?php
-require_once __DIR__ . '/repository.php';
-require __DIR__ . '/../models/role.php';
+namespace repositories;
+
+use Repository;
+use models\Role;
 
 class RoleRepository extends Repository{
     function getAll() {

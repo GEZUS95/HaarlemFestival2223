@@ -1,9 +1,13 @@
 <?php
-require __DIR__ . '/../repositories/userrepository.php';
-require __DIR__ . '/../repositories/rolerepository.php';
+namespace services;
+
+use repositories\UserRepository;
+use repositories\RoleRepository;
+use models\User;
 
 class UserService
 {
+
     private UserRepository $repository;
     private RoleRepository $roleRepository;
 
@@ -146,6 +150,7 @@ class UserService
 
     private function getUserFromSession(): User
     {
+        //todo: create user object
         return new  User(
             $_SESSION['user']['id'],
             $_SESSION['user']['name'],
