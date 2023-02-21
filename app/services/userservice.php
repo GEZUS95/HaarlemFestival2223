@@ -126,9 +126,10 @@ class UserService
 
         $this->insertOne($user);
     }
-    public function deleteOne($userId)
+    public function deleteOne($userId): void
     {
-        //todo: make this function
+        $this->repository->deleteOne($userId);
+        $this->redirect('/admin/users?success=You successfully deleted user');
     }
 
 

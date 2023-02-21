@@ -100,4 +100,15 @@ class UserRepository extends Repository
     {
         //DATE_ADD(NOW(), INTERVAL 15 MINUTE));
     }
+
+    public function deleteOne($userId)
+    {
+        try {
+            $stmt = $this->connection->prepare("DELETE FROM user WHERE id = ? ");
+            $stmt->bindParam(1, $userId);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
 }
