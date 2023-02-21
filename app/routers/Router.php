@@ -28,3 +28,9 @@ $router = new Router();
     $controller = new controllers\AdminController();
     $controller->index();
     });
+
+    //Test routes
+    $router->get('/email', function() {
+    $controller = new controllers\EmailController();
+    $controller->index();
+    });

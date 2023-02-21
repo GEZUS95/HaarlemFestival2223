@@ -4,6 +4,7 @@ namespace services;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mailer\Transport;
+use Symfony\Component\Mime\Email;
 
 Class EmailService
 {
@@ -12,7 +13,7 @@ Class EmailService
         $transport = Transport::fromDsn('smtp://no-reply@haarlemfestival.com:no-reply2022@mail.haarlemfestival.com:587');
         $this->mailer = new Mailer($transport);
     }
-    public function sendEmail(string $addressFrom, string $addressTo, string $subject, String $message)
+    public function sendEmail(string $addressFrom, string $addressTo, string $subject, String $message): void
     {
         $email = (new Email())
             ->from($addressFrom)
