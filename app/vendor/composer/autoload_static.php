@@ -16,7 +16,7 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'services\\\\' => 10,
+            'services\\' => 9,
         ),
         'r' => 
         array (
@@ -61,7 +61,7 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
     );
 
     public static $prefixDirsPsr4 = array (
-        'services\\\\' => 
+        'services\\' => 
         array (
             0 => __DIR__ . '/../..' . '/services',
         ),
@@ -143,6 +143,16 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'B' => 
+        array (
+            'Bramus' => 
+            array (
+                0 => __DIR__ . '/..' . '/bramus/router/src',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
@@ -153,6 +163,7 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c::$classMap;
 
         }, null, ClassLoader::class);

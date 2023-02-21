@@ -1,6 +1,7 @@
 {
     "require": {
-        "symfony/mailer": "^6.2"
+        "symfony/mailer": "^6.2",
+        "bramus/router": "~1.6"
     },
     "autoload": {
         "psr-4": {
@@ -9,7 +10,7 @@
             "models\\": "models",
             "repositories\\": "repositories",
             "routers\\": "routers",
-            "services\\\\": "services"
+            "services\\": "services"
         }
     }
 }

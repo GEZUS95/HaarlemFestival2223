@@ -1,8 +1,7 @@
 <?php
 
 namespace repositories;
-
-use App\models\User;
+use models\User;
 
 class UserRepository extends Repository{
     function getAll() {
