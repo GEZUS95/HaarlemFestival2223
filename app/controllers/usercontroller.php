@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/../services/userservice.php';
+
 class UserController
 {
     private UserService $userService;
@@ -9,7 +10,30 @@ class UserController
         $this->userService = new UserService();
     }
 
-    public function resetpassword(){
+    public function resetpassword(): void
+    {
+        //todo: email link with guid
+        if ((isset($_POST['Email'])) && (isset($_POST['password']))) {
+            $this->userService->resetPassword($_POST['oldpassword'], $_POST['newpassword'], $_POST['newpasswordcheck']);
+        }
         require __DIR__ . '/../views/user/resetpassword.php';
+    }
+
+    public function register(): void
+    {
+        $this->userService->register(
+            $_POST['name'],
+            $_POST['email'],
+            $_POST['emailVerify'],
+            $_POST['password'],
+            $_POST['passwordVerify']
+        );
+    }
+
+    public function delete ()
+    {
+        //$_SESSION['modifyUserId'];
+        //todo: get an id with it
+        $this->userService->deleteOne();
     }
 }

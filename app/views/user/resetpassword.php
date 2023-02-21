@@ -6,11 +6,11 @@ if (($_SESSION['user']['role_id'] == 2) || ($_SESSION['user']['role_id'] == 3)) 
 }
 ?>
 
-<h1>Login page</h1>
+<h1>Reset password page</h1>
 <form action="/user/resetpassword" method="post" class="form-horizontal">
     <fieldset>
 
-        <?php if (($_SESSION['user']['role_id'] == 2) || ($_SESSION['user']['role_id'] == 3)) { ?>
+        <?php if ((!$_SESSION['user']['role_id'] == 2) || (!$_SESSION['user']['role_id'] == 3)) { ?>
         <!-- Password input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="oldpassword">Email</label>

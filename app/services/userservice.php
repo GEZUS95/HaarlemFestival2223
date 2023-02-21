@@ -83,6 +83,44 @@ class UserService
         header("Location: $url");
     }
 
+    public function resetPassword(string $oldpassword, string $newpassword, string $newpasswordcheck)
+    {
+        if ($this->checkPermissions('admin') || $this->checkPermissions('super-admin')) {
+            //get user id
+            $user = $this->getOneById($givenId);
+        } else {
+            $user = $this->getUserFromSession();
+        }
+        if ($user->getPasswordhash() !== $oldpassword) {
+            $this->redirect('/user/resetpassword?password incorrect');
+        }
+        if ($newpassword !== $newpasswordcheck) {
+            $this->redirect('/user/resetpassword?passwords does not match');
+        }
+        $user->setPasswordhash($newpassword);
+        $this->updateOne($user);
+    }
+
+    public function register(string $name, string $email, string $emailVerify, string $password, string $passwordVerify)
+    {
+        if ($email !== $emailVerify) {
+            $this->redirect('/register?error=email does not match');
+        }
+
+        $this->checkNameAndEmail($name, $email);
+
+        if ($password !== $passwordVerify) {
+            $this->redirect('/register?error=passwords does not match');
+        }
+
+        $user = new User();
+        $user->setName($name);
+        $user->setEmail($email);
+        $user->setPasswordhash($password);
+
+        $this->insertOne($user);
+    }
+
 // Private Functions
     private function setSession(User $user): void
     {
@@ -107,7 +145,13 @@ class UserService
 
     private function getUserFromSession(): User
     {
-        return new  User($_SESSION['user']['id'], $_SESSION['user']['name'], $_SESSION['user']['email'], $_SESSION['user']['password'], $_SESSION['user']['role_id']);
+        return new  User(
+            $_SESSION['user']['id'],
+            $_SESSION['user']['name'],
+            $_SESSION['user']['email'],
+            $_SESSION['user']['password'],
+            $_SESSION['user']['role_id']
+        );
     }
 
     private function verifySession(): void
@@ -116,6 +160,18 @@ class UserService
         $user->setPasswordHash('');
         if (!$user == $this->getUserFromSession()) {
             $this->redirect('/login?error=Session_corrupted');
+        }
+    }
+
+    private function checkNameAndEmail(string $name, string $email)
+    {
+        $username = $this->getOneByName($name);
+        $useremail = $this->getOneByEmail($email);
+
+        if ($username) {
+            $this->redirect('/register?error=Name already in use');
+        } elseif ($useremail) {
+            $this->redirect('/register?error=Email already in use');
         }
     }
 }
