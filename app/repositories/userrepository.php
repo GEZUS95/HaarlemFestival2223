@@ -1,19 +1,23 @@
 <?php
 
 namespace repositories;
-use models\User;
 
-class UserRepository extends Repository{
-    function getAll() {
+use models\User;
+use PDO;
+use PDOException;
+
+class UserRepository extends Repository
+{
+    function getAll()
+    {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM user");
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
+            $stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
             return $stmt->fetchAll();
 
-        } catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e;
         }
     }
@@ -26,8 +30,7 @@ class UserRepository extends Repository{
             $stmt->bindParam('sssi', $name, $user->getEmail(), $user->getPasswordhash(), $user->getRoleId());
 
             return $stmt->execute();
-        }
-        catch (PDOException $e){
+        } catch (PDOException $e) {
             echo $e;
         }
     }
@@ -39,14 +42,14 @@ class UserRepository extends Repository{
             $stmt->bindParam(1, $email);
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
+            $stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
             return $stmt->fetch();
 
-        } catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e;
         }
     }
+
     public function getOneByName(string $name)
     {
         try {
@@ -54,14 +57,14 @@ class UserRepository extends Repository{
             $stmt->bindParam(1, $name);
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
+            $stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
             return $stmt->fetch();
 
-        } catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e;
         }
     }
+
     public function getOneById(int $id)
     {
         try {
@@ -69,11 +72,10 @@ class UserRepository extends Repository{
             $stmt->bindParam(1, $id);
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
+            $stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
             return $stmt->fetch();
 
-        } catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e;
         }
     }
@@ -89,8 +91,7 @@ class UserRepository extends Repository{
             $stmt->bindParam('sssii', $name, $user->getEmail(), $user->getPasswordhash(), $user->getRoleId(), $user->getId());
             return $stmt->execute();
 
-        } catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e;
         }
     }

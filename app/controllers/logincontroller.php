@@ -1,7 +1,8 @@
 <?php
-require './../services/userservice.php';
-
 namespace controllers;
+
+use services\UserService;
+
 class LoginController
 {
 

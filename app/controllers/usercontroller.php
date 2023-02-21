@@ -19,7 +19,7 @@ class UserController
         if ((isset($_POST['Email'])) && (isset($_POST['password']))) {
             $this->userService->resetPassword($_POST['oldpassword'], $_POST['newpassword'], $_POST['newpasswordcheck']);
         }
-        require __DIR__ . '/../views/user/resetpassword.php';
+        require_once __DIR__ . '/../views/user/resetpassword.php';
     }
 
     public function register(): void
