@@ -1,7 +1,8 @@
 {
     "require": {
         "symfony/mailer": "^6.2",
-        "bramus/router": "~1.6"
+        "bramus/router": "~1.6",
+      "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {
