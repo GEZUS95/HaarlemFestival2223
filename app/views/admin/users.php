@@ -10,6 +10,7 @@ include __DIR__ . '/admin-header.php';
         <th>Id</th>
         <th>Username</th>
         <th>Email</th>
+        <th>Created At</th>
         <th></th>
     </tr>
     </thead>
@@ -22,10 +23,10 @@ include __DIR__ . '/admin-header.php';
             <td><?php echo $user->getId() ?></td>
             <td><?php echo $user->getName() ?></td>
             <td><?php echo $user->getEmail() ?></td>
+            <td><?php //echo $user->getCreatedAt() ?></td>
             <td>
-                <button>Change Password</button>
-                <button>Update User</button>
-                <button>Delete User</button>
+                <a href="/admin/users/update/<?php echo $user->getId() ?>" class="btn btn-warning">Update User</a>
+                <a href="/admin/users/delete/<?php echo $user->getId() ?>" class="btn btn-danger">Delete User</a>
             </td>
         </tr>
 
