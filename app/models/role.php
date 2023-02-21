@@ -1,5 +1,7 @@
 <?php
 
+namespace models;
+
 class Role
 {
     private int $id;

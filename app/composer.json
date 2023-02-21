@@ -1,0 +1,16 @@
+{
+    "require": {
+        "symfony/mailer": "^6.2",
+        "bramus/router": "~1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "config\\": "config",
+            "controllers\\": "controllers",
+            "models\\": "models",
+            "repositories\\": "repositories",
+            "routers\\": "routers",
+            "services\\": "services"
+        }
+    }
+}
