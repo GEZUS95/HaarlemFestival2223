@@ -66,11 +66,11 @@ class UserService
         $this->redirect('/?success=you have been successfully logged in');
     }
 
-    public function checkPermissions(string $role_name): bool
+    public function checkPermissions(string $roleName): bool
     {
         $this->verifySession();
         $role = $this->roleRepository->getOneById($_SESSION['user']['role_id']);
-        if ($role->getName() !== $role_name) {
+        if ($role->getName() !== $roleName) {
             return false;
         }
         return true;
@@ -90,6 +90,7 @@ class UserService
 
     public function resetPassword(string $oldpassword, string $newpassword, string $newpasswordcheck)
     {
+        // todo: make this function work
         if ($this->checkPermissions('admin') || $this->checkPermissions('super-admin')) {
             //get user id
             $user = $this->getOneById($givenId);
@@ -125,6 +126,11 @@ class UserService
 
         $this->insertOne($user);
     }
+    public function deleteOne($userId)
+    {
+        //todo: make this function
+    }
+
 
 // Private Functions
     private function setSession(User $user): void
@@ -150,14 +156,16 @@ class UserService
 
     private function getUserFromSession(): User
     {
-        //todo: create user object
-        return new  User(
-            $_SESSION['user']['id'],
-            $_SESSION['user']['name'],
-            $_SESSION['user']['email'],
-            $_SESSION['user']['password'],
-            $_SESSION['user']['role_id']
-        );
+        $user = new  User();
+
+        $user->setId($_SESSION['user']['id']);
+        $user->setName($_SESSION['user']['name']);
+        $user->setEmail($_SESSION['user']['email']);
+        $user->setPasswordhash($_SESSION['user']['password']);
+        $user->setRoleId($_SESSION['user']['role_id']);
+        $user->setCreatedAt($_SESSION['user']['created']);
+
+        return $user;
     }
 
     private function verifySession(): void
