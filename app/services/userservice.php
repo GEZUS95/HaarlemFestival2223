@@ -142,6 +142,7 @@ class UserService
         $_SESSION['user']['email'] = $user->getEmail();
         $_SESSION['user']['password'] = $user->getPasswordhash();
         $_SESSION['user']['role_id'] = $user->getRoleId();
+        $_SESSION['user']['created'] = $user->getCreatedAt();
     }
 
     private function hashPassword(string $password): string

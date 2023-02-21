@@ -2,8 +2,8 @@
 
 namespace models;
 
-use Cassandra\Date;
 
+use DateTime;
 
 class User
 {
@@ -12,22 +12,22 @@ class User
     private string $name;
     private string $email;
     private string $passwordhash;
-    private Date $created_at;
+    private string $created_at;
     private int $role_id;
 
 
     /**
-     * @return Date
+     * @return string
      */
-    public function getCreatedAt(): Date
+    public function getCreatedAt(): string
     {
         return $this->created_at;
     }
 
     /**
-     * @param Date $created_at
+     * @param string $created_at
      */
-    public function setCreatedAt(Date $created_at): void
+    public function setCreatedAt(string $created_at): void
     {
         $this->created_at = $created_at;
     }

@@ -4,14 +4,14 @@ include __DIR__ . '/admin-header.php';
 
 <h1>Welcome to the users panel</h1>
 
-<table>
+<table class="table table-striped">
     <thead>
     <tr>
-        <th>Id</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Created At</th>
-        <th></th>
+        <th scope="col">Id</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Created At</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -20,10 +20,10 @@ include __DIR__ . '/admin-header.php';
         ?>
 
         <tr>
-            <td><?php echo $user->getId() ?></td>
+            <th scope="row"><?php echo $user->getId() ?></th>
             <td><?php echo $user->getName() ?></td>
             <td><?php echo $user->getEmail() ?></td>
-            <td><?php //echo $user->getCreatedAt() ?></td>
+            <td><?php echo $user->getCreatedAt() ?></td>
             <td>
                 <a href="/admin/users/update/<?php echo $user->getId() ?>" class="btn btn-warning">Update User</a>
                 <a href="/admin/users/delete/<?php echo $user->getId() ?>" class="btn btn-danger">Delete User</a>
