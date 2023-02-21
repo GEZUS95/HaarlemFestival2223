@@ -48,7 +48,7 @@ $router->get('/admin/users/update/(\d+)', function ($userId) {      // Update Us
     $controller = new controllers\AdminController();
     $controller->updateUser($userId);
 });
-$router->get('/admin/users/update/(\d+)', function ($userId) {      // Update User Post
+$router->post('/admin/users/update/(\d+)', function ($userId) {      // Update User Post
     $controller = new controllers\AdminController();
     $controller->updateUserPost($userId);
 });

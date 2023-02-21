@@ -26,7 +26,7 @@ include __DIR__ . '/../admin-header.php';
                 <label class="col-md-4 control-label" for="role">Role</label>
                 <div class="col-md-4">
                     <select id="role" name="role" class="form-control">
-<!--                        todo: load roles from db and forloop them here-->
+<!--                        todo: load roles from db and for loop them here-->
                         <option value="1">Option one</option>
                         <option value="2">Option two</option>
                     </select>
