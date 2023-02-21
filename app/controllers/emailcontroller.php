@@ -1,9 +1,7 @@
 <?php
 namespace controllers;
 
-use http\Env\Request;
-use services\EmailService;
-
+use config;
 class EmailController
 {
     public function index()
