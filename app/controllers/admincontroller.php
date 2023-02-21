@@ -23,11 +23,24 @@ class AdminController
     public function users()
     {
         $model = $this->userService->getAll();
-        require __DIR__ . '/../views/admin/users.php';
+        require __DIR__ . '/../views/admin/users/index.php';
+    }
+
+    public function updateUser($userId)
+    {
+        $user = $this->userService->getOneById($userId);
+        require __DIR__ . '/../views/admin/users/update.php';
+    }
+
+    public function updateUserPost($userId)
+    {
+        //todo: put submit data in object and put it through
     }
 
     public function deleteUser($userId)
     {
         $this->userService->deleteOne($userId);
     }
+
+
 }

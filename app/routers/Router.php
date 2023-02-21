@@ -36,15 +36,23 @@ $router->get('/logout', function () {
 
 
 //Admin routes
-$router->get('/admin', function () {
+$router->get('/admin', function () {                                // Show Admin Panel
     $controller = new controllers\AdminController();
     $controller->index();
 });
-$router->get('/admin/users', function () {
+$router->get('/admin/users', function () {                          // Show All Users
     $controller = new controllers\AdminController();
     $controller->users();
 });
-$router->get('/admin/users/(\d+)', function ($userId) {
+$router->get('/admin/users/update/(\d+)', function ($userId) {      // Update User Get
+    $controller = new controllers\AdminController();
+    $controller->updateUser($userId);
+});
+$router->get('/admin/users/update/(\d+)', function ($userId) {      // Update User Post
+    $controller = new controllers\AdminController();
+    $controller->updateUserPost($userId);
+});
+$router->get('/admin/users/delete/(\d+)', function ($userId) {      // Delete User
     $controller = new controllers\AdminController();
     $controller->deleteUser($userId);
 });

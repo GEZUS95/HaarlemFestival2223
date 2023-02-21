@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/admin-header.php';
+include __DIR__ . '/../admin-header.php';
 ?>
 
 <h1>Welcome to the users panel</h1>
