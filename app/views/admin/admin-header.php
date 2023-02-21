@@ -35,7 +35,7 @@
             ';
             } else {
                 echo ' 
-                 <form class="form-inline" action="/login/logout">
+                 <form class="form-inline" action="/logout">
                     <button class="btn btn-outline-danger" type="submit">Logout</button>
                 </form>
             ';

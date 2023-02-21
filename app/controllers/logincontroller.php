@@ -13,12 +13,14 @@ class LoginController
         $this->userService = new UserService();
     }
 
-    public function index()
+    public function login()
     {
-        if ((isset($_POST['Email'])) && (isset($_POST['password']))) {
-            $this->userService->login($_POST['Email'], $_POST['password']);
-        }
-        require __DIR__ . '/../views/login.php';
+        require_once __DIR__ . '/../views/login.php';
+    }
+
+    public function loginPost()
+    {
+        $this->userService->login($_POST['Email'], $_POST['password']);
     }
 
     public function logout()

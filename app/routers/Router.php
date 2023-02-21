@@ -23,7 +23,15 @@ $router->get('/', function () {
 //User routes
 $router->get('/login', function () {
     $controller = new controllers\LoginController();
-    $controller->index();
+    $controller->login();
+});
+$router->post('/login', function () {
+    $controller = new controllers\LoginController();
+    $controller->loginPost();
+});
+$router->get('/logout', function () {
+    $controller = new controllers\LoginController();
+    $controller->logout();
 });
 
 
