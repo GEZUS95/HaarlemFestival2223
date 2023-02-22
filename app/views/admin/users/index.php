@@ -9,9 +9,10 @@ include __DIR__ . '/../admin-header.php';
     <tr>
         <th scope="col">Id</th>
         <th scope="col">Username</th>
+        <th scope="col">Role</th>
         <th scope="col">Email</th>
         <th scope="col">Created At</th>
-        <th scope="col"></th>
+        <th scope="col"><a href="/admin/users/create" class="btn btn-success disabled" role="button" aria-disabled="true">Create User</a></th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@ include __DIR__ . '/../admin-header.php';
         <tr>
             <th scope="row"><?php echo $user->getId() ?></th>
             <td><?php echo $user->getName() ?></td>
+            <td><?php echo $user->getRoleId() ?></td>
             <td><?php echo $user->getEmail() ?></td>
             <td><?php echo $user->getCreatedAt() ?></td>
             <td>

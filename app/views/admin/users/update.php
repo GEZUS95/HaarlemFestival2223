@@ -3,7 +3,7 @@ include __DIR__ . '/../admin-header.php';
 ?>
 
 <h1>Update <?php echo $user->getName(); ?></h1>
-<form action="/admin/users/<?php echo $user->getId(); ?>" method="post" class="form-horizontal">
+<form action="/admin/users/update/<?php echo $user->getId(); ?>" method="post" class="form-horizontal">
     <fieldset>
         <!-- Text input-->
         <div class="form-group">

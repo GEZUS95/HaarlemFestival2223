@@ -1,4 +1,5 @@
 <?php
+
 namespace services;
 
 use repositories\UserRepository;
@@ -24,14 +25,18 @@ class UserService
 
     public function updateOne(User $user): void
     {
-        $user->setPasswordhash($this->hashPassword($user->getPasswordhash()));
-        $this->repository->updateOne($user);
+        $this->repository->updateOne(
+            $user->getName(),
+            $user->getEmail(),
+            $user->getRoleId(),
+            $user->getId()
+        );
     }
 
     public function insertOne(User $user): void
     {
         $passwordHash = $this->hashPassword($user->getPasswordhash());
-        $this->repository->insertOne($user->getRoleId(),$user->getName(),$user->getEmail(),$passwordHash);
+        $this->repository->insertOne($user->getRoleId(), $user->getName(), $user->getEmail(), $passwordHash);
     }
 
     public function getOneByEmail(string $email)
@@ -121,6 +126,7 @@ class UserService
 
         $this->redirect('/login?success=You have successfully registered');
     }
+
     public function deleteOne($userId): void
     {
         $this->repository->deleteOne($userId);
@@ -184,5 +190,15 @@ class UserService
         } elseif ($useremail) {
             $this->redirect('/register?error=Email already in use');
         }
+    }
+
+    public function updateUser(int $userId, string $name, string $email, string $role)
+    {
+        $user = $this->getOneById($userId);
+        $user->setName($name);
+        $user->setEmail($email);
+        $user->setRoleId($role);
+        $this->updateOne($user);
+        $this->redirect('/admin/users?success=You have successfully updated user');
     }
 }

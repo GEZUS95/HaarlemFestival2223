@@ -2,6 +2,7 @@
 
 namespace repositories;
 
+use Exception;
 use models\User;
 use PDO;
 use PDOException;
@@ -29,7 +30,7 @@ class UserRepository extends Repository
                     INSERT INTO `user` (`role_id`, `name`, `email`, `passwordhash`, `created_at`)
                     VALUES (:role_id, :name, :email, :password, NOW())
                     ");
-            $stmt->bindParam(':role_id', $role );
+            $stmt->bindParam(':role_id', $role);
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $password);
@@ -84,19 +85,28 @@ class UserRepository extends Repository
         }
     }
 
-    public function updateOne(User $user)
+    public function updateOne($name, $email, $role, $id)
     {
         try {
             $stmt = $this->connection->prepare("
-                UPDATE user 
-                SET name = ?, email = ?,  passwordhash = ?, role_id = ?
-                WHERE id = ?");
-            $name = $user->getName();
-            $stmt->bindParam('sssii', $name, $user->getEmail(), $user->getPasswordhash(), $user->getRoleId(), $user->getId());
-            return $stmt->execute();
+        UPDATE user 
+        SET name = :name, email = :email, role_id = :role_id
+        WHERE id = :id");
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':role_id', $role);
+            $stmt->bindParam(':id', $id);
+            $success = $stmt->execute();
+            if (!$success) {
+                // Handle the error here
+                throw new Exception("Failed to update user record");
+            }
+            return $success;
 
         } catch (PDOException $e) {
-            echo $e;
+            // Log the error and provide a meaningful message to the user
+            error_log($e->getMessage());
+            throw new Exception("An error occurred while updating the user record");
         }
     }
 
