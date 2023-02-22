@@ -59,6 +59,14 @@ $router->post('/admin/users/update/(\d+)', function ($userId) {      // Update U
     $controller = new controllers\AdminController();
     $controller->updateUserPost($userId);
 });
+$router->get('/admin/users/create', function () {                   // Create User Get
+    $controller = new controllers\AdminController();
+    $controller->createUser();
+});
+$router->post('/admin/users/create', function () {                  // Create User Post
+    $controller = new controllers\AdminController();
+    $controller->createUserPost();
+});
 $router->get('/admin/users/delete/(\d+)', function ($userId) {      // Delete User
     $controller = new controllers\AdminController();
     $controller->deleteUser($userId);

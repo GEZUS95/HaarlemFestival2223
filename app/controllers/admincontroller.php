@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use models\User;
 use services\RoleService;
 use services\UserService;
 
@@ -44,6 +45,17 @@ class AdminController
     public function deleteUser($userId)
     {
         $this->userService->deleteOne($userId);
+    }
+
+    public function createUser()
+    {
+        $roles = $this->roleService->getAll();
+        require __DIR__ . '/../views/admin/users/create.php';
+    }
+
+    public function createUserPost()
+    {
+        $this->userService->createUser($_POST['name'],$_POST['email'],$_POST['role'],$_POST['password']);
     }
 
 

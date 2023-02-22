@@ -201,4 +201,15 @@ class UserService
         $this->updateOne($user);
         $this->redirect('/admin/users?success=You have successfully updated user');
     }
+
+    public function createUser(string $name, string $email, int $roleId, string $password)
+    {
+        $user = new User();
+        $user->setName($name);
+        $user->setEmail($email);
+        $user->setRoleId($roleId);
+        $user->setPasswordhash($password);
+        $this->insertOne($user);
+        $this->redirect('/admin/users?success=You have created a new user');
+    }
 }

@@ -12,7 +12,7 @@ include __DIR__ . '/../admin-header.php';
         <th scope="col">Role</th>
         <th scope="col">Email</th>
         <th scope="col">Created At</th>
-        <th scope="col"><a href="/admin/users/create" class="btn btn-success disabled" role="button" aria-disabled="true">Create User</a></th>
+        <th scope="col"><a href="/admin/users/create" class="btn btn-success" role="button">Create User</a></th>
     </tr>
     </thead>
     <tbody>
