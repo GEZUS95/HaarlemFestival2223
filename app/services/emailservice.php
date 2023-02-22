@@ -17,8 +17,11 @@ Class EmailService
         $transport = Transport::fromDsn('smtp://no-reply@haarlemfestival.com:no-reply2022@mail.axc.nl:465');
         $this->mailer = new Mailer($transport);
     }
+
+    //Call this functionality to send emails
     public function sendEmail(string $addressFrom, string $addressTo, string $subject, String $message): void
     {
+        //Add the data to the Email
         $email = (new Email())
             ->from($addressFrom)
             ->to($addressTo)
@@ -29,6 +32,7 @@ Class EmailService
             ->subject($subject)
             ->text($message)//->html('<p>See Twig integration for better HTML integration!</p>')
         ;
+        //Use the previously made mailer to send the mail
         $this->mailer->send($email);
     }
 }
