@@ -1,13 +1,12 @@
 <?php
-require_once __DIR__ . '/../services/userservice.php';
-require_once __DIR__ . '/../services/restaurantservice.php';
-require_once __DIR__ . '/../services/sessionservice.php';
+require __DIR__ . '/../services/userservice.php';
+
+namespace controllers;
+use services\UserService;
 
 class AdminController
 {
-    private $userService;
-    private $restaurantService;
-    private $sessionService;
+    private UserService $userService;
 
     function __construct()
     {
