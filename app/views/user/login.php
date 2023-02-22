@@ -1,7 +1,5 @@
 <?php
 include __DIR__ . '/../header.php';
-
-echo uniqid();
 ?>
 
     <h1>Login page</h1>
@@ -31,6 +29,7 @@ echo uniqid();
                     <button id="submit" name="submit" class="btn btn-primary">Login</button>
                 </div>
             </div>
+            <a href="/register" >Not yet registered?</a>
         </fieldset>
     </form>
 

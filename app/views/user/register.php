@@ -3,7 +3,7 @@ include __DIR__ . '/../header.php';
 ?>
 
     <h1>Register page</h1>
-    <form action="/user/register" method="post" class="form-horizontal">
+    <form action="/register" method="post" class="form-horizontal">
         <fieldset>
             <!-- Text input-->
             <div class="form-group">

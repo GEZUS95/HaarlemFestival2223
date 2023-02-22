@@ -30,17 +30,16 @@ class UserService
 
     public function insertOne(User $user): void
     {
-        $user->setPasswordhash($this->hashPassword($user->getPasswordhash()));
-        $user->setCreatedAt(date("Y-m-d H:i:s"));
-        $this->repository->insertOne($user);
+        $passwordHash = $this->hashPassword($user->getPasswordhash());
+        $this->repository->insertOne($user->getRoleId(),$user->getName(),$user->getEmail(),$passwordHash);
     }
 
-    public function getOneByEmail(string $email): User
+    public function getOneByEmail(string $email)
     {
         return $this->repository->getOneByEmail($email);
     }
 
-    public function getOneByName(string $name): User
+    public function getOneByName(string $name)
     {
         return $this->repository->getOneByName($name);
     }
@@ -85,21 +84,14 @@ class UserService
 
     public function redirect(string $url): void
     {
-        header("Location: $url");
+        header("Location: $url", true);
+        die;
     }
 
-    public function resetPassword(string $oldpassword, string $newpassword, string $newpasswordcheck)
+    public function resetPassword(string $uuid, string $newpassword, string $newpasswordcheck)
     {
-        // todo: make this function work
-        if ($this->checkPermissions('admin') || $this->checkPermissions('super-admin')) {
-            //get user id
-            $user = $this->getOneById($givenId);
-        } else {
-            $user = $this->getUserFromSession();
-        }
-        if ($user->getPasswordhash() !== $oldpassword) {
-            $this->redirect('/user/resetpassword?password incorrect');
-        }
+        // todo: Check if uuid is correct with the user it issued
+
         if ($newpassword !== $newpasswordcheck) {
             $this->redirect('/user/resetpassword?passwords does not match');
         }
@@ -123,8 +115,11 @@ class UserService
         $user->setName($name);
         $user->setEmail($email);
         $user->setPasswordhash($password);
+        $user->setRoleId(1);
 
         $this->insertOne($user);
+
+        $this->redirect('/login?success=You have successfully registered');
     }
     public function deleteOne($userId): void
     {

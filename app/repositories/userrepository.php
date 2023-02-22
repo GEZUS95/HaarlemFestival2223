@@ -22,13 +22,17 @@ class UserRepository extends Repository
         }
     }
 
-    public function insertOne(User $user)
+    public function insertOne(int $role, string $name, string $email, string $password)
     {
         try {
-            $stmt = $this->connection->prepare("INSERT INTO user ('name', 'email', 'passwordhash', 'role_id')");
-            $name = $user->getName(); //todo: blijkbaar werkt het niet als deze statement direct in de bindparam zit
-            $stmt->bindParam('sssi', $name, $user->getEmail(), $user->getPasswordhash(), $user->getRoleId());
-
+            $stmt = $this->connection->prepare("
+                    INSERT INTO `user` (`role_id`, `name`, `email`, `passwordhash`, `created_at`)
+                    VALUES (:role_id, :name, :email, :password, NOW())
+                    ");
+            $stmt->bindParam(':role_id', $role );
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $password);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo $e;

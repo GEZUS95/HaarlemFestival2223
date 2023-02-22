@@ -2,9 +2,6 @@
 
 namespace models;
 
-
-use DateTime;
-
 class User
 {
 
