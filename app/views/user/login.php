@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/../header.php';
+include_once __DIR__ . '/../header.php';
 ?>
 
     <h1>Login page</h1>
@@ -34,5 +34,5 @@ include __DIR__ . '/../header.php';
     </form>
 
 <?php
-include __DIR__ . '/../footer.php';
+include_once __DIR__ . '/../footer.php';
 ?>

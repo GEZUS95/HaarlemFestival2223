@@ -35,13 +35,13 @@
             </ul>
             <?php if (!isset($_SESSION['user'])) {
                 echo '
-                <form class="form-inline" action="/login">
+                <form class="form-inline" action="/login" method="get">
                     <button class="btn btn-outline-success" type="submit">Login</button>
                 </form>
             ';
             } else {
                 echo '
-                 <form class="form-inline" action="/logout">
+                 <form class="form-inline" action="/logout" method="get">
                     <button class="btn btn-outline-danger" type="submit">Logout</button>
                 </form>
             ';

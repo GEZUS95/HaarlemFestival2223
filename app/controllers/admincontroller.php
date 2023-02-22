@@ -2,7 +2,6 @@
 
 namespace controllers;
 
-use models\User;
 use services\RoleService;
 use services\UserService;
 

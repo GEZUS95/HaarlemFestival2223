@@ -66,7 +66,4 @@ class PasswordResetService
 
         return ($now <= $expires);
     }
-
-
-
 }
