@@ -11,11 +11,13 @@ class UserService
 
     private UserRepository $repository;
     private RoleRepository $roleRepository;
+    private PasswordResetService $passwordResetService;
 
     public function __construct()
     {
         $this->repository = new UserRepository();
         $this->roleRepository = new RoleRepository();
+        $this->passwordResetService = new PasswordResetService();
     }
 
     public function getAll(): false|array|null
@@ -95,13 +97,15 @@ class UserService
 
     public function resetPassword(string $uuid, string $newpassword, string $newpasswordcheck)
     {
-        // todo: Check if uuid is correct with the user it issued
-
         if ($newpassword !== $newpasswordcheck) {
             $this->redirect('/user/resetpassword?passwords does not match');
         }
+        $userId = $this->passwordResetService->getOneWithUuid($uuid)['user_id'];
+        $user = $this->getOneById($userId);
         $user->setPasswordhash($newpassword);
         $this->updateOne($user);
+
+        $this->redirect('/login?success=Password is successfully reset!');
     }
 
     public function register(string $name, string $email, string $emailVerify, string $password, string $passwordVerify)

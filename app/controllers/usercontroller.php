@@ -2,24 +2,43 @@
 
 namespace controllers;
 
+use services\PasswordResetService;
 use services\UserService;
 
 class UserController
 {
     private UserService $userService;
+    private PasswordResetService $passwordResetService;
 
     public function __construct()
     {
         $this->userService = new UserService();
+        $this->passwordResetService = new PasswordResetService();
     }
 
-    public function resetpassword(): void
+    public function requestResetPassword()
     {
-        //todo: email link with guid
-        if ((isset($_POST['Email'])) && (isset($_POST['password']))) {
-            $this->userService->resetPassword($_POST['oldpassword'], $_POST['newpassword'], $_POST['newpasswordcheck']);
+        require_once __DIR__ . '/../views/user/requestresetpassword.php';
+    }
+    public function requestResetPasswordPost()
+    {
+        if (!isset($_POST['email'])) { $this->userService->redirect('/resetpassword?error=No email provided');}
+        $this->passwordResetService->newRequest($_POST['email']);
+        $this->userService->redirect('/?success=Email sent with a link for changing your password');
+    }
+
+    public function resetPasswordPage(string $uuid)
+    {
+        if (!$this->passwordResetService->checkUuid($uuid)) {
+            $this->userService->redirect('/passwordreset?error=This link is not valid, please try again');
         }
+
         require_once __DIR__ . '/../views/user/resetpassword.php';
+    }
+
+    public function resetPasswordPost(string $uuid)
+    {
+            $this->userService->resetPassword($uuid, $_POST['newpassword'], $_POST['newpasswordcheck']);
     }
 
     public function register(): void

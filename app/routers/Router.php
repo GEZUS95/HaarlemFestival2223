@@ -40,6 +40,22 @@ $router->post('/register', function () {
     $controller = new controllers\UserController();
     $controller->registerPost();
 });
+$router->get('/resetpassword', function () {
+    $controller = new controllers\UserController();
+    $controller->requestResetPassword();
+});
+$router->post('/resetpassword', function () {
+    $controller = new controllers\UserController();
+    $controller->requestResetPasswordPost();
+});
+$router->get('/resetpassword/{uuid}', function ($uuid) {
+    $controller = new controllers\UserController();
+    $controller->resetPasswordPage($uuid);
+});
+$router->post('/resetpassword/{uuid}', function ($uuid) {
+    $controller = new controllers\UserController();
+    $controller->resetPasswordPost($uuid);
+});
 
 
 //Admin routes
