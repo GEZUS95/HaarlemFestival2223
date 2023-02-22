@@ -14,7 +14,7 @@ class AdminController
     {
         $this->userService = new UserService();
         $this->roleService = new RoleService();
-        if ((!$this->userService->checkPermissions("admin")) && (!$this->userService->checkPermissions("super-admin"))){
+        if ((!$this->userService->checkPermissions("admin")) && (!$this->userService->checkPermissions("super-admin"))) {
             $this->userService->redirect('/?error=You do not have the permission to do this');
         }
     }
