@@ -4,6 +4,7 @@ namespace repositories;
 
 use PDO;
 use PDOException;
+
 class Repository
 {
     protected $connection;
@@ -17,7 +18,7 @@ class Repository
             // set the PDO error mode to exception
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+            die("Connection failed: " . $e->getMessage());
         }
     }
 }

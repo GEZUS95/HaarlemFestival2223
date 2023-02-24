@@ -3,6 +3,7 @@
 namespace repositories;
 
 use PDO;
+use DateTime;
 
 class PasswordResetRepository extends Repository
 {
@@ -19,7 +20,7 @@ class PasswordResetRepository extends Repository
         }
     }
 
-    public function insertOne(string $uuid, int $userId, \DateTime $expires)
+    public function insertOne(string $uuid, int $userId, DateTime $expires)
     {
         try {
             $stmt = $this->connection->prepare("

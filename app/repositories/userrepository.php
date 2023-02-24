@@ -43,8 +43,8 @@ class UserRepository extends Repository
     public function getOneByEmail(string $email)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM user WHERE email=? LIMIT 1");
-            $stmt->bindParam(1, $email);
+            $stmt = $this->connection->prepare("SELECT * FROM user WHERE email= :email LIMIT 1");
+            $stmt->bindParam(':email', $email);
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
@@ -58,8 +58,8 @@ class UserRepository extends Repository
     public function getOneByName(string $name)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM user WHERE name = ? LIMIT 1");
-            $stmt->bindParam(1, $name);
+            $stmt = $this->connection->prepare("SELECT * FROM user WHERE name = :name LIMIT 1");
+            $stmt->bindParam(':name', $name);
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
@@ -73,8 +73,8 @@ class UserRepository extends Repository
     public function getOneById(int $id)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM user WHERE id = ? LIMIT 1");
-            $stmt->bindParam(1, $id);
+            $stmt = $this->connection->prepare("SELECT * FROM user WHERE id = :id LIMIT 1");
+            $stmt->bindParam(':id', $id);
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
@@ -110,16 +110,11 @@ class UserRepository extends Repository
         }
     }
 
-    public function resetPasswordRequestAdd()
-    {
-        //DATE_ADD(NOW(), INTERVAL 15 MINUTE));
-    }
-
     public function deleteOne($userId)
     {
         try {
-            $stmt = $this->connection->prepare("DELETE FROM user WHERE id = ? ");
-            $stmt->bindParam(1, $userId);
+            $stmt = $this->connection->prepare("DELETE FROM user WHERE id = :id ");
+            $stmt->bindParam(':id', $userId);
             $stmt->execute();
         } catch (PDOException $e) {
             echo $e;

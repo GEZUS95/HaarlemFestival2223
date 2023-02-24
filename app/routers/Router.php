@@ -1,89 +1,80 @@
 <?php
 use Bramus\Router\Router;
+use controllers\AdminController;
+use controllers\HomeController;
+use controllers\LoginController;
+use controllers\UserController;
 
 $router = new Router();
+
+// controllers
+$loginController = new LoginController();
+$homeController = new HomeController();
+$adminController = new AdminController();
+$userController = new UserController();
 
 
 //Home Routes
 $router->get('/home', function () {
-    $controller = new controllers\HomeController();
-    $controller->index();
+    $this->homeController->index();
 });
 $router->get('/index', function () {
-    $controller = new controllers\HomeController();
-    $controller->index();
+    $this->homeController->index();
 });
 $router->get('/', function () {
-    $controller = new controllers\HomeController();
-    $controller->index();
+    $this->homeController->index();
 });
 
 
 //User routes
 $router->get('/login', function () {
-    $controller = new controllers\LoginController();
-    $controller->login();
+    $this->loginController->login();
 });
 $router->post('/login', function () {
-    $controller = new controllers\LoginController();
-    $controller->loginPost();
+    $this->loginController->loginPost();
 });
 $router->get('/logout', function () {
-    $controller = new controllers\LoginController();
-    $controller->logout();
+    $this->loginController->logout();
 });
 $router->get('/register', function () {
-    $controller = new controllers\UserController();
-    $controller->register();
+    $this->userController->register();
 });
 $router->post('/register', function () {
-    $controller = new controllers\UserController();
-    $controller->registerPost();
+    $this->userController->registerPost();
 });
 $router->get('/resetpassword', function () {
-    $controller = new controllers\UserController();
-    $controller->requestResetPassword();
+    $this->userController->requestResetPassword();
 });
 $router->post('/resetpassword', function () {
-    $controller = new controllers\UserController();
-    $controller->requestResetPasswordPost();
+    $this->userController->requestResetPasswordPost();
 });
 $router->get('/resetpassword/{uuid}', function ($uuid) {
-    $controller = new controllers\UserController();
-    $controller->resetPasswordPage($uuid);
+    $this->userController->resetPasswordPage($uuid);
 });
 $router->post('/resetpassword/{uuid}', function ($uuid) {
-    $controller = new controllers\UserController();
-    $controller->resetPasswordPost($uuid);
+    $this->userController->resetPasswordPost($uuid);
 });
 
 
 //Admin routes
 $router->get('/admin', function () {                                // Show Admin Panel
-    $controller = new controllers\AdminController();
-    $controller->index();
+    $this->adminController->index();
 });
 $router->get('/admin/users', function () {                          // Show All Users
-    $controller = new controllers\AdminController();
-    $controller->users();
+    $this->adminController->users();
 });
 $router->get('/admin/users/update/(\d+)', function ($userId) {      // Update User Get
-    $controller = new controllers\AdminController();
-    $controller->updateUser($userId);
+    $this->adminController->updateUser($userId);
 });
 $router->post('/admin/users/update/(\d+)', function ($userId) {      // Update User Post
-    $controller = new controllers\AdminController();
-    $controller->updateUserPost($userId);
+    $this->adminController->updateUserPost($userId);
 });
 $router->get('/admin/users/create', function () {                   // Create User Get
-    $controller = new controllers\AdminController();
-    $controller->createUser();
+    $this->adminController->createUser();
 });
 $router->post('/admin/users/create', function () {                  // Create User Post
-    $controller = new controllers\AdminController();
-    $controller->createUserPost();
+    $this->adminController->createUserPost();
 });
-$router->get('/admin/users/delete/(\d+)', function ($userId) {      // Delete User
-    $controller = new controllers\AdminController();
-    $controller->deleteUser($userId);
+$router->get('/admin/users/delete/(\d+)', function ($userId)  {      // Delete User
+    $this->adminController->deleteUser($userId);
 });

@@ -54,7 +54,7 @@ class AdminController
 
     public function createUserPost()
     {
-        $this->userService->createUser($_POST['name'],$_POST['email'],$_POST['role'],$_POST['password']);
+        $this->userService->createUser($_POST['name'], $_POST['email'], $_POST['role'], $_POST['password']);
     }
 
 
