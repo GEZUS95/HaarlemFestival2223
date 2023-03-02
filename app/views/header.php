@@ -26,7 +26,11 @@
                     <a class="nav-link" href="/home/about">About</a>
                 </li>
                 <?php
-                if ((isset($_SESSION['user'])) && ($_SESSION['user']['role_id'] == 2) || ($_SESSION['user']['role_id'] == 3)) {
+                if ((isset($_SESSION['user']))
+                    &&
+                    ($_SESSION['user']['role_id'] == 2)
+                    ||
+                    ($_SESSION['user']['role_id'] == 3)) {
                     echo '<li class="nav-item">
                             <a class="nav-link" href="/admin">Admin Panel</a>
                         </li>';

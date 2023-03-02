@@ -9,10 +9,11 @@ use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
 use Symfony\Component\Mailer\Transport\Smtp\SmtpTransport;
 use Symfony\Component\Mime\Email;
 
-Class EmailService
+class EmailService
 {
     public MailerInterface $mailer;
-    public function __construct(){
+    public function __construct()
+    {
         //Code for making the mailer (secure)
         $transport = Transport::fromDsn('smtp://no-reply@haarlemfestival.com:no-reply2022@mail.axc.nl:465');
         $this->mailer = new Mailer($transport);

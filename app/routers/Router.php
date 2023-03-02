@@ -86,7 +86,7 @@ $router->post('/admin/users/create', function () {                  // Create Us
     $adminController = new AdminController();
     $adminController->createUserPost();
 });
-$router->get('/admin/users/delete/(\d+)', function ($userId)  {      // Delete User
+$router->get('/admin/users/delete/(\d+)', function ($userId) {      // Delete User
     $adminController = new AdminController();
     $adminController->deleteUser($userId);
 });

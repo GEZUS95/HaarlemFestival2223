@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/../header.php';
+include_once __DIR__ . '/../header.php';
 ?>
 
 <h1>Request reset of password</h1>
@@ -9,7 +9,12 @@ include __DIR__ . '/../header.php';
         <div class="form-group">
             <label class="col-md-4 control-label" for="email">Your email</label>
             <div class="col-md-4">
-                <input id="email" name="email" type="email" placeholder="Your email that is know with us" class="form-control input-md" required="">
+                <input id="email"
+                       name="email"
+                       type="email"
+                       placeholder="Your email that is know with us"
+                       class="form-control input-md"
+                       required="">
                 <span class="help-block">Please fill in your email</span>
             </div>
         </div>
@@ -26,5 +31,5 @@ include __DIR__ . '/../header.php';
 
 
 <?php
-include __DIR__ . '/../footer.php'
+include_once __DIR__ . '/../footer.php'
 ?>

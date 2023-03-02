@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/../admin-header.php';
+include_once __DIR__ . '/../admin-header.php';
 ?>
 
 <h1>Create User</h1>
@@ -31,7 +31,9 @@ include __DIR__ . '/../admin-header.php';
             <div class="col-md-4">
                 <input id="password" name="password" type="password" placeholder="Password"
                        class="form-control input-md" required="">
-                <span class="help-block">please fill in a password, it is your own responsibility that it is safe!</span>
+                <span class="help-block">
+                    please fill in a password, it is your own responsibility that it is safe!
+                </span>
             </div>
         </div>
 
@@ -41,7 +43,7 @@ include __DIR__ . '/../admin-header.php';
             <div class="col-md-4">
                 <select id="role" name="role" class="form-control">
                     <?php
-                    foreach ($roles as $role){
+                    foreach ($roles as $role) {
                     ?>
                     <option value='<?php echo $role->getId(); ?>'><?php echo $role->getName(); ?></option>
                     <?php }  ?>

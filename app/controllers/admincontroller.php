@@ -25,21 +25,21 @@ class AdminController
 
     public function index()
     {
-        require __DIR__ . '/../views/admin/index.php';
+        require_once __DIR__ . '/../views/admin/index.php';
     }
 
     public function users()
     {
         $model = $this->userService->getAll();
         $roles = $this->roleService->getAll();
-        require __DIR__ . '/../views/admin/users/index.php';
+        require_once __DIR__ . '/../views/admin/users/index.php';
     }
 
     public function updateUser($userId)
     {
         $user = $this->userService->getOneById($userId);
         $roles = $this->roleService->getAll();
-        require __DIR__ . '/../views/admin/users/update.php';
+        require_once __DIR__ . '/../views/admin/users/update.php';
     }
 
     public function updateUserPost($userId)
@@ -55,7 +55,7 @@ class AdminController
     public function createUser()
     {
         $roles = $this->roleService->getAll();
-        require __DIR__ . '/../views/admin/users/create.php';
+        require_once __DIR__ . '/../views/admin/users/create.php';
     }
 
     public function createUserPost()

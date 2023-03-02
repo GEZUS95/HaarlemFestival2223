@@ -1,10 +1,10 @@
 <?php
-include __DIR__ . '/../admin-header.php';
+include_once __DIR__ . '/../admin-header.php';
 ?>
 
-<h1>Welcome to the users panel</h1>
+<h1 id="description">Welcome to the users panel</h1>
 
-<table class="table table-striped">
+<table class="table table-striped" aria-describedby="description">
     <thead>
     <tr>
         <th scope="col">Id</th>

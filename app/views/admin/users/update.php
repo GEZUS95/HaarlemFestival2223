@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/../admin-header.php';
+include_once __DIR__ . '/../admin-header.php';
 ?>
 
 <h1>Update <?php echo $user->getName(); ?></h1>
@@ -31,12 +31,13 @@ include __DIR__ . '/../admin-header.php';
             <div class="col-md-4">
                 <select id="role" name="role" class="form-control">
                     <?php
-                    foreach ($roles as $role){
+                    foreach ($roles as $role) {
                     if ($role->getId() === $user->getRoleId()) { ?>
                         <option value='<?php echo $role->getId(); ?>' selected><?php echo $role->getName(); ?></option>
                     <?php } else { ?>
                         <option value='<?php echo $role->getId(); ?>'><?php echo $role->getName(); ?></option>
-                    <?php } } ?>
+                    <?php }
+                    } ?>
                 </select>
             </div>
         </div>

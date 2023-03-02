@@ -8,7 +8,7 @@ use models\Role;
 
 class RoleRepository extends Repository
 {
-    function getAll()
+    public function getAll()
     {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM role");
@@ -55,7 +55,7 @@ class RoleRepository extends Repository
     {
         try {
             $stmt = $this->connection->prepare("
-                UPDATE role 
+                UPDATE role
                 SET name = :name, description = :description
                 WHERE id = :role_id");
             $stmt->bindParam(':name', $name);

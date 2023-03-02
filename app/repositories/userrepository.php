@@ -2,14 +2,13 @@
 
 namespace repositories;
 
-use Exception;
 use models\User;
 use PDO;
 use PDOException;
 
 class UserRepository extends Repository
 {
-    function getAll()
+    public function getAll()
     {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM user");
