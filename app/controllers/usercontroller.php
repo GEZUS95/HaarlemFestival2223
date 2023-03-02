@@ -23,8 +23,7 @@ class UserController
     public function requestResetPasswordPost()
     {
         if (!isset($_POST['email'])) { $this->userService->redirect('/resetpassword?error=No email provided');}
-        $this->passwordResetService->newRequest($_POST['email']);
-        $this->userService->redirect('/?success=Email sent with a link for changing your password');
+        $this->userService->requestPasswordReset($_POST['email']);
     }
 
     public function resetPasswordPage(string $uuid)

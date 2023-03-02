@@ -20,7 +20,7 @@ class PasswordResetRepository extends Repository
         }
     }
 
-    public function insertOne(string $uuid, int $userId, DateTime $expires)
+    public function insertOne(string $uuid, int $userId, string $expires)
     {
         try {
             $stmt = $this->connection->prepare("
@@ -42,6 +42,19 @@ class PasswordResetRepository extends Repository
             $stmt = $this->connection->prepare("DELETE FROM passwordreset WHERE uuid = :uuid");
             $stmt->bindParam(':uuid', $uuid);
             $stmt->execute();
+        } catch (\PDOException $e) {
+            return $e;
+        }
+    }
+
+    public function getOneFromUserId(int $userId)
+    {
+        try {
+            $stmt = $this->connection->prepare("SELECT * FROM passwordreset WHERE user_id = :userid LIMIT 1");
+            $stmt->bindParam(':userid', $userId);
+            $stmt->execute();
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             return $e;
         }

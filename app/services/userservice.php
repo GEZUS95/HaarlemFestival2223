@@ -98,12 +98,17 @@ class UserService
     public function resetPassword(string $uuid, string $newpassword, string $newpasswordcheck)
     {
         if ($newpassword !== $newpasswordcheck) {
-            $this->redirect('/user/resetpassword?passwords does not match');
+            $this->redirect('/resetpassword?passwords does not match');
         }
         $userId = $this->passwordResetService->getOneWithUuid($uuid)['user_id'];
+
         $user = $this->getOneById($userId);
-        $user->setPasswordhash($newpassword);
-        $this->updateOne($user);
+
+        $user->setPasswordhash($this->hashPassword($newpassword));
+
+        $this->updatePassword($user);
+
+        $this->passwordResetService->deleteOne($uuid);
 
         $this->redirect('/login?success=Password is successfully reset!');
     }
@@ -215,5 +220,20 @@ class UserService
         $user->setPasswordhash($password);
         $this->insertOne($user);
         $this->redirect('/admin/users?success=You have created a new user');
+    }
+
+    private function updatePassword(User $user)
+    {
+        $this->repository->updatePassword($user->getId(), $user->getPasswordhash());
+    }
+
+    public function requestPasswordReset(string $email)
+    {
+        $user = $this->getOneByEmail($email);
+        if ($this->passwordResetService->checkIfAlreadyExist($user->getId())) {
+            $this->redirect('/resetpassword?error=there is already an request, please try again or check your email');
+        }
+        $this->passwordResetService->newRequest($user->getEmail(), $user->getId());
+        $this->redirect('/?success=Email sent with a link for changing your password');
     }
 }

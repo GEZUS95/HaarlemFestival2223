@@ -89,24 +89,17 @@ class UserRepository extends Repository
     {
         try {
             $stmt = $this->connection->prepare("
-        UPDATE user 
+        UPDATE user
         SET name = :name, email = :email, role_id = :role_id
         WHERE id = :id");
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':role_id', $role);
             $stmt->bindParam(':id', $id);
-            $success = $stmt->execute();
-            if (!$success) {
-                // Handle the error here
-                throw new Exception("Failed to update user record");
-            }
-            return $success;
+            $stmt->execute();
 
         } catch (PDOException $e) {
-            // Log the error and provide a meaningful message to the user
-            error_log($e->getMessage());
-            throw new Exception("An error occurred while updating the user record");
+            echo $e;
         }
     }
 
@@ -116,6 +109,22 @@ class UserRepository extends Repository
             $stmt = $this->connection->prepare("DELETE FROM user WHERE id = :id ");
             $stmt->bindParam(':id', $userId);
             $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    public function updatePassword(int $userId, string $password)
+    {
+        try {
+            $stmt = $this->connection->prepare("
+        UPDATE user
+        SET passwordhash = :password
+        WHERE id = :id");
+            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':id', $userId);
+            $stmt->execute();
+
         } catch (PDOException $e) {
             echo $e;
         }

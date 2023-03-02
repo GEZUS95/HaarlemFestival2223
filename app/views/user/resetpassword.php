@@ -3,7 +3,7 @@
 ?>
 
 <h1>Reset password page</h1>
-<form action="/user/resetpassword" method="post" class="form-horizontal">
+<form action="/resetpassword/<?php echo $uuid; ?>" method="post" class="form-horizontal">
     <fieldset>
         <!-- Password input-->
         <div class="form-group">

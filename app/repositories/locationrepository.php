@@ -2,7 +2,7 @@
 
 namespace repositories;
 
-class LocationRepository extends Repository{
+class LocationRepository extends Repository {
     function getAll() {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM location");

@@ -7,74 +7,86 @@ use controllers\UserController;
 
 $router = new Router();
 
-// controllers
-$loginController = new LoginController();
-$homeController = new HomeController();
-$adminController = new AdminController();
-$userController = new UserController();
-
-
 //Home Routes
 $router->get('/home', function () {
-    $this->homeController->index();
+    $homeController = new HomeController();
+    $homeController->index();
 });
 $router->get('/index', function () {
-    $this->homeController->index();
+    $homeController = new HomeController();
+    $homeController->index();
 });
 $router->get('/', function () {
-    $this->homeController->index();
+    $homeController = new HomeController();
+    $homeController->index();
 });
 
 
 //User routes
 $router->get('/login', function () {
-    $this->loginController->login();
+    $loginController = new LoginController();
+    $loginController->login();
 });
 $router->post('/login', function () {
-    $this->loginController->loginPost();
+    $loginController = new LoginController();
+    $loginController->loginPost();
 });
 $router->get('/logout', function () {
-    $this->loginController->logout();
+    $loginController = new LoginController();
+    $loginController->logout();
 });
 $router->get('/register', function () {
-    $this->userController->register();
+    $userController = new UserController();
+    $userController->register();
 });
 $router->post('/register', function () {
-    $this->userController->registerPost();
+    $userController = new UserController();
+    $userController->registerPost();
 });
 $router->get('/resetpassword', function () {
-    $this->userController->requestResetPassword();
+    $userController = new UserController();
+    $userController->requestResetPassword();
 });
 $router->post('/resetpassword', function () {
-    $this->userController->requestResetPasswordPost();
+    $userController = new UserController();
+    $userController->requestResetPasswordPost();
 });
 $router->get('/resetpassword/{uuid}', function ($uuid) {
-    $this->userController->resetPasswordPage($uuid);
+    $userController = new UserController();
+    $userController->resetPasswordPage($uuid);
 });
 $router->post('/resetpassword/{uuid}', function ($uuid) {
-    $this->userController->resetPasswordPost($uuid);
+    $userController = new UserController();
+    $userController->resetPasswordPost($uuid);
 });
 
 
 //Admin routes
 $router->get('/admin', function () {                                // Show Admin Panel
-    $this->adminController->index();
+    $adminController = new AdminController();
+    $adminController->index();
 });
 $router->get('/admin/users', function () {                          // Show All Users
-    $this->adminController->users();
+    $adminController = new AdminController();
+    $adminController->users();
 });
 $router->get('/admin/users/update/(\d+)', function ($userId) {      // Update User Get
-    $this->adminController->updateUser($userId);
+    $adminController = new AdminController();
+    $adminController->updateUser($userId);
 });
 $router->post('/admin/users/update/(\d+)', function ($userId) {      // Update User Post
-    $this->adminController->updateUserPost($userId);
+    $adminController = new AdminController();
+    $adminController->updateUserPost($userId);
 });
 $router->get('/admin/users/create', function () {                   // Create User Get
-    $this->adminController->createUser();
+    $adminController = new AdminController();
+    $adminController->createUser();
 });
 $router->post('/admin/users/create', function () {                  // Create User Post
-    $this->adminController->createUserPost();
+    $adminController = new AdminController();
+    $adminController->createUserPost();
 });
 $router->get('/admin/users/delete/(\d+)', function ($userId)  {      // Delete User
-    $this->adminController->deleteUser($userId);
+    $adminController = new AdminController();
+    $adminController->deleteUser($userId);
 });

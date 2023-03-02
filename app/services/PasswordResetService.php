@@ -8,14 +8,12 @@ use repositories\PasswordResetRepository;
 class PasswordResetService
 {
     private PasswordResetRepository $repository;
-    private UserService $userService;
     private UuidService $uuidService;
     private $emailService;
 
     public function __construct()
     {
         $this->repository = new PasswordResetRepository();
-        $this->userService = new UserService();
         $this->uuidService = new UuidService();
         $this->emailService = new EmailService();
     }
@@ -25,39 +23,41 @@ class PasswordResetService
         return $this->repository->getOneFromUuid($uuid);
     }
 
-    public function insertOne(string $uuid, int $userId, \DateTime $expires)
+    public function insertOne(string $uuid, int $userId, \DateTime $expires): void
     {
-        $this->repository->insertOne($uuid, $userId, $expires);
+        $this->repository->insertOne($uuid, $userId, $expires->format('Y-m-d H:i:s'));
     }
 
-    public function deleteOne(string $uuid)
+    public function deleteOne(string $uuid): void
     {
         $this->repository->deleteOne($uuid);
     }
 
-    public function newRequest($email)
+    public function newRequest(string $email, int $userId): void
     {
-        $user = $this->userService->getOneByEmail($email);
-
         $expires = new \DateTime();
         $expires->modify('+15 minutes');
-        $expires->format('Y-m-d H:i:s');
 
         $uuid = $this->uuidService->generateUUID();
 
-        $this->insertOne($uuid, $user->getId(), $expires);
+        $this->insertOne($uuid, $userId, $expires);
 
         $this->emailService->sendEmail(
             'no-reply@haarlemfestival.com',
             $email,
             'Forgotten Password',
-            "<a href='http://localhost/passwordreset/$uuid'>Klik hier om je wachtwoord te resetten</a> /r
-                if the link does not work `http://localhost/passwordreset/$uuid`
-"
+            "
+<!DOCTYPE html>
+<html>
+    <body>
+                <a href='http://localhost/resetpassword/$uuid'>Klik hier om je wachtwoord te resetten</a> /r
+                if the link does not work  http://localhost/resetpassword/$uuid
+    </body>
+</html>"
         );
     }
 
-    public function checkUuid(string $uuid)
+    public function checkUuid(string $uuid): bool
     {
         $dbItem = $this->getOneWithUuid($uuid);
         if (!$dbItem) { return false;}
@@ -65,5 +65,22 @@ class PasswordResetService
         $expires = new DateTime($dbItem['expires_at']);
 
         return ($now <= $expires);
+    }
+
+    public function getOneWithUserId(int $userId)
+    {
+        return $this->repository->getOneFromUserId($userId);
+    }
+
+    public function checkIfAlreadyExist(int $userId): bool
+    {
+        if ($request = $this->getOneWithUserId($userId)) {
+            if (new DateTime($request['expires_at']) <= new DateTime()) {
+                $this->deleteOne($request['uuid']);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }
