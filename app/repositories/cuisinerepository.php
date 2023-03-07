@@ -8,7 +8,7 @@ use PDOException;
 class CuisineRepository extends Repository {
     public function getAll() {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM cuisine");
+            $stmt = $this->connection->prepare("SELECT * FROM restauranttype");
             $stmt->execute();
             return $stmt->fetchAll();
         } catch (PDOException $e) {

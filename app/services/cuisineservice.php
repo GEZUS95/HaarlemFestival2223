@@ -1,5 +1,6 @@
 <?php
 namespace services;
+use repositories\CuisineRepository;
 
 class CuisineService {
 

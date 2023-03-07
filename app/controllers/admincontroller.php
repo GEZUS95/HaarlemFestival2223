@@ -4,18 +4,21 @@ use models\Restaurant;
 use services\UserService;
 use services\RestaurantService;
 use services\SessionService;
+use services\CuisineService;
 
 class AdminController
 {
     private UserService $userService;
     private RestaurantService $restaurantService;
     private SessionService $sessionService;
+    private CuisineService $cuisineService;
 
     function __construct()
     {
         $this->userService = new UserService();
         $this->restaurantService = new RestaurantService();
         $this->sessionService = new SessionService();
+        $this->cuisineService = new CuisineService();
     }
     public function index(){
         require __DIR__ . '/../views/admin/index.php';
@@ -29,74 +32,47 @@ class AdminController
         $error = "";
         $confirmation = "";
         $model = $this->restaurantService->getAll();
+        $allCuisines = $this->cuisineService->getAll();
 
-        // Save btn
-        if (isset($_POST["save-restaurant"])) {
-            $this->restaurantSaveBtnClicked();
-        }
-
-        // Delete btn
-        if (isset($_POST["del-restaurant"])) {
-            $this->restaurantDeleteBtnClicked();
-        }
-
-        require __DIR__ . '/../views/admin/restaurants.php';
+        require __DIR__ . '/../views/admin/restaurant/restaurants.php';
     }
 
-    public function newrestaurant(){
-        require __DIR__ . '/../views/admin/newrestaurant.php';
-    }
-
-    public function newsession(){
-        $model = $this->restaurantService->getAll();
-        require __DIR__ . '/../views/admin/newsession.php';
-    }
-
-    public function sessions(){
-        $model = $this->sessionService->getOneById(1);// temp id!!!!!!!!
-        require __DIR__ . '/../views/admin/sessions.php';
-    }
-
-    public function restaurantInsertBtnClicked()
-    {
-        $_POST = filter_input_array(INPUT_POST, FILTER_UNSAFE_RAW); // werkt niet, ander filter
-
+    public function updateRestaurantPost(int $restaurantId) {
         $restaurant = new Restaurant();
-        $restaurant->setName($_POST["name"]);
-        $restaurant->setDescription($_POST["description"]);
-        $restaurant->setStars($_POST["stars"]);
-        $restaurant->setSeats($_POST["seats"]);
-        $restaurant->setPrice($_POST["price"]);
-        $restaurant->setPriceChild($_POST["price-child"]);
-        $restaurant->setAccessibility($_POST["accessibility"]);
-        $restaurant->setRestaurantCuisines($_POST["cuisines"]);
-        $restaurant->setLocationId($_POST["location-id"]);
+        var_dump($_POST);
+        $restaurant->setName($_POST["name-restaurant"]);
+        $restaurant->setDescription($_POST["description-restaurant"]);
+        $restaurant->setStars($_POST["stars-restaurant"]);
+        $restaurant->setSeats($_POST["seats-restaurant"]);
+        $restaurant->setPrice($_POST["price-restaurant"]);
+        $restaurant->setPriceChild($_POST["price-child-restaurant"]);
+        $restaurant->setAccessibility($_POST["accessibility-restaurant"]);
+        $restaurantCuisines = explode('', $_POST["cuisines-restaurant"]);
+        $restaurant->setRestaurantCuisines($restaurantCuisines);
+        $restaurant->setLocationId($_POST["location-id-restaurant"]);
 
         $this->restaurantService->insertOne($restaurant);
 
         $confirmation = "Restaurant has been saved";
     }
 
-    private function restaurantSaveBtnClicked()
-    {
-        $_POST = filter_input_array(INPUT_POST, FILTER_UNSAFE_RAW); // werkt niet, ander filter
+    public function newrestaurant(){
+        require __DIR__ . '/../views/admin/restaurant/newrestaurant.php';
+    }
 
-        $restaurant = new Restaurant();
-        $restaurant->setName($_POST["name"]);
-        $restaurant->setDescription($_POST["description"]);
-        $restaurant->setStars($_POST["stars"]);
-        $restaurant->setSeats($_POST["seats"]);
-        $restaurant->setPrice($_POST["price"]);
-        $restaurant->setPriceChild($_POST["price-child"]);
-        $restaurant->setAccessibility($_POST["accessibility"]);
-        $restaurant->setRestaurantCuisines($_POST["cuisines"]);
-        $restaurant->setLocationId($_POST["location-id"]);
+    public function updaterestaurant(int $restaurantId){
+        $model = $this->restaurantService->getOneById($restaurantId);
+        require __DIR__ . '/../views/admin/restaurant/updaterestaurant.php';
+    }
 
-        $this->restaurantService->updateOne($restaurant);
+    public function newsession(){
+        $model = $this->restaurantService->getAll();
+        require __DIR__ . '/../views/admin/session/newsession.php';
+    }
 
-        $confirmation = "Restaurant has been saved";
-
-        header("Refresh:0");
+    public function sessions(){
+        $model = $this->sessionService->getOneById(1);// temp id!!!!!!!!
+        require __DIR__ . '/../views/admin/session/sessions.php';
     }
 
     private function restaurantDeleteBtnClicked()

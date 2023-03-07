@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__ . '/admin-header.php';
+include_once __DIR__ . '../../admin-header.php';
 ?>
 <div class="col-12">
     <div class="row">

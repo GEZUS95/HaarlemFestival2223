@@ -41,6 +41,14 @@ $router = new Router();
     $controller = new controllers\AdminController();
     $controller->restaurants();
     });
+    $router->get('/admin/restaurants/update/(\d+)', function ($restaurantId) {
+        $controller = new controllers\AdminController();
+        $controller->updateRestaurant($restaurantId);
+    });
+    $router->post('/admin/restaurants/update/(\d+)', function ($restaurantId) {
+        $controller = new controllers\AdminController();
+        $controller->updateRestaurantPost($restaurantId);
+    });
     $router->get('/admin/newrestaurant', function() {
     $controller = new controllers\AdminController();
     $controller->newrestaurant();

@@ -36,8 +36,8 @@ class RestaurantRepository extends Repository
     public function getOneById(int $id)
     {
         try {
-            $stmt = $this->connection->prepare('SELECT * FROM restaurant WHERE id = ? LIMIT 1');
-            $stmt->bindParam('i', $id);
+            $stmt = $this->connection->prepare('SELECT * FROM restaurant WHERE id = ?');
+            $stmt->bindParam(1, $id);
             $stmt->execute();
             $restaurant = $stmt->fetch();
             $restaurant['cuisines'] = $this->cuisineRepository->getAllForRestaurant($id);
@@ -52,7 +52,7 @@ class RestaurantRepository extends Repository
     {
         try {
             $stmt = $this->connection->prepare('SELECT * FROM restaurant WHERE name = ? LIMIT 1');
-            $stmt->bindParam('s', $name);
+            $stmt->bindParam(1, $name);
             $stmt->execute();
             $restaurant = $stmt->fetch();
             $restaurant['cuisines'] = $this->cuisineRepository->getAllForRestaurant($restaurant['id']);
