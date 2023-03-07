@@ -3,6 +3,7 @@ use Bramus\Router\Router;
 use controllers\AdminController;
 use controllers\HomeController;
 use controllers\LoginController;
+use controllers\TestController;
 use controllers\UserController;
 
 $router = new Router();
@@ -89,4 +90,10 @@ $router->post('/admin/users/create', function () {                  // Create Us
 $router->get('/admin/users/delete/(\d+)', function ($userId) {      // Delete User
     $adminController = new AdminController();
     $adminController->deleteUser($userId);
+});
+
+//Test routes
+$router->get('/test', function () {
+    $testController = new TestController();
+    $testController->index();
 });
