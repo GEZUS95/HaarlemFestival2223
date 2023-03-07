@@ -204,11 +204,23 @@ CREATE TABLE `user` (
                         `created_at` DATETIME NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `apikeys`
+--
+
+CREATE TABLE apikey (
+                        `uuid` varchar(255) NOT NULL,
+                        `description` varchar(255),
+                        `created_at` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `passwordreset`
 --
 
 CREATE TABLE `passwordreset` (
@@ -307,8 +319,10 @@ ALTER TABLE `user`
     ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexes for table `apikeys`
 --
+ALTER TABLE apikey
+    ADD PRIMARY KEY (`uuid`);
 
 --
 -- AUTO_INCREMENT for table `artist`
