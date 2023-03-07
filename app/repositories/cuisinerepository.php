@@ -1,7 +1,9 @@
 <?php
-require_once __DIR__ . '/../repositories/repository.php';
-require_once __DIR__ . '/../models/restaurant.php';
-require_once __DIR__ . '/../models/cuisine.php';
+namespace repositories;
+use models\Restaurant;
+use models\Cuisine;
+use PDO;
+use PDOException;
 
 class CuisineRepository extends Repository {
     public function getAll() {

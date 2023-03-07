@@ -1,5 +1,7 @@
 <?php
 
+namespace models;
+
 class Restaurant {
     private int $id;
     private int $location_id;
@@ -10,7 +12,6 @@ class Restaurant {
     private int $seats;
     private float $price;
     private float $price_child;
-    private DateTime $session_time;
     private string $accessibility;
 
     /**
@@ -155,22 +156,6 @@ class Restaurant {
     public function setPriceChild(float $price_child): void
     {
         $this->price_child = $price_child;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getSessionTime(): DateTime
-    {
-        return $this->session_time;
-    }
-
-    /**
-     * @param DateTime $session_time
-     */
-    public function setSessionTime(DateTime $session_time): void
-    {
-        $this->session_time = $session_time;
     }
 
     /**

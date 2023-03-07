@@ -1,4 +1,5 @@
 <?php
+namespace models;
 
 class Session {
     public int $id;

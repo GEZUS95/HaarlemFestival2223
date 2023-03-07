@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../repositories/repository.php';
+namespace repositories;
+use PDO;
+use PDOException;
 
 class SessionRepository extends Repository {
     public function getAllFromRestaurant(int $restaurantId) {

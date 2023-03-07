@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../repositories/restaurantrepository.php';
+namespace services;
+use repositories\RestaurantRepository;
+use models\Restaurant;
 
 class RestaurantService {
 

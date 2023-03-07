@@ -26,6 +26,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/home/about">About</a>
         </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/cart">Cart</a>
+          </li>
       </ul>     
     </div>
   </div>

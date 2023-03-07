@@ -1,4 +1,6 @@
 <?php
+namespace services;
+use repositories\SessionRepository;
 
 class SessionService {
     private SessionRepository $sessionRepository;

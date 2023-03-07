@@ -1,8 +1,11 @@
 <?php
-require_once __DIR__ . '/../repositories/repository.php';
-require_once __DIR__ . '/../repositories/cuisinerepository.php';
-require_once __DIR__ . '/../models/restaurant.php';
-require_once __DIR__ . '/../models/cuisine.php';
+namespace repositories;
+use repositories\CuisineRepository;
+use models\Restaurant;
+use models\Cuisine;
+use PDO;
+use PDOException;
+
 class RestaurantRepository extends Repository
 {
     private CuisineRepository $cuisineRepository;
@@ -18,9 +21,11 @@ class RestaurantRepository extends Repository
             $stmt = $this->connection->prepare('SELECT * FROM restaurant');
             $stmt->execute();
             $restaurants = $stmt->fetchAll();
-            foreach ($restaurants as &$restaurant) {
-                $restaurant['cuisines'] = $this->cuisineRepository->getAllForRestaurant($restaurant['id']);
+            for ($i = 0; $i < count($restaurants); $i++)
+            {
+                $restaurants[$i]['cuisines'] = $this->cuisineRepository->getAllForRestaurant($restaurants[$i]['id']);
             }
+            //var_dump($restaurants);
             return $restaurants;
         } catch (PDOException $e)
         {
@@ -62,18 +67,10 @@ class RestaurantRepository extends Repository
     {
         try {
             $stmt = $this->connection->prepare("
-                INSERT INTO restaurant (name, location_id, description, stars, seats, price, price_child, session_time, accessibility)" .
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            // todo: werkt niet, fixen
-            $stmt->bindParam('s', $restaurant->getName());
-            $stmt->bindParam('i', $restaurant->getLocationId());
-            $stmt->bindParam('s', $restaurant->getDescription());
-            $stmt->bindParam('i', $restaurant->getStars());
-            $stmt->bindParam('i', $restaurant->getSeats());
-            $stmt->bindParam('d', $restaurant->getPrice());
-            $stmt->bindParam('d', $restaurant->getPriceChild());
-            $stmt->bindParam('s', $restaurant->getSessionTime());
-            $stmt->bindParam('s', $restaurant->getAccessibility());
+                INSERT INTO restaurant (name, location_id, description, stars, seats, price, price_child, accessibility)" .
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $name = $restaurant->getName();
+            $stmt->bindParam('sisiiss', $name, $restaurant->getLocationId(), $restaurant->getDescription(), $restaurant->getStars(), $restaurant->getSeats(), $restaurant->getPrice(), $restaurant->getPriceChild(), $restaurant->getAccessibility());
             return $stmt->execute();
         } catch (PDOException $e) {
             echo $e;
@@ -84,17 +81,9 @@ class RestaurantRepository extends Repository
     {
         try {
             $stmt = $this->connection->prepare("
-                UPDATE restaurant SET name = ?, location_id = ?, description = ?, stars = ?, seats = ?, price = ?, price_child = ?, session_time = ?, accessibility = ? WHERE id = ?");
-            $stmt->bindParam('s', $restaurant->getName());
-            $stmt->bindParam('i', $restaurant->getLocationId());
-            $stmt->bindParam('s', $restaurant->getDescription());
-            $stmt->bindParam('i', $restaurant->getStars());
-            $stmt->bindParam('i', $restaurant->getSeats());
-            $stmt->bindParam('d', $restaurant->getPrice());
-            $stmt->bindParam('d', $restaurant->getPriceChild());
-            $stmt->bindParam('s', $restaurant->getSessionTime());
-            $stmt->bindParam('s', $restaurant->getAccessibility());
-            $stmt->bindParam('i', $restaurant->getId());
+                UPDATE restaurant SET name = ?, location_id = ?, description = ?, stars = ?, seats = ?, price = ?, price_child = ?, accessibility = ? WHERE id = ?");
+            $name = $restaurant->getName();
+            $stmt->bindParam('sisiiissi', $name, $restaurant->getLocationId(), $restaurant->getDescription(), $restaurant->getStars(), $restaurant->getSeats(), $restaurant->getPrice(), $restaurant->getPriceChild(), $restaurant->getAccessibility(), $restaurant->getId());
             return $stmt->execute();
         } catch (PDOException $e) {
             echo $e;
