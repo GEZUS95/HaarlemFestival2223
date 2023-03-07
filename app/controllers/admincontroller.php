@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use services\ApiService;
 use services\RoleService;
 use services\UserService;
 
@@ -10,10 +11,13 @@ class AdminController
     private UserService $userService;
     private RoleService $roleService;
 
+    private ApiService $apiService;
+
     public function __construct()
     {
         $this->userService = new UserService();
         $this->roleService = new RoleService();
+        $this->apiService = new ApiService();
         if (
             (!$this->userService->checkPermissions("admin"))
             &&
@@ -63,5 +67,9 @@ class AdminController
         $this->userService->createUser($_POST['name'], $_POST['email'], $_POST['role'], $_POST['password']);
     }
 
-
+    public function showApiKeys()
+    {
+        $model = $this->apiService->getAll();
+        require_once __DIR__ . '/../views/admin/api/index.php';
+    }
 }

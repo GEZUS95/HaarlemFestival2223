@@ -90,3 +90,8 @@ $router->get('/admin/users/delete/(\d+)', function ($userId) {      // Delete Us
     $adminController = new AdminController();
     $adminController->deleteUser($userId);
 });
+
+$router->get('/admin/api', function () {                            // show all api keys
+    $adminController = new AdminController();
+    $adminController->showApiKeys();
+});
