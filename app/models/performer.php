@@ -1,5 +1,7 @@
 <?php
 
+namespace models;
+
 class Performer
 {
     private int $id;

@@ -1,5 +1,6 @@
 <?php
-require __DIR__ . '/../repositories/performerrepository.php';
+namespace services;
+use repositories\PerformerRepository;
 class PerformerService
 {
     private PerformerRepository $REPOSITORY;
