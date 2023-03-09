@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'setasign\\Fpdi\\' => array($vendorDir . '/setasign/fpdi/src'),
     'services\\' => array($baseDir . '/services'),
     'routers\\' => array($baseDir . '/routers'),
     'repositories\\' => array($baseDir . '/repositories'),

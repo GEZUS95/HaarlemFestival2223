@@ -3,6 +3,7 @@ use Bramus\Router\Router;
 use controllers\AdminController;
 use controllers\HomeController;
 use controllers\LoginController;
+use controllers\TestController;
 use controllers\UserController;
 
 $router = new Router();
@@ -114,4 +115,11 @@ $router->get('/admin/api/email/{uuid}', function ($uuid) {          // create ap
 $router->post('/admin/api/email/{uuid}', function ($uuid) {          // create api key
     $adminController = new AdminController();
     $adminController->emailApiKeyPost($uuid);
+});
+
+
+//Test routes
+$router->get('/test', function () {
+    $testController = new TestController();
+    $testController->index();
 });
