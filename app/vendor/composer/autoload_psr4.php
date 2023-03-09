@@ -11,6 +11,7 @@ return array(
     'routers\\' => array($baseDir . '/routers'),
     'repositories\\' => array($baseDir . '/repositories'),
     'models\\' => array($baseDir . '/models'),
+    'helpers\\' => array($baseDir . '/helpers'),
     'controllers\\' => array($baseDir . '/controllers'),
     'config\\' => array($baseDir . '/config'),
     'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
