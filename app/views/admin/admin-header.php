@@ -55,3 +55,13 @@
 </nav>
 
 <div class="container">
+
+    <?php
+    if (isset($_GET['success'])) {
+        echo "<div class='alert-success'>" . $_GET['success'] . " </div>";
+    }
+    if (isset($_GET['error'])) {
+        echo "<div class='alert-danger'>" . $_GET['error'] . " </div>";
+    }
+    ?>
+
