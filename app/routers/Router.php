@@ -63,56 +63,56 @@ $router->post('/resetpassword/{uuid}', function ($uuid) {
 
 
 //Admin routes
-$router->get('/admin', function () {                                // Show Admin Panel
+$router->get('/admin', function () {                                    // Show Admin Panel
     $adminController = new AdminController();
     $adminController->index();
 });
-$router->get('/admin/users', function () {                          // Show All Users
+$router->get('/admin/users', function () {                              // Show All Users
     $adminController = new AdminController();
     $adminController->showUsers();
 });
-$router->get('/admin/users/update/(\d+)', function ($userId) {      // Update User Get
+$router->get('/admin/users/update/(\d+)', function ($userId) {          // Update User Get
     $adminController = new AdminController();
     $adminController->updateUser($userId);
 });
-$router->post('/admin/users/update/(\d+)', function ($userId) {      // Update User Post
+$router->post('/admin/users/update/(\d+)', function ($userId) {         // Update User Post
     $adminController = new AdminController();
     $adminController->updateUserPost($userId);
 });
-$router->get('/admin/users/create', function () {                   // Create User Get
+$router->get('/admin/users/create', function () {                       // Create User Get
     $adminController = new AdminController();
     $adminController->createUser();
 });
-$router->post('/admin/users/create', function () {                  // Create User Post
+$router->post('/admin/users/create', function () {                      // Create User Post
     $adminController = new AdminController();
     $adminController->createUserPost();
 });
-$router->get('/admin/users/delete/(\d+)', function ($userId) {      // Delete User
+$router->get('/admin/users/delete/(\d+)', function ($userId) {          // Delete User
     $adminController = new AdminController();
     $adminController->deleteUser($userId);
 });
 
-$router->get('/admin/api', function () {                            // show all api keys
+$router->get('/admin/api', function () {                                // show all api keys
     $adminController = new AdminController();
     $adminController->showApiKeys();
 });
-$router->get('/admin/api/create', function () {                     // create api key
+$router->get('/admin/api/create', function () {                         // create api key
     $adminController = new AdminController();
     $adminController->createApiKey();
 });
-$router->post('/admin/api/create', function () {                     // create api key
+$router->post('/admin/api/create', function () {                        // create api key
     $adminController = new AdminController();
     $adminController->addApiKey();
 });
-$router->get('/admin/api/delete/{uuid}', function ($uuid) {          // delete api key
+$router->get('/admin/api/delete/{uuid}', function ($uuid) {             // delete api key
     $adminController = new AdminController();
     $adminController->deleteApiKey($uuid);
 });
-$router->get('/admin/api/email/{uuid}', function ($uuid) {          // email api key
+$router->get('/admin/api/email/{uuid}', function ($uuid) {              // email api key
     $adminController = new AdminController();
     $adminController->emailApiKey($uuid);
 });
-$router->post('/admin/api/email/{uuid}', function ($uuid) {          // email api key
+$router->post('/admin/api/email/{uuid}', function ($uuid) {             // email api key
     $adminController = new AdminController();
     $adminController->emailApiKeyPost($uuid);
 });
@@ -122,30 +122,30 @@ $router->get('/admin/content', function () {                            // show 
     $adminController = new AdminController();
     $adminController->showPages();
 });
-$router->get('/admin/content/create', function () {                            // show add content page
+$router->get('/admin/content/create', function () {                     // show add content page
     $adminController = new AdminController();
     $adminController->createPage();
 });
-$router->post('/admin/content/create', function () {                            // add content page
+$router->post('/admin/content/create', function () {                    // add content page
     $adminController = new AdminController();
     $adminController->addPage();
 });
-$router->get('/admin/content/update/{id}', function ($id) {                            // update content page
+$router->get('/admin/content/update/{id}', function ($id) {             // update content page
     $adminController = new AdminController();
     $adminController->updatePage($id);
 });
-$router->post('/admin/content/update/{id}', function ($id) {                            // update content page
+$router->post('/admin/content/update/{id}', function ($id) {            // update content page
     $adminController = new AdminController();
     $adminController->updatePagePost($id);
 });
-$router->get('/admin/content/delete/{id}', function ($id) {                            // delete content page
+$router->get('/admin/content/delete/{id}', function ($id) {             // delete content page
     $adminController = new AdminController();
     $adminController->deletePage($id);
 });
 
 
 //Test routes
-$router->get('/test', function () {
+$router->get('/test', function () {                                     // Test PDF
     $testController = new TestController();
     $testController->index();
 });
