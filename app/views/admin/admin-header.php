@@ -31,6 +31,9 @@
                     <a class="nav-link" href="/admin/events">Events</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/admin/content">Content Pages</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/admin/api">Api keys</a>
                 </li>
             </ul>

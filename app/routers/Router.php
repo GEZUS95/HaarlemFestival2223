@@ -118,6 +118,32 @@ $router->post('/admin/api/email/{uuid}', function ($uuid) {          // email ap
 });
 
 
+$router->get('/admin/content', function () {                            // show all content pages
+    $adminController = new AdminController();
+    $adminController->showPages();
+});
+$router->get('/admin/content/create', function () {                            // show add content page
+    $adminController = new AdminController();
+    $adminController->createPage();
+});
+$router->post('/admin/content/create', function () {                            // add content page
+    $adminController = new AdminController();
+    $adminController->addPage();
+});
+$router->get('/admin/content/update/{id}', function ($id) {                            // update content page
+    $adminController = new AdminController();
+    $adminController->updatePage($id);
+});
+$router->post('/admin/content/update/{id}', function ($id) {                            // update content page
+    $adminController = new AdminController();
+    $adminController->updatePagePost($id);
+});
+$router->get('/admin/content/delete/{id}', function ($id) {                            // delete content page
+    $adminController = new AdminController();
+    $adminController->deletePage($id);
+});
+
+
 //Test routes
 $router->get('/test', function () {
     $testController = new TestController();
