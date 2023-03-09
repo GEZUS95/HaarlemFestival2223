@@ -46,7 +46,7 @@ class Content {
      */
     public function getBody(): string
     {
-        return $this->body;
+        return html_entity_decode($this->body);
     }
 
     /**
@@ -54,7 +54,7 @@ class Content {
      */
     public function setBody(string $body): void
     {
-        $this->body = $body;
+        $this->body = html_entity_decode($body);
     }
 
     /**

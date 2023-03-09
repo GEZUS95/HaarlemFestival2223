@@ -16,7 +16,7 @@ class HomeController
 
     public function index()
     {
-        //$page = $this->contentService->getOneFromTitle('home');
+        $page = $this->contentService->getOneFromTitle('home');
         require_once __DIR__ . '/../views/home/index.php';
     }
 

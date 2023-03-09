@@ -463,3 +463,5 @@ INSERT INTO role VALUES (3, 'super-admin', 'Super-administrator account');
 INSERT INTO user VALUES (1, 1, 'gebruiker', 'gebruiker@email.com', '$2y$10$/LNXF0yNrbWuzNXXGU8uP.wpWnkTbqzHYx0Ex.Ks2t8p4tBDarnJO', NOW());
 INSERT INTO user VALUES (2, 2, 'admin', 'admin@email.com', '$2y$10$/LNXF0yNrbWuzNXXGU8uP.wpWnkTbqzHYx0Ex.Ks2t8p4tBDarnJO', NOW());
 INSERT INTO user VALUES (3, 3, 'super-admin', 'superadmin@email.com', '$2y$10$/LNXF0yNrbWuzNXXGU8uP.wpWnkTbqzHYx0Ex.Ks2t8p4tBDarnJO', NOW());
+
+INSERT INTO `content` (`id`, `title`, `body`, `image_path`) VALUES (NULL, 'home', '&#60;p&#62;this is an test for the homepage&#60;/p&#62;&#13;&#10;&#60;p&#62;&#38;nbsp;&#60;/p&#62;&#13;&#10;&#60;p&#62;it is working now!&#60;/p&#62;', '')
