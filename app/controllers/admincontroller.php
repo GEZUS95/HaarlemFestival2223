@@ -32,7 +32,7 @@ class AdminController
         require_once __DIR__ . '/../views/admin/index.php';
     }
 
-    public function users()
+    public function showUsers()
     {
         $model = $this->userService->getAll();
         $roles = $this->roleService->getAll();
@@ -71,5 +71,32 @@ class AdminController
     {
         $model = $this->apiService->getAll();
         require_once __DIR__ . '/../views/admin/api/index.php';
+    }
+
+    public function createApiKey()
+    {
+        require_once __DIR__ . '/../views/admin/api/createkey.php';
+    }
+
+    public function deleteApiKey(string $key)
+    {
+        $this->apiService->deleteOne($key);
+        $this->userService->redirect('/admin/api?success=Api key deleted');
+    }
+
+    public function addApiKey()
+    {
+        $this->apiService->insertOne($_POST['description']);
+        $this->userService->redirect('/admin/api?success=Api key created');
+    }
+
+    public function emailApiKey(string $uuid)
+    {
+        require_once __DIR__ . '/../views/admin/api/email.php';
+    }
+    public function emailApiKeyPost(string $uuid)
+    {
+        $this->apiService->emailKey($uuid, $_POST['email']);
+        $this->userService->redirect('/admin/api?success=Email send');
     }
 }

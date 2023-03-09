@@ -46,22 +46,6 @@ class ApiKeyRepository extends Repository
         }
     }
 
-    public function updateOne($description, $uuid)
-    {
-        try {
-            $stmt = $this->connection->prepare("
-        UPDATE apikey
-        SET description = :desc
-        WHERE uuid = :uuid");
-            $stmt->bindParam(':desc', $description);
-            $stmt->bindParam(':uuid', $uuid);
-            $stmt->execute();
-
-        } catch (PDOException $e) {
-            echo $e;
-        }
-    }
-
     public function getOneFromUuid(string $uuid)
     {
         try {
