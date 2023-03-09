@@ -1,8 +1,10 @@
 <?php
+
 namespace services;
+
 use Ramsey\Uuid\Uuid;
 
-Class UuidService
+class UuidService
 {
     public function generateUUID(): \Ramsey\Uuid\UuidInterface
     {

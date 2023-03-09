@@ -1,5 +1,7 @@
 <?php
 namespace controllers;
+
+use services\RoleService;
 use models\Restaurant;
 use services\UserService;
 use services\RestaurantService;
@@ -12,21 +14,65 @@ class AdminController
     private RestaurantService $restaurantService;
     private SessionService $sessionService;
     private CuisineService $cuisineService;
+    private RoleService $roleService;
 
-    function __construct()
+    public function __construct()
     {
         $this->userService = new UserService();
         $this->restaurantService = new RestaurantService();
         $this->sessionService = new SessionService();
         $this->cuisineService = new CuisineService();
+        $this->roleService = new RoleService();
+        if (
+            (!$this->userService->checkPermissions("admin"))
+            &&
+            (!$this->userService->checkPermissions("super-admin"))
+        ) {
+            $this->userService->redirect('/?error=You do not have the permission to do this');
+        }
     }
-    public function index(){
-        require __DIR__ . '/../views/admin/index.php';
+
+    public function index()
+    {
+        require_once __DIR__ . '/../views/admin/index.php';
     }
-    public function users(){
+
+    public function users()
+    {
         $model = $this->userService->getAll();
-        require __DIR__ . '/../views/admin/users.php';
+        $roles = $this->roleService->getAll();
+        require_once __DIR__ . '/../views/admin/users/index.php';
     }
+
+    public function updateUser($userId)
+    {
+        $user = $this->userService->getOneById($userId);
+        $roles = $this->roleService->getAll();
+        require_once __DIR__ . '/../views/admin/users/update.php';
+    }
+
+    public function updateUserPost($userId)
+    {
+        $this->userService->updateUser($userId, $_POST['name'], $_POST['email'], $_POST['role']);
+    }
+
+    public function deleteUser($userId)
+    {
+        $this->userService->deleteOne($userId);
+    }
+
+    public function createUser()
+    {
+        $roles = $this->roleService->getAll();
+        require_once __DIR__ . '/../views/admin/users/create.php';
+    }
+
+    public function createUserPost()
+    {
+        $this->userService->createUser($_POST['name'], $_POST['email'], $_POST['role'], $_POST['password']);
+    }
+
+
 
     public function restaurants(){
         $error = "";

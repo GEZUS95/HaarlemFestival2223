@@ -4,7 +4,7 @@
         "bramus/router": "~1.6",
         "ramsey/uuid": "^4.7",
         "tecnickcom/tcpdf": "^6.6",
-      "ext-pdo": "*"
+        "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {

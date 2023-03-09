@@ -1,31 +1,36 @@
 <?php
+
 namespace repositories;
 
-class RoleRepository extends Repository{
-    function getAll() {
+use PDO;
+use PDOException;
+use models\Role;
+
+class RoleRepository extends Repository
+{
+    public function getAll()
+    {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM role");
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Role');
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Role::class);
             return $stmt->fetchAll();
 
-        } catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e;
         }
     }
 
-    public function insertOne(Role $role)
+    public function insertOne(string $name, string $description)
     {
         try {
-            $stmt = $this->connection->prepare("INSERT INTO role ('name', 'description')");
-            $name = $role->getName(); //todo: blijkbaar werkt het niet als deze statement direct in de bindparam zit
-            $stmt->bindParam('ss', $name, $role->getDescription());
+            $stmt = $this->connection->prepare("INSERT INTO role ('name', 'description') VALUES (:name, :description)");
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':description', $description);
 
             return $stmt->execute();
-        }
-        catch (PDOException $e){
+        } catch (PDOException $e) {
             echo $e;
         }
     }
@@ -34,32 +39,31 @@ class RoleRepository extends Repository{
     public function getOneById(int $id)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM role WHERE id = ? LIMIT 1");
-            $stmt->bindParam('i', $id);
+            $stmt = $this->connection->prepare("SELECT * FROM role WHERE id = :id LIMIT 1");
+            $stmt->bindParam(':id', $id);
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Role');
-            return $stmt->fetchAll();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Role::class);
+            return $stmt->fetch();
 
-        } catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e;
         }
     }
 
-    public function updateOne(Role $role)
+    public function updateOne(string $name, string $description, int $id)
     {
         try {
             $stmt = $this->connection->prepare("
-                UPDATE role 
-                SET name = ?, description = ?
-                WHERE id = ?");
-            $name = $role->getName();
-            $stmt->bindParam('ssi', $name, $role->getDescription(), $role->getId());
+                UPDATE role
+                SET name = :name, description = :description
+                WHERE id = :role_id");
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam('role_id', $id);
             return $stmt->execute();
 
-        } catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e;
         }
     }

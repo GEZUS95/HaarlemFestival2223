@@ -6,9 +6,14 @@
 =======
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/bramus/router" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/ramsey/collection" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/tecnickcom/tcpdf" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/brick/math" />
     </content>
 >>>>>>> 91cfd817ebc70c59ff78b1646322bc09c59f4fd7
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="bootstrap" level="application" />
   </component>
 </module>

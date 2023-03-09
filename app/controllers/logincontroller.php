@@ -1,10 +1,30 @@
 <?php
-
 namespace controllers;
+
+use services\UserService;
+
 class LoginController
 {
-    public function index()
+
+    private UserService $userService;
+
+    public function __construct()
     {
-        require __DIR__ . '/../views/login.php';
+        $this->userService = new UserService();
+    }
+
+    public function login()
+    {
+        require_once __DIR__ . '/../views/user/login.php';
+    }
+
+    public function loginPost()
+    {
+        $this->userService->login($_POST['Email'], $_POST['password']);
+    }
+
+    public function logout()
+    {
+        $this->userService->logout();
     }
 }

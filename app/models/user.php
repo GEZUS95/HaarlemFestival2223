@@ -9,8 +9,25 @@ class User
     private string $name;
     private string $email;
     private string $passwordhash;
-    private string $description;
+    private string $created_at;
     private int $role_id;
+
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param string $created_at
+     */
+    public function setCreatedAt(string $created_at): void
+    {
+        $this->created_at = $created_at;
+    }
 
     /**
      * @return int
@@ -91,23 +108,4 @@ class User
     {
         $this->role_id = $role_id;
     }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-
-
 }
