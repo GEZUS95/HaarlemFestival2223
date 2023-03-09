@@ -229,6 +229,21 @@ CREATE TABLE `passwordreset` (
                                  `expires_at` DATETIME NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `content`
+--
+
+create table content (
+    `id`         int auto_increment primary key,
+    `title`      varchar(255) not null,
+    `body`       longtext     not null,
+    `image_path` varchar(255) null
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 --
 -- Indexes for dumped tables
 --

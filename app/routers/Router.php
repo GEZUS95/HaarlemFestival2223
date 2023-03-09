@@ -104,15 +104,15 @@ $router->post('/admin/api/create', function () {                     // create a
     $adminController = new AdminController();
     $adminController->addApiKey();
 });
-$router->get('/admin/api/delete/{uuid}', function ($uuid) {          // create api key
+$router->get('/admin/api/delete/{uuid}', function ($uuid) {          // delete api key
     $adminController = new AdminController();
     $adminController->deleteApiKey($uuid);
 });
-$router->get('/admin/api/email/{uuid}', function ($uuid) {          // create api key
+$router->get('/admin/api/email/{uuid}', function ($uuid) {          // email api key
     $adminController = new AdminController();
     $adminController->emailApiKey($uuid);
 });
-$router->post('/admin/api/email/{uuid}', function ($uuid) {          // create api key
+$router->post('/admin/api/email/{uuid}', function ($uuid) {          // email api key
     $adminController = new AdminController();
     $adminController->emailApiKeyPost($uuid);
 });
