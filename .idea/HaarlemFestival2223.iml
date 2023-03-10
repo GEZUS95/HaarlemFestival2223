@@ -11,15 +11,16 @@
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/bramus/router" />
-      <excludeFolder url="file://$MODULE_DIR$/app/vendor/ramsey/collection" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/tecnickcom/tcpdf" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/ramsey/collection" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/brick/math" />
-      <excludeFolder url="file://$MODULE_DIR$/app/vendor/setasign/fpdi-tcpdf" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/setasign/fpdi" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/setasign/fpdi-tcpdf" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="tinymce" level="application" />
   </component>
 </module>

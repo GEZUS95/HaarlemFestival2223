@@ -14,7 +14,8 @@
             "models\\": "models",
             "repositories\\": "repositories",
             "routers\\": "routers",
-            "services\\": "services"
+            "services\\": "services",
+            "helpers\\": "helpers"
         }
     }
 }

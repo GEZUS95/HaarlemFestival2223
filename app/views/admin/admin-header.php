@@ -30,6 +30,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/events">Events</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/content">Content Pages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/api">Api keys</a>
+                </li>
             </ul>
             <?php if (!isset($_SESSION['user'])) {
                 echo '
@@ -49,3 +55,13 @@
 </nav>
 
 <div class="container">
+
+    <?php
+    if (isset($_GET['success'])) {
+        echo "<div class='alert-success'>" . $_GET['success'] . " </div>";
+    }
+    if (isset($_GET['error'])) {
+        echo "<div class='alert-danger'>" . $_GET['error'] . " </div>";
+    }
+    ?>
+

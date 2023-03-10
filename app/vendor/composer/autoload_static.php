@@ -29,6 +29,10 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
         array (
             'models\\' => 7,
         ),
+        'h' => 
+        array (
+            'helpers\\' => 8,
+        ),
         'c' => 
         array (
             'controllers\\' => 12,
@@ -91,6 +95,10 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
         'models\\' => 
         array (
             0 => __DIR__ . '/../..' . '/models',
+        ),
+        'helpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/helpers',
         ),
         'controllers\\' => 
         array (

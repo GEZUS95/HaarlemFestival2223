@@ -204,11 +204,23 @@ CREATE TABLE `user` (
                         `created_at` DATETIME NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `apikeys`
+--
+
+CREATE TABLE apikey (
+                        `uuid` varchar(255) NOT NULL,
+                        `description` varchar(255),
+                        `created_at` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `passwordreset`
 --
 
 CREATE TABLE `passwordreset` (
@@ -216,6 +228,21 @@ CREATE TABLE `passwordreset` (
                                  `user_id` int(11) NOT NULL,
                                  `expires_at` DATETIME NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `content`
+--
+
+create table content (
+    `id`         int auto_increment primary key,
+    `title`      varchar(255) not null,
+    `body`       longtext     not null,
+    `image_path` varchar(255) null
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Indexes for dumped tables
@@ -307,8 +334,10 @@ ALTER TABLE `user`
     ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexes for table `apikeys`
 --
+ALTER TABLE apikey
+    ADD PRIMARY KEY (`uuid`);
 
 --
 -- AUTO_INCREMENT for table `artist`
@@ -434,3 +463,5 @@ INSERT INTO role VALUES (3, 'super-admin', 'Super-administrator account');
 INSERT INTO user VALUES (1, 1, 'gebruiker', 'gebruiker@email.com', '$2y$10$/LNXF0yNrbWuzNXXGU8uP.wpWnkTbqzHYx0Ex.Ks2t8p4tBDarnJO', NOW());
 INSERT INTO user VALUES (2, 2, 'admin', 'admin@email.com', '$2y$10$/LNXF0yNrbWuzNXXGU8uP.wpWnkTbqzHYx0Ex.Ks2t8p4tBDarnJO', NOW());
 INSERT INTO user VALUES (3, 3, 'super-admin', 'superadmin@email.com', '$2y$10$/LNXF0yNrbWuzNXXGU8uP.wpWnkTbqzHYx0Ex.Ks2t8p4tBDarnJO', NOW());
+
+INSERT INTO `content` (`id`, `title`, `body`, `image_path`) VALUES (NULL, 'home', '&#60;p&#62;this is an test for the homepage&#60;/p&#62;&#13;&#10;&#60;p&#62;&#38;nbsp;&#60;/p&#62;&#13;&#10;&#60;p&#62;it is working now!&#60;/p&#62;', '')
