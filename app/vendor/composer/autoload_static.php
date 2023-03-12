@@ -17,6 +17,7 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
+            'setasign\\Fpdi\\' => 14,
             'services\\' => 9,
         ),
         'r' => 
@@ -27,6 +28,10 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
         'm' => 
         array (
             'models\\' => 7,
+        ),
+        'h' => 
+        array (
+            'helpers\\' => 8,
         ),
         'c' => 
         array (
@@ -71,6 +76,10 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
     );
 
     public static $prefixDirsPsr4 = array (
+        'setasign\\Fpdi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/setasign/fpdi/src',
+        ),
         'services\\' => 
         array (
             0 => __DIR__ . '/../..' . '/services',
@@ -86,6 +95,10 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
         'models\\' => 
         array (
             0 => __DIR__ . '/../..' . '/models',
+        ),
+        'helpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/helpers',
         ),
         'controllers\\' => 
         array (

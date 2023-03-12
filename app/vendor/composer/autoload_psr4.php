@@ -6,10 +6,12 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'setasign\\Fpdi\\' => array($vendorDir . '/setasign/fpdi/src'),
     'services\\' => array($baseDir . '/services'),
     'routers\\' => array($baseDir . '/routers'),
     'repositories\\' => array($baseDir . '/repositories'),
     'models\\' => array($baseDir . '/models'),
+    'helpers\\' => array($baseDir . '/helpers'),
     'controllers\\' => array($baseDir . '/controllers'),
     'config\\' => array($baseDir . '/config'),
     'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
