@@ -1,6 +1,6 @@
 <?php
 namespace services;
-use repositories\ArticleRepository;
+use repositories\LocationRepository;
 class LocationService
 {
     private LocationRepository $REPOSITORY;

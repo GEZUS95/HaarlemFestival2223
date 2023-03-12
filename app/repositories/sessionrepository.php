@@ -1,5 +1,6 @@
 <?php
 namespace repositories;
+use MongoDB\Driver\Session;
 use PDO;
 use PDOException;
 
@@ -9,6 +10,7 @@ class SessionRepository extends Repository {
             $stmt = $this->connection->prepare('SELECT * FROM session WHERE restaurant_id = ?');
             $stmt->bindParam('i', $restaurantId);
             $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
             return $stmt->fetchAll();
         } catch (PDOException $e) {
             echo $e;
@@ -20,6 +22,7 @@ class SessionRepository extends Repository {
             $stmt = $this->connection->prepare('SELECT * FROM session WHERE id = ? LIMIT 1');
             $stmt->bindParam('i', $id);
             $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
             return $stmt->fetch();
         } catch (PDOException $e) {
             echo $e;

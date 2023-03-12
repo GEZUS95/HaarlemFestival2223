@@ -2,13 +2,17 @@
 
 namespace repositories;
 
+use PDO;
+use PDOException;
+use models\Location;
+
 class LocationRepository extends Repository {
     function getAll() {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM location");
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Location');
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Location::class);
             return $stmt->fetchAll();
 
         } catch (PDOException $e)

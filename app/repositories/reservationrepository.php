@@ -12,8 +12,8 @@ class ReservationRepository extends Repository {
         try {
             $stmt = $this->connection->prepare('SELECT * FROM reservation');
             $stmt->execute();
-            $reservations = $stmt->fetchAll();
-            return $reservations;
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Reservation::class);
+            return $stmt->fetchAll();
         } catch (PDOException $e)
         {
             echo $e;
@@ -25,8 +25,8 @@ class ReservationRepository extends Repository {
             $stmt = $this->connection->prepare('SELECT * FROM reservation WHERE id = ? LIMIT 1');
             $stmt->bindParam('i', $id);
             $stmt->execute();
-            $reservation = $stmt->fetch();
-            return $reservation;
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Reservation::class);
+            return $stmt->fetchAll();
         } catch (PDOException $e)
         {
             echo $e;
@@ -38,8 +38,8 @@ class ReservationRepository extends Repository {
             $stmt = $this->connection->prepare('SELECT reservation.id, reservation.session_id, reservation.remarks, reservation.status FROM reservation INNER JOIN session ON reservation.session_id = session.id WHERE session.restaurant_id = ?');
             $stmt->bindParam('i', $id);
             $stmt->execute();
-            $reservations = $stmt->fetchAll();
-            return $reservations;
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Reservation::class);
+            return $stmt->fetchAll();
         } catch (PDOException $e)
         {
             echo $e;
@@ -51,8 +51,8 @@ class ReservationRepository extends Repository {
             $stmt = $this->connection->prepare('SELECT * FROM reservation WHERE session_id = ?');
             $stmt->bindParam('i', $id);
             $stmt->execute();
-            $reservations = $stmt->fetchAll();
-            return $reservations;
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Reservation::class);
+            return $stmt->fetchAll();
         } catch (PDOException $e)
         {
             echo $e;

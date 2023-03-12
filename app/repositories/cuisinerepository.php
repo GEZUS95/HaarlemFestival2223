@@ -10,18 +10,19 @@ class CuisineRepository extends Repository {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM restauranttype");
             $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Cuisine::class);
             return $stmt->fetchAll();
         } catch (PDOException $e) {
             echo $e;
         }
     }
 
-    // gets all for restaurant, uses table restauranttypelink with a restaurant_id and restauranttype_id, and table restauranttype with id and cuisine_name
     public function getAllForRestaurant(int $restaurant_id) {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM restauranttype WHERE id IN (SELECT restaurant_type_id FROM restauranttypelink WHERE restaurant_id = ?)");
             $stmt->bindParam(1, $restaurant_id, PDO::PARAM_INT);
             $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Cuisine::class);
             return $stmt->fetchAll();
         } catch (PDOException $e) {
             echo $e;
@@ -33,6 +34,7 @@ class CuisineRepository extends Repository {
             $stmt = $this->connection->prepare("SELECT * FROM cuisine WHERE id = ? LIMIT 1");
             $stmt->bindParam('i', $id);
             $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Cuisine::class);
             return $stmt->fetch();
         } catch (PDOException $e) {
             echo $e;
@@ -44,6 +46,7 @@ class CuisineRepository extends Repository {
             $stmt = $this->connection->prepare("SELECT * FROM cuisine WHERE name = ? LIMIT 1");
             $stmt->bindParam('s', $cuisine_name);
             $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Cuisine::class);
             return $stmt->fetch();
         } catch (PDOException $e) {
             echo $e;

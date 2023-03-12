@@ -7,6 +7,7 @@ use services\UserService;
 use services\RestaurantService;
 use services\SessionService;
 use services\CuisineService;
+use services\LocationService;
 
 class AdminController
 {
@@ -15,6 +16,7 @@ class AdminController
     private SessionService $sessionService;
     private CuisineService $cuisineService;
     private RoleService $roleService;
+    private LocationService $locationService;
 
     public function __construct()
     {
@@ -23,6 +25,7 @@ class AdminController
         $this->sessionService = new SessionService();
         $this->cuisineService = new CuisineService();
         $this->roleService = new RoleService();
+        $this->locationService = new LocationService();
         if (
             (!$this->userService->checkPermissions("admin"))
             &&
@@ -107,7 +110,9 @@ class AdminController
     }
 
     public function updaterestaurant(int $restaurantId){
-        $model = $this->restaurantService->getOneById($restaurantId);
+        $restaurant = $this->restaurantService->getOneById($restaurantId);
+        $cuisines = $this->cuisineService->getAll();
+        $locations = $this->locationService->getAll();
         require __DIR__ . '/../views/admin/restaurant/updaterestaurant.php';
     }
 
@@ -129,5 +134,6 @@ class AdminController
 
         $confirmation = "Restaurant has been deleted";
 
-        header("Refresh:0");    }
+        header("Refresh:0");
+    }
 }

@@ -29,18 +29,18 @@ include_once __DIR__ . '../../admin-header.php';
                     <tbody class="usr-tab-bod">
                     <?php foreach ($model as $restaurant) { ?>
                         <tr>
-                            <td><?= $restaurant['name'] ?></td>
-                            <td><?= $restaurant['description'] ?></td>
-                            <td><?= $restaurant['price'] ?></td>
-                            <td><?= $restaurant['price_child'] ?></td>
-                            <td><?= $restaurant['seats'] ?></td>
-                            <td><?= $restaurant['stars'] ?></td>
-                            <td><?= $restaurant['location_id'] ?></td>
-                            <td><?php foreach ($restaurant['cuisines'] as $cuisine) {
-                                    echo $cuisine['cuisine_name'] . ' ';
+                            <td><?= $restaurant->getName() ?></td>
+                            <td><?= $restaurant->getDescription() ?></td>
+                            <td><?= $restaurant->getPrice() ?></td>
+                            <td><?= $restaurant->getPriceChild() ?></td>
+                            <td><?= $restaurant->getSeats() ?></td>
+                            <td><?= $restaurant->getStars() ?></td>
+                            <td><?= $restaurant->getLocationId() ?></td>
+                            <td><?php foreach ($restaurant->getRestaurantCuisines() as $cuisine) {
+                                    echo $cuisine->getCuisineName() . ' ';
                                 } ?>
-                            <td><?= $restaurant['accessibility'] ?></td>
-                            <td><a href="/admin/restaurants/update/<?= $restaurant['id'] ?>" class="btn btn-warning">Update</a></td>
+                            <td><?= $restaurant->getAccessibility() ?></td>
+                            <td><a href="/admin/restaurants/update/<?= $restaurant->getId() ?>" class="btn btn-warning">Update</a></td>
                             <td><button class="btn btn-danger text-light" name="del-restaurant" type="submit">Delete</button></td>
                         </tr>
                     <?php } ?>

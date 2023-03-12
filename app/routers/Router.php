@@ -1,5 +1,10 @@
 <?php
 use Bramus\Router\Router;
+use controllers\AdminController;
+use controllers\HomeController;
+use controllers\LoginController;
+use controllers\TestController;
+use controllers\UserController;
 
 $router = new Router();
 
