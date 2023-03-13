@@ -20,9 +20,12 @@ class UserController
     {
         require_once __DIR__ . '/../views/user/requestresetpassword.php';
     }
+
     public function requestResetPasswordPost()
     {
-        if (!isset($_POST['email'])) { $this->userService->redirect('/resetpassword?error=No email provided');}
+        if (!isset($_POST['email'])) {
+            $this->userService->redirect('/resetpassword?error=No email provided');
+        }
         $this->userService->requestPasswordReset($_POST['email']);
     }
 
@@ -37,7 +40,7 @@ class UserController
 
     public function resetPasswordPost(string $uuid)
     {
-            $this->userService->resetPassword($uuid, $_POST['newpassword'], $_POST['newpasswordcheck']);
+        $this->userService->resetPassword($uuid, $_POST['newpassword'], $_POST['newpasswordcheck']);
     }
 
     public function register(): void
@@ -54,5 +57,17 @@ class UserController
             $_POST['password'],
             $_POST['passwordVerify']
         );
+    }
+
+    public function showUserUpdate()
+    {
+        $this->userService->verifySession();
+        $user = $this->userService->getUserFromSession();
+        require_once __DIR__ . '/../views/user/update.php';
+    }
+
+    public function userUpdate(int $id)
+    {
+            $this->userService->update($_POST['name'], $_POST['email'], $_POST['emailcheck'], $id);
     }
 }
