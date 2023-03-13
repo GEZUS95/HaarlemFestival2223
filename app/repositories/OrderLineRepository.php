@@ -19,7 +19,7 @@ class OrderLineRepository extends Repository
         }
     }
 
-    public function insertOne(string $uuid, int $orderId, int $eventId, int $programId, int $programItemId, int $sessionId)
+    public function insertOne(string $uuid, int $oId, int $eId, int $pId, int $pIId, int $sId)
     {
         try {
             $stmt = $this->connection->prepare("
@@ -27,11 +27,11 @@ class OrderLineRepository extends Repository
                     VALUES (:uuid, :oid, :eid, :pid, :piid, :sid)
                     ");
             $stmt->bindParam(':uuid', $uuid);
-            $stmt->bindParam(':oid', $orderId);
-            $stmt->bindParam(':eid', $eventId);
-            $stmt->bindParam(':pid', $programId);
-            $stmt->bindParam(':piid', $programItemId);
-            $stmt->bindParam(':sid', $sessionId);
+            $stmt->bindParam(':oid', $oId);
+            $stmt->bindParam(':eid', $eId);
+            $stmt->bindParam(':pid', $pId);
+            $stmt->bindParam(':piid', $pIId);
+            $stmt->bindParam(':sid', $sId);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo $e;
