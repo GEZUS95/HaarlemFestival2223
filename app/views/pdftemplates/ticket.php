@@ -43,9 +43,8 @@ error_reporting(E_ALL); ini_set('display_errors', 1);
 <body>
 
 <?php
-use services\QRService;
 var_dump($uuid);
-$qrcode = (new services\QRService)->generateQRCodeFromUUID(Uuid::fromString($uuid));
+$qrcode = (new helpers\QRHelper)->generateQRCodeFromUUID(Uuid::fromString($uuid));
 $qrCodeImageData = $qrcode->getBarcodePNG(5, 5, 0, 0);
 ?>
 
