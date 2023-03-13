@@ -1,4 +1,7 @@
 <?php
+
+use Ramsey\Uuid\Uuid;
+
 error_reporting(E_ALL); ini_set('display_errors', 1);
 ?>
 <!DOCTYPE html>
@@ -8,9 +11,6 @@ error_reporting(E_ALL); ini_set('display_errors', 1);
     <title>Ticket</title>
     <style>
         body {
-            background-image: url(<?php echo __DIR__ . '/../../public/images/ticket/ticketbackground.jpg' ?>);
-            background-repeat: no-repeat;
-            background-size: cover;
             font-family: Arial, sans-serif;
         }
         .ticket {
@@ -41,23 +41,11 @@ error_reporting(E_ALL); ini_set('display_errors', 1);
     </style>
 </head>
 <body>
-
-<?php
-var_dump($uuid);
-$qrcode = (new helpers\QRHelper)->generateQRCodeFromUUID(Uuid::fromString($uuid));
-$qrCodeImageData = $qrcode->getBarcodePNG(5, 5, 0, 0);
-?>
-
 <div class="ticket">
     <h1><?php echo $eventName?></h1>
     <p>Customer Name: <?php echo $customerName?></p>
     <p>Event Date: <?php echo $eventDate?></p>
     <p>Amount of Tickets: <?php echo $ticketAmount?></p>
-    <div class="qr-code">
-        <?php
-        echo $qrCodeImageData;
-        ?>
-    </div>
 </div>
 </body>
 </html>

@@ -2,19 +2,26 @@
 
 namespace helpers;
 
+use Ramsey\Uuid\Uuid;
 use TCPDF;
-use const services\PDF_CREATOR;
+use TCPDF2DBarcode;
+use const PDF_CREATOR;
 
 class PDFHelper
 {
-    public function generateTicket($customername, $eventname, $eventdate, $ticketamount, $ticketuuid)
+    public function generateTicket($customerName, $eventName, $eventDate, $ticketAmount, $ticketuuid)
     {
         // Define variables with all necessary data
-        $customerName = $customername;
-        $eventName = $eventname;
-        $eventDate = $eventdate;
-        $ticketAmount = $ticketamount;
-        $uuid = $ticketuuid;
+        $uuid = $ticketuuid->toString();
+        $style = array(
+            'border' => true,
+            'vpadding' => 'auto',
+            'hpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255)
+            'module_width' => 1, // width of a single module in points
+            'module_height' => 1 // height of a single module in points
+        );
 
         // Instantiate the TCPDF class
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
@@ -37,25 +44,21 @@ class PDFHelper
         $pdf->AddPage();
         $pdf->writeHTML($html, true, false, true, false, '');
 
+        $pdf->write2DBarcode($uuid, 'QRCODE,H', 55, 150, 100, 100, $style, 'M');
+
         // Output the generated PDF file
         $pdf->Output($uuid . 'ticket.pdf', 'D');
     }
 
-    public function generateInvoice($customername, $ordernumber, $orderdate, $itemlist)
+    public function generateInvoice($customerName, $orderNumber, $orderDate, $items)
     {
-        // Define variables with the necessary data
-        $customerName = $customername;
-        $orderNumber = $ordernumber;
-        $orderDate = $orderdate;
-        $items = $itemlist;
-
         // Instantiate the TCPDF class
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
 
         // Set the document properties
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Haarlem Festival');
-        $pdf->SetTitle('Invoice of order ' . $ordernumber);
+        $pdf->SetTitle('Invoice of order ' . $orderNumber);
         $pdf->SetSubject('Invoice');
 
         // Set the page margins
@@ -71,6 +74,6 @@ class PDFHelper
         $pdf->writeHTML($html, true, false, true, false, '');
 
         // Output the generated PDF file
-        $pdf->Output($ordernumber . '_invoice.pdf', 'D');
+        $pdf->Output($orderNumber . '_invoice.pdf', 'D');
     }
 }
