@@ -35,6 +35,10 @@ class CuisineService {
             $this->repository->updateOne($cuisine);
         }
 
+        public function updateAllForRestaurant(int $restaurantId, array $cuisines) {
+            $this->repository->updateAllForRestaurant($restaurantId, $cuisines);
+        }
+
         public function deleteOne(Cuisine $cuisine){
             $this->repository->deleteOne($cuisine);
         }

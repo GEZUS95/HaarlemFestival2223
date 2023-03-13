@@ -53,7 +53,13 @@ class Reservation {
      */
     public function setRemarks(string $remarks): void
     {
-        $this->remarks = $remarks;
+        // if null fill with "none"
+        if ($remarks == null) {
+            $remarks = "none";
+        }
+        else {
+            $this->remarks = $remarks;
+        }
     }
 
     /**

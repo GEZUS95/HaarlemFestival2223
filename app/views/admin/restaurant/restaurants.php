@@ -22,8 +22,8 @@ include_once __DIR__ . '../../admin-header.php';
                         <th>Location Id</th>
                         <th>Cuisines</th>
                         <th>Accessibility</th>
-                        <th>Save</th>
-                        <th>Delete</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody class="usr-tab-bod">
@@ -41,16 +41,13 @@ include_once __DIR__ . '../../admin-header.php';
                                 } ?>
                             <td><?= $restaurant->getAccessibility() ?></td>
                             <td><a href="/admin/restaurants/update/<?= $restaurant->getId() ?>" class="btn btn-warning">Update</a></td>
-                            <td><button class="btn btn-danger text-light" name="del-restaurant" type="submit">Delete</button></td>
+                            <td><a href="/admin/restaurants/delete/<?= $restaurant->getId() ?>" class="btn btn-danger">Delete</a></td>
                         </tr>
                     <?php } ?>
                     </tbody>
                 </table>
                 <button class="btn btn-success"><a href="newrestaurant" class="text-light">New Restaurant</a></button>
-                <div class="alert alert-danger" role="alert"><?= $error ?></div>
-                <div class="alert alert-success" role="alert"><?= $confirmation ?></div>
             </div>
         </div>
     </div>
 </div>
-

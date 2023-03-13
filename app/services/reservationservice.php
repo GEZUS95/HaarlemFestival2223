@@ -1,5 +1,6 @@
 <?php
 namespace services;
+use models\Reservation;
 use repositories\ReservationRepository;
 
 class ReservationService {

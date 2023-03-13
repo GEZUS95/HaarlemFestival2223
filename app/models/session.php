@@ -1,11 +1,19 @@
 <?php
 namespace models;
 
+use DateTime;
+use Exception;
+
 class Session {
     public int $id;
     public int $restaurant_id;
-    public DateTime $start_time;
-    public DateTime $end_time;
+    public \DateTime $start_time;
+    public \DateTime $end_time;
+
+    public function __construct(string $startTimeStr, string $endTimeStr) {
+        $this->start_time = new \DateTime($startTimeStr);
+        $this->end_time = new \DateTime($endTimeStr);
+    }
 
     /**
      * @return int

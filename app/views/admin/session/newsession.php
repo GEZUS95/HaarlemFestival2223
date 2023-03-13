@@ -1,27 +1,46 @@
 <?php
-include_once __DIR__ . '../../admin-header.php';
+include_once __DIR__ . '/../admin-header.php';
 ?>
-<div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
-        <form action="newsession" method="post">
-            <h1 class="h3 mb-3 fw-normal text-dark">New Session</h1>
-            <!-- load in selection box of all restaurants and send the id of restaurant when added -->
-
-        <div class="form-floating">
-            <label for="startTime" class="form-label">Start Time</label>
-            <input type="text" name="startTime" class="form-control" placeholder="Start Time" required>
+<h1>Create New Session</h1>
+<form action="/admin/newsession" method="post" class="form-horizontal">
+    <fieldset>
+        <!-- Selection input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="restaurant_id">Restaurant</label>
+            <div class="col-md-4">
+                <select id="restaurant_id" name="restaurant_id" class="form-control" required>
+                    <?php foreach ($restaurants as $restaurant): ?>
+                        <option value="<?php echo $restaurant->getId(); ?>">
+                            <?php echo $restaurant->getName(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
-        <div class="form-floating">
-            <label for="endTime" class="form-label">End Time</label>
-            <input type="text" name="endTime" class="form-control" placeholder="End Time" required>
+
+        <!-- Datetime input for start time -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="start_time">Start Time</label>
+            <div class="col-md-4">
+                <input id="start_time" name="start_time" type="datetime-local" class="form-control input-md" required="">
+            </div>
         </div>
-            <a onclick="location.reload();" class="btn btn-success">Add Restaurant</a>
-            <a href="javascript:history.back()" class="btn btn-danger">Go Back</a>
-        </form>
-</div>
-<div class="col-2"></div>
 
+        <!-- Datetime input for end time -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="end_time">End Time</label>
+            <div class="col-md-4">
+                <input id="end_time" name="end_time" type="datetime-local" class="form-control input-md" required="">
+            </div>
+        </div>
 
-
-
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-4">
+                <button id="submit" name="submit" class="btn btn-primary">Create</button>
+                <a href="/admin/sessions" class="btn btn-danger">Go back</a>
+            </div>
+        </div>
+    </fieldset>
+</form>

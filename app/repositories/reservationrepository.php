@@ -23,10 +23,10 @@ class ReservationRepository extends Repository {
     public function getOneById(int $id) {
         try {
             $stmt = $this->connection->prepare('SELECT * FROM reservation WHERE id = ? LIMIT 1');
-            $stmt->bindParam('i', $id);
+            $stmt->bindParam(1, $id);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Reservation::class);
-            return $stmt->fetchAll();
+            return $stmt->fetch();
         } catch (PDOException $e)
         {
             echo $e;
@@ -36,7 +36,7 @@ class ReservationRepository extends Repository {
     public function getAllByRestaurantId(int $id) {
         try {
             $stmt = $this->connection->prepare('SELECT reservation.id, reservation.session_id, reservation.remarks, reservation.status FROM reservation INNER JOIN session ON reservation.session_id = session.id WHERE session.restaurant_id = ?');
-            $stmt->bindParam('i', $id);
+            $stmt->bindParam(1, $id);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Reservation::class);
             return $stmt->fetchAll();
@@ -49,7 +49,7 @@ class ReservationRepository extends Repository {
     public function getAllBySessionId(int $id) {
         try {
             $stmt = $this->connection->prepare('SELECT * FROM reservation WHERE session_id = ?');
-            $stmt->bindParam('i', $id);
+            $stmt->bindParam(1, $id);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Reservation::class);
             return $stmt->fetchAll();
@@ -62,9 +62,12 @@ class ReservationRepository extends Repository {
     public function insertOne (Reservation $reservation) {
         try {
             $stmt = $this->connection->prepare('INSERT INTO reservation (session_id, remarks, status) VALUES (?, ?, ?)');
-            $stmt->bindParam('i', $reservation->getSessionId());
-            $stmt->bindParam('s', $reservation->getRemarks());
-            $stmt->bindParam('s', $reservation->getStatus());
+            $session_id = $reservation->getSessionId();
+            $remarks = $reservation->getRemarks();
+            $status = $reservation->getStatus();
+            $stmt->bindParam(1, $session_id);
+            $stmt->bindParam(2, $remarks);
+            $stmt->bindParam(3, $status);
             $stmt->execute();
             return $this->connection->lastInsertId();
         } catch (PDOException $e)
@@ -76,10 +79,14 @@ class ReservationRepository extends Repository {
     public function updateOne (Reservation $reservation) {
         try {
             $stmt = $this->connection->prepare('UPDATE reservation SET session_id = ?, remarks = ?, status = ? WHERE id = ?');
-            $stmt->bindParam('i', $reservation->getSessionId());
-            $stmt->bindParam('s', $reservation->getRemarks());
-            $stmt->bindParam('s', $reservation->getStatus());
-            $stmt->bindParam('i', $reservation->getId());
+            $session_id = $reservation->getSessionId();
+            $remarks = $reservation->getRemarks();
+            $status = $reservation->getStatus();
+            $id = $reservation->getId();
+            $stmt->bindParam(1, $session_id);
+            $stmt->bindParam(2, $remarks);
+            $stmt->bindParam(3, $status);
+            $stmt->bindParam(4, $id);
             $stmt->execute();
             return $reservation->getId();
         } catch (PDOException $e)

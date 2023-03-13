@@ -5,7 +5,6 @@ namespace models;
 class Location
 {
     private int $id;
-
     private string $name;
     private string $city;
     private string $address;

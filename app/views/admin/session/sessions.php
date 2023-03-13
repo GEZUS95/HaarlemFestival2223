@@ -13,32 +13,38 @@ include_once __DIR__ . '../../admin-header.php';
                 <table class="table table-striped table-sm">
                     <thead class="usr-tab-head">
                     <tr class="text-dark">
-                        <th>Id</th>
-                        <th>Restaurant Id</th>
+                        <th>Restaurant Name</th>
                         <th>Start Time</th>
                         <th>End Time</th>
-                        <th>Save</th>
-                        <th>Delete</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody class="usr-tab-bod">
                     <?php foreach ($model as $session) { ?>
                         <tr>
-                            <form function="sessiontable" method="post">
-                                <td><input name="id-session" class="idcol" type="number" value="<?= $session['id'] ?>" readonly></td>
-                                <td><input name="restaurant-id-session" class="restaurantidcol" type="number" value="<?= $session['restaurant_id'] ?>"></td>
-                                <td><input name="start-time-session" class="starttimecol" type="datetime-local" value="<?= $session['start_time'] ?>"></td>
-                                <td><input name="end-time-session" class="endtimecol" type="datetime-local" value="<?= $session['end_time'] ?>"></td>
-                                <td><button class="btn btn-success text-light" name="save-session" type="submit">Save</button></td>
-                                <td><button class="btn btn-danger text-light" name="del-session" type="submit">Delete</button></td>
-                            </form>
+                            <td><?php
+                                foreach ($restaurants as $restaurant) {
+                                    if ($restaurant->getId() == $session->getRestaurantId()) {
+                                        echo $restaurant->getName();
+                                    }
+                                }
+                                ?></td>
+                            <td><?=
+                                // set datetime to string
+                                $session->getStartTime()->format('Y-m-d H:i:s')
+                                ?></td>
+                            <td><?=
+                                // set datetime to string
+                                $session->getEndTime()->format('Y-m-d H:i:s')
+                                ?></td>
+                            <td><a href="/admin/sessions/update/<?= $session->getId() ?>" class="btn btn-warning">Update</a></td>
+                            <td><a href="/admin/sessions/delete/<?= $session->getId() ?>" class="btn btn-danger">Delete</a></td>
                         </tr>
                     <?php } ?>
                     </tbody>
                 </table>
                 <button class="btn btn-success"><a href="newsession" class="text-light">New Session</a></button>
-                <div class="alert alert-danger" role="alert"><?= $error ?></div>
-                <div class="alert alert-success" role="alert"><?= $confirmation ?></div>
             </div>
         </div>
     </div>

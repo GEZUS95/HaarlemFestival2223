@@ -1,49 +1,121 @@
 <?php
-include_once __DIR__ . '../../admin-header.php';
+include_once __DIR__ . '/../admin-header.php';
 ?>
-<div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
-        <form action="newrestaurant" method="post">
-            <h1 class="h3 mb-3 fw-normal text-dark">New Restaurant</h1>
-        <div class="form-floating">
-            <label for="restaurantName" class="form-label">Restaurant Name</label>
-            <input type="text" name="restaurantName" class="form-control" placeholder="Restaurant Name" required autofocus>
+<h1>Create New Restaurant</h1>
+<form action="/admin/newrestaurant" method="post" class="form-horizontal">
+    <fieldset>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="name">Name</label>
+            <div class="col-md-4">
+                <input id="name" name="name"
+                       type="text" class="form-control input-md"
+                       required="">
+            </div>
         </div>
-        <div class="form-floating">
-            <label for="restaurantDescription" class="form-label">Restaurant Description</label>
-            <input type="text" name="restaurantDescription" class="form-control" placeholder="Restaurant Description" required>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="description">Description</label>
+            <div class="col-md-4">
+                <input id="description" name="description"
+                       type="text" class="form-control input-md"
+                       required="">
+            </div>
         </div>
-        <div class="form-floating">
-            <label for="restaurantStars" class="form-label">Restaurant Stars</label>
-            <input type="number" name="restaurantStars" class="form-control" placeholder="Restaurant Stars" required>
+
+        <!-- Number input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="stars">Stars</label>
+            <div class="col-md-4">
+                <input id="stars" name="stars"
+                       max="5" min="1"
+                       type="number" class="form-control input-md"
+                       required="">
+            </div>
         </div>
-        <div class="form-floating">
-            <label for="restaurantSeats" class="form-label">Restaurant Seats</label>
-            <input type="number" name="restaurantSeats" class="form-control" placeholder="Restaurant Seats" required>
+
+        <!-- Number input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="seats">Seats</label>
+            <div class="col-md-4">
+                <input id="seats" name="seats"
+                       max="100000" min="1"
+                       type="number" class="form-control input-md"
+                       required="">
+            </div>
         </div>
-        <div class="form-floating">
-            <label for="restaurantPrice" class="form-label">Restaurant Price</label>
-            <input type="number" name="restaurantPrice" class="form-control" placeholder="Restaurant Price" required>
+
+        <!-- Number input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="price">Price</label>
+            <div class="col-md-4">
+                <input id="price" name="price"
+                       max="100000" min="1"
+                       type="number" step="0.01" class="form-control input-md"
+                       required="">
+            </div>
         </div>
-        <div class="form-floating">
-            <label for="restaurantPriceChild" class="form-label">Restaurant Child Price</label>
-            <input type="number" name="restaurantPriceChild" class="form-control" placeholder="Restaurant Child Price" required>
+
+        <!-- Number input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="price_child">Price for children</label>
+            <div class="col-md-4">
+                <input id="price_child" name="price_child"
+                       max="100000" min="1"
+                       type="number" step="0.01" class="form-control input-md"
+                       required="">
+            </div>
         </div>
-        <div class="form-floating">
-            <label for="restaurantAccessibility" class="form-label">Restaurant Accessibility</label>
-            <input type="text" name="restaurantAccessibility" class="form-control" placeholder="Restaurant Accessibility" required>
+
+        <!-- Selection input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="location_id">Location</label>
+            <div class="col-md-4">
+                <select id="location_id" name="location_id" class="form-control" required>
+                    <?php foreach ($locations as $location): ?>
+                        <option value="<?php echo $location->getId(); ?>">
+                            <?php echo $location->getCity(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
-        <div class="form-floating">
-            <label for="restaurantCuisines" class="form-label">Restaurant Cuisines</label>
-            <input type="text" name="restaurantCuisines" class="form-control" placeholder="Restaurant Cuisines" required>
+
+        <!-- Selection input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="cuisines">Cuisines</label>
+            <div class="col-md-4">
+                <select id="cuisines" name="cuisines[]" class="form-control" multiple required>
+                    <?php foreach ($cuisines as $cuisine): ?>
+                        <option value="<?php echo $cuisine->getId(); ?>">
+                            <?php echo $cuisine->getCuisineName(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
-        <div class="form-floating">
-            <label for="restaurantLocation" class="form-label">Restaurant Location</label>
-            <input type="text" name="restaurantLocation" class="form-control" placeholder="Restaurant Location" required>
-        <a onclick="location.reload();" class="btn btn-success">Add Restaurant</a>
-            <a href="javascript:history.back()" class="btn btn-danger">Go Back</a>
-        </form>
-</div>
-<div class="col-2"></div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="accessibility">Accessibility</label>
+            <div class="col-md-4">
+                <input id="accessibility" name="accessibility"
+                       type="text" class="form-control input-md"
+                       value="">
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-4">
+                <button id="submit" name="submit" class="btn btn-primary">Create</button>
+                <a href="/admin/restaurants" class="btn btn-danger">Go back</a>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+
+
 

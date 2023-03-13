@@ -10,6 +10,7 @@ class ArtistRepository extends Repository {
         try {
             $stmt = $this->connection->prepare('SELECT * FROM artist');
             $stmt->execute();
+            $stmt->setFetchMode(\PDO::FETCH_CLASS, Artist::class);
             $artists = $stmt->fetchAll();
             return $artists;
         } catch (PDOException $e)
@@ -22,8 +23,9 @@ class ArtistRepository extends Repository {
     {
         try {
             $stmt = $this->connection->prepare('SELECT * FROM artist WHERE id = ? LIMIT 1');
-            $stmt->bindParam('i', $id);
+            $stmt->bindParam(1, $id);
             $stmt->execute();
+            $stmt->setFetchMode(\PDO::FETCH_CLASS, Artist::class);
             $artist = $stmt->fetch();
             return $artist;
         } catch (PDOException $e)
@@ -36,8 +38,9 @@ class ArtistRepository extends Repository {
     {
         try {
             $stmt = $this->connection->prepare('SELECT * FROM artist WHERE name = ? LIMIT 1');
-            $stmt->bindParam('s', $name);
+            $stmt->bindParam(1, $name);
             $stmt->execute();
+            $stmt->setFetchMode(\PDO::FETCH_CLASS, Artist::class);
             $artist = $stmt->fetch();
             return $artist;
         } catch (PDOException $e)
@@ -50,7 +53,9 @@ class ArtistRepository extends Repository {
         try {
             $stmt = $this->connection->prepare('INSERT INTO artist (name, description) VALUES (?, ?)');
             $name = $artist->getName();
-            $stmt->bindParam('ss', $name, $artist->getDescription());
+            $description = $artist->getDescription();
+            $stmt->bindParam(1, $name);
+            $stmt->bindParam(2, $description);
             $stmt->execute();
             return $this->connection->lastInsertId();
         } catch (PDOException $e)
@@ -63,7 +68,11 @@ class ArtistRepository extends Repository {
         try {
             $stmt = $this->connection->prepare('UPDATE artist SET name = ?, description = ? WHERE id = ?');
             $name = $artist->getName();
-            $stmt->bindParam('si', $name, $artist->getDescription(), $artist->getId());
+            $description = $artist->getDescription();
+            $id = $artist->getId();
+            $stmt->bindParam(1, $name);
+            $stmt->bindParam(2, $description);
+            $stmt->bindParam(3, $id);
             $stmt->execute();
             return $stmt->rowCount();
         } catch (PDOException $e)
@@ -72,11 +81,10 @@ class ArtistRepository extends Repository {
         }
     }
 
-    public function deleteOne(Artist $artist){
+    public function deleteOne(int $id){
         try {
             $stmt = $this->connection->prepare('DELETE FROM artist WHERE id = ?');
-            $id = $artist->getId();
-            $stmt->bindParam('i', $id);
+            $stmt->bindParam(1, $id);
             $stmt->execute();
             return $stmt->rowCount();
         } catch (PDOException $e)

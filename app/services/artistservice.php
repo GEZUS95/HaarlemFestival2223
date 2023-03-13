@@ -1,6 +1,7 @@
 <?php
 
 namespace services;
+use models\Artist;
 use repositories\ArtistRepository;
 
 class ArtistService {
@@ -31,7 +32,7 @@ class ArtistService {
         return $this->artistRepository->updateOne($artist);
     }
 
-    public function deleteOne(Artist $artist){
-        return $this->artistRepository->deleteOne($artist);
+    public function deleteOne(int $id){
+        return $this->artistRepository->deleteOne($id);
     }
 }
