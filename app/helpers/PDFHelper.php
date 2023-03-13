@@ -1,11 +1,11 @@
 <?php
 
-namespace services;
+namespace helpers;
 
-use setasign\Fpdi\Tcpdf\Fpdi;
 use TCPDF;
+use const services\PDF_CREATOR;
 
-class PDFService
+class PDFHelper
 {
     public function generateTicket($customername, $eventname, $eventdate, $ticketamount, $ticketuuid)
     {

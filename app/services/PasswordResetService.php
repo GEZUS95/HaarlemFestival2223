@@ -3,19 +3,21 @@
 namespace services;
 
 use DateTime;
+use helpers\EmailHelper;
+use helpers\UuidHelper;
 use repositories\PasswordResetRepository;
 
 class PasswordResetService
 {
     private PasswordResetRepository $repository;
-    private UuidService $uuidService;
+    private UuidHelper $uuidService;
     private $emailService;
 
     public function __construct()
     {
         $this->repository = new PasswordResetRepository();
-        $this->uuidService = new UuidService();
-        $this->emailService = new EmailService();
+        $this->uuidService = new UuidHelper();
+        $this->emailService = new EmailHelper();
     }
 
     public function getOneWithUuid(string $uuid)
