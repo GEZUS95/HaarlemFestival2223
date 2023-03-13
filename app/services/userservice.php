@@ -98,7 +98,7 @@ class UserService
     public function resetPassword(string $uuid, string $newpassword, string $newpasswordcheck)
     {
         if ($newpassword !== $newpasswordcheck) {
-            $this->redirect('/resetpassword?passwords does not match');
+            $this->redirect('/resetpassword?error=passwords does not match');
         }
         $userId = $this->passwordResetService->getOneWithUuid($uuid)['user_id'];
 
@@ -136,6 +136,25 @@ class UserService
         $this->redirect('/login?success=You have successfully registered');
     }
 
+    public function update(string $name, string $email, string $emailVerify, int $id)
+    {
+        if ($email !== $emailVerify) {
+            $this->redirect('/user/update?error=email does not match');
+        }
+
+        $this->checkNameAndEmail($name, $email);
+
+        $user = $this->getOneById($id);
+
+        $user->setName($name);
+        $user->setEmail($email);
+
+        $this->updateOne($user);
+
+        $this->redirect('/user/update?success=You have successfully updated your information');
+    }
+
+
     public function deleteOne($userId): void
     {
         $this->repository->deleteOne($userId);
@@ -166,7 +185,7 @@ class UserService
         return password_verify($password, $hashedPassword);
     }
 
-    private function getUserFromSession(): User
+    public function getUserFromSession(): User
     {
         $user = new  User();
 
@@ -180,7 +199,7 @@ class UserService
         return $user;
     }
 
-    private function verifySession(): void
+    public function verifySession(): void
     {
         $user = $this->getOneById($_SESSION['user']['id']);
         $user->setPasswordHash('');
@@ -201,7 +220,7 @@ class UserService
         }
     }
 
-    public function updateUser(int $userId, string $name, string $email, string $role)
+    public function updateUser(int $userId, string $name, string $email, int $role)
     {
         $user = $this->getOneById($userId);
         $user->setName($name);

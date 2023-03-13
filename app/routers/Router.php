@@ -60,6 +60,14 @@ $router->post('/resetpassword/{uuid}', function ($uuid) {
     $userController = new UserController();
     $userController->resetPasswordPost($uuid);
 });
+$router->get('/user/update', function () {
+    $userController = new UserController();
+    $userController->showUserUpdate();
+});
+$router->post('/user/update/{id}', function ($id) {
+    $userController = new UserController();
+    $userController->userUpdate($id);
+});
 
 
 //Admin routes
