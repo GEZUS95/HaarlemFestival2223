@@ -1,25 +1,31 @@
 <?php
-
 namespace controllers;
 
-use services\ApiService;
-use services\ContentService;
 use services\RoleService;
+use models\Restaurant;
 use services\UserService;
+use services\RestaurantService;
+use services\SessionService;
+use services\CuisineService;
+use services\LocationService;
 
 class AdminController
 {
     private UserService $userService;
+    private RestaurantService $restaurantService;
+    private SessionService $sessionService;
+    private CuisineService $cuisineService;
     private RoleService $roleService;
-    private ApiService $apiService;
-    private ContentService $contentService;
+    private LocationService $locationService;
 
     public function __construct()
     {
         $this->userService = new UserService();
+        $this->restaurantService = new RestaurantService();
+        $this->sessionService = new SessionService();
+        $this->cuisineService = new CuisineService();
         $this->roleService = new RoleService();
-        $this->apiService = new ApiService();
-        $this->contentService = new ContentService();
+        $this->locationService = new LocationService();
         if (
             (!$this->userService->checkPermissions("admin"))
             &&
@@ -34,9 +40,7 @@ class AdminController
         require_once __DIR__ . '/../views/admin/index.php';
     }
 
-    // USER ------------------------------------------------------------
-
-    public function showUsers()
+    public function users()
     {
         $model = $this->userService->getAll();
         $roles = $this->roleService->getAll();
@@ -71,75 +75,65 @@ class AdminController
         $this->userService->createUser($_POST['name'], $_POST['email'], $_POST['role'], $_POST['password']);
     }
 
-    // API ------------------------------------------------------------
 
-    public function showApiKeys()
-    {
-        $model = $this->apiService->getAll();
-        require_once __DIR__ . '/../views/admin/api/index.php';
+
+    public function restaurants(){
+        $error = "";
+        $confirmation = "";
+        $model = $this->restaurantService->getAll();
+        $allCuisines = $this->cuisineService->getAll();
+
+        require __DIR__ . '/../views/admin/restaurant/restaurants.php';
     }
 
-    public function createApiKey()
-    {
-        require_once __DIR__ . '/../views/admin/api/createkey.php';
+    public function updateRestaurantPost(int $restaurantId) {
+        $restaurant = new Restaurant();
+        var_dump($_POST);
+        $restaurant->setName($_POST["name-restaurant"]);
+        $restaurant->setDescription($_POST["description-restaurant"]);
+        $restaurant->setStars($_POST["stars-restaurant"]);
+        $restaurant->setSeats($_POST["seats-restaurant"]);
+        $restaurant->setPrice($_POST["price-restaurant"]);
+        $restaurant->setPriceChild($_POST["price-child-restaurant"]);
+        $restaurant->setAccessibility($_POST["accessibility-restaurant"]);
+        $restaurantCuisines = explode('', $_POST["cuisines-restaurant"]);
+        $restaurant->setRestaurantCuisines($restaurantCuisines);
+        $restaurant->setLocationId($_POST["location-id-restaurant"]);
+
+        $this->restaurantService->insertOne($restaurant);
+
+        $confirmation = "Restaurant has been saved";
     }
 
-    public function deleteApiKey(string $key)
-    {
-        $this->apiService->deleteOne($key);
-        $this->userService->redirect('/admin/api?success=Api key deleted');
+    public function newrestaurant(){
+        require __DIR__ . '/../views/admin/restaurant/newrestaurant.php';
     }
 
-    public function addApiKey()
-    {
-        $this->apiService->insertOne($_POST['description']);
-        $this->userService->redirect('/admin/api?success=Api key created');
+    public function updaterestaurant(int $restaurantId){
+        $restaurant = $this->restaurantService->getOneById($restaurantId);
+        $cuisines = $this->cuisineService->getAll();
+        $locations = $this->locationService->getAll();
+        require __DIR__ . '/../views/admin/restaurant/updaterestaurant.php';
     }
 
-    public function emailApiKey(string $uuid)
-    {
-        require_once __DIR__ . '/../views/admin/api/email.php';
-    }
-    public function emailApiKeyPost(string $uuid)
-    {
-        $this->apiService->emailKey($uuid, $_POST['email']);
-        $this->userService->redirect('/admin/api?success=Email send');
+    public function newsession(){
+        $model = $this->restaurantService->getAll();
+        require __DIR__ . '/../views/admin/session/newsession.php';
     }
 
-    // CONTENT ------------------------------------------------------------
-
-    public function showPages()
-    {
-        $model = $this->contentService->getAll();
-        require_once __DIR__ . '/../views/admin/content/index.php';
+    public function sessions(){
+        $model = $this->sessionService->getOneById(1);// temp id!!!!!!!!
+        require __DIR__ . '/../views/admin/session/sessions.php';
     }
 
-    public function createPage()
+    private function restaurantDeleteBtnClicked()
     {
-        require_once __DIR__ . '/../views/admin/content/create.php';
-    }
+        $_POST = filter_input_array(INPUT_POST, FILTER_UNSAFE_RAW); // werkt niet, ander filter
 
-    public function addPage()
-    {
-        $this->contentService->insertOne($_POST['title'], $_POST['body'], '');
-        $this->userService->redirect('/admin/content?success=Page is created');
-    }
+        $this->restaurantService->deleteOne($_POST["id-restaurant"]);
 
-    public function updatePage($id)
-    {
-        $page = $this->contentService->getOneFromId($id);
-        require_once __DIR__ . '/../views/admin/content/update.php';
-    }
+        $confirmation = "Restaurant has been deleted";
 
-    public function updatePagePost($id)
-    {
-        $this->contentService->updateOne($id, $_POST['title'], $_POST['body'], '');
-        $this->userService->redirect('/admin/content?success=Pages successfully updated');
-    }
-
-    public function deletePage($id)
-    {
-        $this->contentService->deleteOne($id);
-        $this->userService->redirect('/admin/content?success=Page successfully deleted');
+        header("Refresh:0");
     }
 }
