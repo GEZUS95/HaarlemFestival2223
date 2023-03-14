@@ -47,7 +47,7 @@ class PDFHelper
         $pdf->write2DBarcode($uuid, 'QRCODE,H', 55, 150, 100, 100, $style, 'M');
 
         // Output the generated PDF file
-        $pdf->Output($uuid . 'ticket.pdf', 'D');
+        $pdf->Output($uuid . 'ticket.pdf', 'I');
     }
 
     public function generateInvoice($customerName, $orderNumber, $orderDate, $items)
@@ -74,6 +74,6 @@ class PDFHelper
         $pdf->writeHTML($html, true, false, true, false, '');
 
         // Output the generated PDF file
-        $pdf->Output($orderNumber . '_invoice.pdf', 'D');
+        $pdf->Output($orderNumber . '_invoice.pdf', 'I');
     }
 }
