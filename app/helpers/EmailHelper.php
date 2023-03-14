@@ -33,4 +33,21 @@ class EmailHelper
         //Use the previously made mailer to send the mail
         $this->mailer->send($email);
     }
+    public function sendEmailWithAttachment($addressFrom, $addressTo, $subject, $message, $attachment, $attachmentName): void
+    {
+        //Add the data to the Email
+        $email = (new Email())
+            ->from($addressFrom)
+            ->to($addressTo)
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject($subject)
+            ->text($message)//->html('<p>See Twig integration for better HTML integration!</p>')
+            ->attach($attachment, $attachmentName, 'application/pdf')
+        ;
+        //Use the previously made mailer to send the mail
+        $this->mailer->send($email);
+    }
 }
