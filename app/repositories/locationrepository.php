@@ -2,17 +2,16 @@
 
 namespace repositories;
 
-use models\Location;
 use PDO;
 use PDOException;
+use models\Location;
 
 class LocationRepository extends Repository {
     function getAll() {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM location");
             $stmt->execute();
-
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Location');
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Location::class);
             return $stmt->fetchAll();
 
         } catch (PDOException $e)
@@ -24,11 +23,20 @@ class LocationRepository extends Repository {
     public function insertOne(Location $location)
     {
         try {
-            $stmt = $this->connection->prepare("INSERT INTO location ('name', 'city', 'address', 'stage', 'seats')");
-            $name = $location->getName(); //todo: blijkbaar werkt het niet als deze statement direct in de bindparam zit
-            $stmt->bindParam('ssssi', $name, $location->getCity(), $location->getAddress(), $location->getStage(), $location->getSeats());
-
-            return $stmt->execute();
+            $stmt = $this->connection->prepare("
+                INSERT INTO location (name, city, address, stage, seats)
+                VALUES (?, ?, ?, ?, ?)");
+            $name = $location->getName();
+            $city = $location->getCity();
+            $address = $location->getAddress();
+            $stage = $location->getStage();
+            $seats = $location->getSeats();
+            $stmt->bindParam(1, $name);
+            $stmt->bindParam(2, $city);
+            $stmt->bindParam(3, $address);
+            $stmt->bindParam(4, $stage);
+            $stmt->bindParam(5, $seats);
+            $stmt->execute();
         }
         catch (PDOException $e){
             echo $e;
@@ -38,78 +46,99 @@ class LocationRepository extends Repository {
     {
         try {
             $stmt = $this->connection->prepare("
-                UPDATE location 
-                SET name = ?, city =?, address = ?, stage = ?, seats = ?
+                UPDATE location SET name = ?, city = ?, address = ?, stage = ?, seats = ?
                 WHERE id = ?");
             $name = $location->getName();
-            $stmt->bindParam('ssssii', $name, $location->getCity(), $location->getAddress(), $location->getStage(), $location->getSeats(), $location->getId());
-            return $stmt->execute();
-
-        } catch (PDOException $e)
-        {
+            $city = $location->getCity();
+            $address = $location->getAddress();
+            $stage = $location->getStage();
+            $seats = $location->getSeats();
+            $id = $location->getId();
+            $stmt->bindParam(1, $name);
+            $stmt->bindParam(2, $city);
+            $stmt->bindParam(3, $address);
+            $stmt->bindParam(4, $stage);
+            $stmt->bindParam(5, $seats);
+            $stmt->bindParam(6, $id);
+            $stmt->execute();
+        }
+        catch (PDOException $e){
             echo $e;
         }
     }
+
+    public function deleteOne(int $id)
+    {
+        try {
+            $stmt = $this->connection->prepare("DELETE FROM location WHERE id = ?");
+            $stmt->bindParam(1, $id);
+            $stmt->execute();
+        }
+        catch (PDOException $e){
+            echo $e;
+        }
+    }
+
     public function getOneByName(string $name)
     {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM location WHERE name = ? LIMIT 1");
-            $stmt->bindParam('s', $name);
+            $stmt->bindParam(1, $name);
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Location');
-            return $stmt->fetchAll();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Location::class);
+            return $stmt->fetch();
 
         } catch (PDOException $e)
         {
             echo $e;
         }
     }
+
     public function getOneById(int $id)
     {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM location WHERE id = ? LIMIT 1");
-            $stmt->bindParam('i', $id);
+            $stmt->bindParam(1, $id);
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Location');
-            return $stmt->fetchAll();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Location::class);
+            return $stmt->fetch();
 
         } catch (PDOException $e)
         {
             echo $e;
         }
     }
+
     public function getByCity(string $city)
     {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM location WHERE city = ?");
-            $stmt->bindParam('i', $city);
+            $stmt->bindParam(1, $city);
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Location');
-            return $stmt->fetchAll();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Location::class);
+            return $stmt->fetch();
 
         } catch (PDOException $e)
         {
             echo $e;
         }
     }
+
     public function getByStage(string $stage)
     {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM location WHERE stage = ?");
-            $stmt->bindParam('i', $stage);
+            $stmt->bindParam(1, $stage);
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Location');
-            return $stmt->fetchAll();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Location::class);
+            return $stmt->fetch();
 
-        } catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e;
         }
     }
-
-
 }

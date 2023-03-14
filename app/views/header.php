@@ -67,3 +67,4 @@
         echo "<div class='alert-danger'>" . $_GET['error'] . " </div>";
     }
     ?>
+</div>
