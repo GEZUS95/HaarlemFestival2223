@@ -1,53 +1,18 @@
 <?php
 
-namespace routers;
+$router->setNamespace('controllers');
 
-use controllers\LoginController;
-use controllers\UserController;
+$router->get('/login', 'LoginController@login');
+$router->post('/login', 'LoginController@loginPost');
+$router->get('/logout', 'LoginController@logout');
 
-//User routes
+$router->get('/register', 'UserController@register');
+$router->post('/register', 'UserController@registerPost');
 
-$router->get('/login', function () {
-    $loginController = new LoginController();
-    $loginController->login();
-});
-$router->post('/login', function () {
-    $loginController = new LoginController();
-    $loginController->loginPost();
-});
-$router->get('/logout', function () {
-    $loginController = new LoginController();
-    $loginController->logout();
-});
-$router->get('/register', function () {
-    $userController = new UserController();
-    $userController->register();
-});
-$router->post('/register', function () {
-    $userController = new UserController();
-    $userController->registerPost();
-});
-$router->get('/resetpassword', function () {
-    $userController = new UserController();
-    $userController->requestResetPassword();
-});
-$router->post('/resetpassword', function () {
-    $userController = new UserController();
-    $userController->requestResetPasswordPost();
-});
-$router->get('/resetpassword/{uuid}', function ($uuid) {
-    $userController = new UserController();
-    $userController->resetPasswordPage($uuid);
-});
-$router->post('/resetpassword/{uuid}', function ($uuid) {
-    $userController = new UserController();
-    $userController->resetPasswordPost($uuid);
-});
-$router->get('/user/update', function () {
-    $userController = new UserController();
-    $userController->showUserUpdate();
-});
-$router->post('/user/update/{id}', function ($id) {
-    $userController = new UserController();
-    $userController->userUpdate($id);
-});
+$router->get('/resetpassword', 'UserController@requestResetPassword');
+$router->post('/resetpassword', 'UserController@requestResetPasswordPost');
+$router->get('/resetpassword/{uuid}', 'UserController@resetPasswordPage');
+$router->post('/resetpassword/{uuid}', 'UserController@resetPasswordPost');
+
+$router->get('/user/update', 'UserController@showUserUpdate');
+$router->post('/user/update/{id}', 'UserController@userUpdate');
