@@ -16,7 +16,7 @@ class TestController
         $ticketAmount = '4';
         $ticketuuid = (new UuidHelper)->generateUUID();
         $pdf = (new PDFHelper)->generateTicket($customerName, $eventName, $eventDate, $ticketAmount, $ticketuuid);
-        $email->sendEmailWithAttachment('no-reply@haarlemfestival.com','ceesgribnau@hotmail.com','Your Ticket(s)','Ticket(s) just arrived!',$pdf,'HaarlemFestival_Ticket(s).pdf');
+        $email->sendEmailWithAttachment('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your Ticket(s)','Ticket(s) just arrived!',$pdf,'HaarlemFestival_Ticket(s).pdf');
 
     }
 
@@ -64,6 +64,6 @@ class TestController
             )
         );
         $pdf = (new PDFHelper)->generateInvoice($customerName, $orderNumber, $orderDate, $items);
-        $email->sendEmailWithAttachment('no-reply@haarlemfestival.com','ceesgribnau@hotmail.com','Your Invoice','Invoice has arrived!',$pdf,'HaarlemFestival_Invoice.pdf');
+        $email->sendEmailWithAttachment('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your Invoice','Invoice has arrived!',$pdf,'HaarlemFestival_Invoice.pdf');
     }
 }
