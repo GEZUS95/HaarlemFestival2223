@@ -275,7 +275,11 @@ $router->get('/admin/content/delete/{id}', function ($id) {             // delet
 
 
 //Test routes
-$router->get('/test', function () {                                     // Test PDF
+$router->get('/testInvoice', function () {                                     // Test PDF
     $testController = new TestController();
-    $testController->index();
+    $testController->testInvoice();
+});
+$router->get('/testTicket', function () {                                     // Test PDF
+    $testController = new TestController();
+    $testController->testTicket();
 });
