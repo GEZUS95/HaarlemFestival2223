@@ -69,6 +69,17 @@ $router->post('/user/update/{id}', function ($id) {
     $userController->userUpdate($id);
 });
 
+    //Cart Routes
+    $router->get('/cart', function() {
+        $controller = new controllers\CartController();
+        $controller->index();
+    });
+
+    //User routes
+    $router->get('/login', function() {
+    $controller = new controllers\LoginController();
+    $controller->index();
+    });
 
 //Admin routes
 $router->get('/admin', function () {                                    // Show Admin Panel
@@ -99,7 +110,118 @@ $router->get('/admin/users/delete/(\d+)', function ($userId) {          // Delet
     $adminController = new AdminController();
     $adminController->deleteUser($userId);
 });
-
+    $router->get('/admin/restaurants', function() {
+    $controller = new controllers\AdminController();
+    $controller->restaurants();
+    });
+    $router->get('/admin/restaurants/update/(\d+)', function ($restaurantId) {
+        $controller = new controllers\AdminController();
+        $controller->updateRestaurant($restaurantId);
+    });
+    $router->post('/admin/restaurants/update/(\d+)', function ($restaurantId) {
+        $controller = new controllers\AdminController();
+        $controller->updateRestaurantPost($restaurantId);
+    });
+    $router->get('/admin/newrestaurant', function() {
+    $controller = new controllers\AdminController();
+    $controller->newrestaurant();
+    });
+    $router->post('/admin/newrestaurant', function() {
+    $controller = new controllers\AdminController();
+    $controller->newrestaurantPost();
+    });
+    $router->get('/admin/restaurants/delete/(\d+)', function ($restaurantId) {
+        $controller = new controllers\AdminController();
+        $controller->deleteRestaurant($restaurantId);
+    });
+    $router->get('/admin/sessions', function() {
+    $controller = new controllers\AdminController();
+    $controller->sessions();
+    });
+    $router->get('/admin/newsession', function() {
+    $controller = new controllers\AdminController();
+    $controller->newsession();
+    });
+$router->post('/admin/newsession', function() {
+    $controller = new controllers\AdminController();
+    $controller->newsessionPost();
+});
+$router->get('/admin/sessions/update/(\d+)', function ($sessionId) {
+    $controller = new controllers\AdminController();
+    $controller->updateSession($sessionId);
+});
+$router->post('/admin/sessions/update/(\d+)', function ($sessionId) {
+    $controller = new controllers\AdminController();
+    $controller->updateSessionPost($sessionId);
+});
+$router->get('/admin/sessions/delete/(\d+)', function ($sessionId) {
+    $controller = new controllers\AdminController();
+    $controller->deleteSession($sessionId);
+});
+$router->get('/admin/reservations', function() {
+    $controller = new controllers\AdminController();
+    $controller->reservations();
+    });
+$router->get('/admin/reservations/update/(\d+)', function ($reservationId) {
+    $controller = new controllers\AdminController();
+    $controller->updateReservation($reservationId);
+});
+$router->get('/admin/newreservation', function() {
+    $controller = new controllers\AdminController();
+    $controller->newreservation();
+});
+$router->post('/admin/newreservation', function() {
+    $controller = new controllers\AdminController();
+    $controller->newreservationPost();
+});
+$router->get('/admin/locations', function() {
+    $controller = new controllers\AdminController();
+    $controller->locations();
+});
+$router->get('/admin/newlocation', function() {
+    $controller = new controllers\AdminController();
+    $controller->newlocation();
+});
+$router->post('/admin/newlocation', function() {
+    $controller = new controllers\AdminController();
+    $controller->newLocationPost();
+});
+$router->get('/admin/locations/update/(\d+)', function ($locationId) {
+    $controller = new controllers\AdminController();
+    $controller->updateLocation($locationId);
+});
+$router->post('/admin/locations/update/(\d+)', function ($locationId) {
+    $controller = new controllers\AdminController();
+    $controller->updateLocationPost($locationId);
+});
+$router->get('/admin/locations/delete/(\d+)', function ($locationId) {
+    $controller = new controllers\AdminController();
+    $controller->deleteLocation($locationId);
+});
+$router->get('/admin/artists', function() {
+    $controller = new controllers\AdminController();
+    $controller->artists();
+});
+$router->get('/admin/newartist', function() {
+    $controller = new controllers\AdminController();
+    $controller->newartist();
+});
+$router->post('/admin/newartist', function() {
+    $controller = new controllers\AdminController();
+    $controller->newArtistPost();
+});
+$router->get('/admin/artists/update/(\d+)', function ($artistId) {
+    $controller = new controllers\AdminController();
+    $controller->updateArtist($artistId);
+});
+$router->post('/admin/artists/update/(\d+)', function ($artistId) {
+    $controller = new controllers\AdminController();
+    $controller->updateArtistPost($artistId);
+});
+$router->get('/admin/artists/delete/(\d+)', function ($artistId) {
+    $controller = new controllers\AdminController();
+    $controller->deleteArtist($artistId);
+});
 $router->get('/admin/api', function () {                                // show all api keys
     $adminController = new AdminController();
     $adminController->showApiKeys();

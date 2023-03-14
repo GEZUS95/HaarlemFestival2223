@@ -34,6 +34,21 @@
                     <a class="nav-link" href="/admin/content">Content Pages</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/admin/restaurants">Restaurants</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/sessions">Sessions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/reservations">Reservations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/locaions">Locations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/artists">Artists</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/admin/api">Api keys</a>
                 </li>
             </ul>
