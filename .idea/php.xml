@@ -43,6 +43,7 @@
       <path value="$PROJECT_DIR$/app/vendor/brick/math" />
       <path value="$PROJECT_DIR$/app/vendor/setasign/fpdi-tcpdf" />
       <path value="$PROJECT_DIR$/app/vendor/setasign/fpdi" />
+      <path value="$PROJECT_DIR$/app/vieuws" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
