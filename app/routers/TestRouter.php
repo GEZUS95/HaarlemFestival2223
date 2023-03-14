@@ -1,13 +1,7 @@
 <?php
 
-use controllers\TestController;
+$router->setNamespace('controllers');
 
 //Test routes
-$router->get('/testInvoice', function () {                                     // Test PDF
-    $testController = new TestController();
-    $testController->testInvoice();
-});
-$router->get('/testTicket', function () {                                     // Test PDF
-    $testController = new TestController();
-    $testController->testTicket();
-});
+$router->get('/testInvoice', 'TestController@testInvoice');
+$router->get('/testTicket', 'TestController@testTicket');

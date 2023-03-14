@@ -1,17 +1,8 @@
 <?php
-use Bramus\Router\Router;
-use controllers\HomeController;
+
+$router->setNamespace('controllers');
 
 //Home Routes
-$router->get('/home', function () {
-    $homeController = new HomeController();
-    $homeController->index();
-});
-$router->get('/index', function () {
-    $homeController = new HomeController();
-    $homeController->index();
-});
-$router->get('/', function () {
-    $homeController = new HomeController();
-    $homeController->index();
-});
+$router->get('/', 'HomeController@index');
+$router->get('/home', 'HomeController@index');
+$router->get('/index', 'HomeController@index');

@@ -1,8 +1,7 @@
 <?php
 namespace routers;
 
+$router->setNamespace('controllers');
+
 //Cart Routes
-$router->get('/cart', function() {
-    $controller = new controllers\CartController();
-    $controller->index();
-});
+$router->get('/cart', 'CartController@index');
