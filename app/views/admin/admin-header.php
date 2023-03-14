@@ -27,9 +27,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/users">Users</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/events">Events</a>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/admin/events">Events</a>-->
+<!--                </li>-->
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/content">Content Pages</a>
                 </li>
@@ -43,7 +43,7 @@
                     <a class="nav-link" href="/admin/reservations">Reservations</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/locaions">Locations</a>
+                    <a class="nav-link" href="/admin/locations">Locations</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/artists">Artists</a>
@@ -73,10 +73,10 @@
 
     <?php
     if (isset($_GET['success'])) {
-        echo "<div class='alert-success'>" . $_GET['success'] . " </div>";
+        echo "<div class='alert alert-success'>" . $_GET['success'] . " </div>";
     }
     if (isset($_GET['error'])) {
-        echo "<div class='alert-danger'>" . $_GET['error'] . " </div>";
+        echo "<div class='alert alert-danger'>" . $_GET['error'] . " </div>";
     }
     ?>
 
