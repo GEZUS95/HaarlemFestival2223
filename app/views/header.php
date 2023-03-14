@@ -45,7 +45,10 @@
             ';
             } else {
                 echo '
-                 <form class="form-inline" action="/logout" method="get">
+                 <form class="form-inline" action="/user/update" method="get">
+                    <button class="btn btn-outline-warning" type="submit">Manage Account</button>
+                </form>
+                <form class="form-inline" action="/logout" method="get">
                     <button class="btn btn-outline-danger" type="submit">Logout</button>
                 </form>
             ';

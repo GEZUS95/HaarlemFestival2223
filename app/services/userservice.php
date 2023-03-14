@@ -119,7 +119,8 @@ class UserService
             $this->redirect('/register?error=email does not match');
         }
 
-        $this->checkNameAndEmail($name, $email);
+        $this->checkName($name, 'register');
+        $this->checkEmail($email, 'register');
 
         if ($password !== $passwordVerify) {
             $this->redirect('/register?error=passwords does not match');
@@ -142,14 +143,20 @@ class UserService
             $this->redirect('/user/update?error=email does not match');
         }
 
-        $this->checkNameAndEmail($name, $email);
-
         $user = $this->getOneById($id);
 
-        $user->setName($name);
-        $user->setEmail($email);
+        if ($name !== $user->getName()) {
+            $this->checkName($name, 'user/update');
+            $user->setName($name);
+        }
+
+        if ($email !== $user->getEmail()) {
+            $this->checkEmail($email, 'user/update');
+            $user->setEmail($email);
+        }
 
         $this->updateOne($user);
+        $this->setSession($user);
 
         $this->redirect('/user/update?success=You have successfully updated your information');
     }
@@ -208,15 +215,18 @@ class UserService
         }
     }
 
-    private function checkNameAndEmail(string $name, string $email)
+    private function checkEmail(string $email, string $uri)
     {
-        $username = $this->getOneByName($name);
-        $useremail = $this->getOneByEmail($email);
-
-        if ($username) {
-            $this->redirect('/register?error=Name already in use');
-        } elseif ($useremail) {
-            $this->redirect('/register?error=Email already in use');
+        $user = $this->getOneByEmail($email);
+        if ($user) {
+            $this->redirect("/$uri?error=Email already in use");
+        }
+    }
+    private function checkName(string $name, string $uri)
+    {
+        $user = $this->getOneByEmail($name);
+        if ($user) {
+            $this->redirect("/$uri?error=Name already in use");
         }
     }
 

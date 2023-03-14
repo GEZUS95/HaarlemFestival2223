@@ -1,11 +1,10 @@
 <?php
 
-namespace services;
+namespace helpers;
 
-use Ramsey\Uuid\Rfc4122\UuidV4;
 use TCPDF2DBarcode;
 
-class QRService
+class QRHelper
 {
     public function generateQRCodeFromUUID($uuid)
     {

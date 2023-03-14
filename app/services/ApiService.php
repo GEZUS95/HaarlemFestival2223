@@ -2,19 +2,21 @@
 
 namespace services;
 
+use helpers\EmailHelper;
+use helpers\UuidHelper;
 use repositories\ApiKeyRepository;
 
 class ApiService
 {
     private ApiKeyRepository $repository;
-    private UuidService $uuidService;
-    private EmailService $emailService;
+    private UuidHelper $uuidService;
+    private EmailHelper $emailService;
 
     public function __construct()
     {
         $this->repository = new ApiKeyRepository();
-        $this->uuidService = new UuidService();
-        $this->emailService = new EmailService();
+        $this->uuidService = new UuidHelper();
+        $this->emailService = new EmailHelper();
     }
 
 
