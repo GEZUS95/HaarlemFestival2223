@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a91e1a39-bfb6-41a9-8090-6a6b0e62104a" name="Changes" comment="fix">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/HaarlemFestival2223.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/b/1b9048df656df465d40c8ceb3c8a375b303a057e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/b/3b8007651e55ea78ee5dcecc132b0fb064f3d4b0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/1/612bc83bfbb0c5bb4ea9efc58aaffc953f7b9e7e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/7/67d3df00f383cfd95456fe90fdf71c4d0d5109d8" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/e/6e75dfcd9e25491d533364bd11749fb417b84d4e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/f/7f721e5186afef0884c13af2f8e0f5b8011e871b" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/8/885dc83e4cc7c08e12fd59e86659601160f5cac4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/2/c2021a6be237345a2859f8ea124e1779ad20176c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/7/c7eebcd844a3ee5cb1b2c1e664a2392acaf8f10c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/f/cfda41452539d218e111853feda617583d942bd0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/2/d25b1a516ee5ad218a8f8d71b5a5fc2d441afb8c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/8/d8b5c2eeb020e6ffbf1b5e1032b2895781b53eab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/d/dd18900d91a8b13143e2a34652fe280cecd883d2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/f/df187f96b153386aefda0ec4775d5524cf695467" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/AdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/autoload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/composer/ClassLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/composer/ClassLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/composer/InstalledVersions.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/composer/InstalledVersions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/composer/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/composer/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/composer/autoload_classmap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/composer/autoload_files.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/composer/autoload_files.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/composer/autoload_namespaces.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/composer/autoload_namespaces.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/composer/autoload_psr4.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/composer/autoload_psr4.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/composer/autoload_real.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/composer/autoload_real.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/composer/autoload_static.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/composer/installed.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/composer/installed.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/composer/installed.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/composer/installed.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/vendor/composer/platform_check.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/vendor/composer/platform_check.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/admin/users/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/admin/users/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/header.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/app/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="development" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/app/services" />
+      <path value="$PROJECT_DIR$/app/helpers" />
+      <path value="$PROJECT_DIR$/app/config" />
+      <path value="$PROJECT_DIR$/app/controllers" />
+      <path value="$PROJECT_DIR$/app/models" />
+      <path value="$PROJECT_DIR$/app/public" />
+      <path value="$PROJECT_DIR$/app/repositories" />
+      <path value="$PROJECT_DIR$/app/routers" />
+      <path value="$PROJECT_DIR$/app/views" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/app/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/mailer" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/app/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/app/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/app/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/app/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/app/vendor/composer" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/app/vendor/bramus/router" />
+      <path value="$PROJECT_DIR$/app/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/app/vendor/tecnickcom/tcpdf" />
+      <path value="$PROJECT_DIR$/app/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/app/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/app/vendor/setasign/fpdi-tcpdf" />
+      <path value="$PROJECT_DIR$/app/vendor/setasign/fpdi" />
+      <path value="$PROJECT_DIR$/app/vieuws" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="2LSUNIjYS6DupkjkEtFRoksZd4u" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ceesg/Downloads/developmentdb_cees.sql&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ceesg\HaarlemFestival2223\app\views" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a91e1a39-bfb6-41a9-8090-6a6b0e62104a" name="Changes" comment="" />
+      <created>1675863935815</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1675863935815</updated>
+      <workItem from="1675863937516" duration="1863000" />
+      <workItem from="1676307231675" duration="13666000" />
+      <workItem from="1676732861153" duration="1481000" />
+      <workItem from="1676975049229" duration="228000" />
+      <workItem from="1676975308124" duration="298000" />
+      <workItem from="1676976341633" duration="5969000" />
+      <workItem from="1677004212361" duration="1086000" />
+      <workItem from="1677240582228" duration="53000" />
+      <workItem from="1678181704834" duration="329000" />
+      <workItem from="1678182066514" duration="12736000" />
+      <workItem from="1678785223872" duration="1742000" />
+      <workItem from="1678787047527" duration="1481000" />
+      <workItem from="1678788582434" duration="1227000" />
+      <workItem from="1678789840784" duration="99000" />
+    </task>
+    <task id="LOCAL-00001" summary="gitignore idea">
+      <created>1675864012063</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1675864012063</updated>
+    </task>
+    <task id="LOCAL-00002" summary="changed site title">
+      <created>1676307685885</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1676307685885</updated>
+    </task>
+    <task id="LOCAL-00003" summary="changed site title and nav links for admin purposes">
+      <created>1676307719548</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1676307719548</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added admin index and users view">
+      <created>1676307755530</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1676307755530</updated>
+    </task>
+    <task id="LOCAL-00005" summary="introduced data to users view and added admin controller">
+      <created>1676308948957</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1676308948957</updated>
+    </task>
+    <task id="LOCAL-00006" summary="moved login view and created controller for login">
+      <created>1676450813634</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1676450813634</updated>
+    </task>
+    <task id="LOCAL-00007" summary="added session start">
+      <created>1676451406832</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1676451406832</updated>
+    </task>
+    <task id="LOCAL-00008" summary="added POST handeling and some minor changes in userrepository">
+      <created>1676550517295</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1676550517295</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added some things for reset password WIP">
+      <created>1676747876646</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1676747876646</updated>
+    </task>
+    <task id="LOCAL-00010" summary="WIP">
+      <created>1676989277902</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1676989277902</updated>
+    </task>
+    <task id="LOCAL-00011" summary="WIP">
+      <created>1677007008417</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1677007008417</updated>
+    </task>
+    <task id="LOCAL-00012" summary="removed old sql files and added new one that contains the whole db">
+      <created>1677007297739</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1677007297739</updated>
+    </task>
+    <task id="LOCAL-00013" summary="updated sql file">
+      <created>1677007692454</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1677007692454</updated>
+    </task>
+    <task id="LOCAL-00014" summary="minor fix">
+      <created>1678183324878</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1678183324878</updated>
+    </task>
+    <task id="LOCAL-00015" summary="added XSS for full website">
+      <created>1678187077586</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1678187077586</updated>
+    </task>
+    <task id="LOCAL-00016" summary="added apikey repository and database stuff">
+      <created>1678195173830</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1678195173830</updated>
+    </task>
+    <task id="LOCAL-00017" summary="added show all apikeys to the admin panel">
+      <created>1678198926444</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1678198926444</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/cees" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="gitignore idea" />
+    <MESSAGE value="changed site title" />
+    <MESSAGE value="changed site title and nav links for admin purposes" />
+    <MESSAGE value="added admin index and users view" />
+    <MESSAGE value="introduced data to users view and added admin controller" />
+    <MESSAGE value="moved login view and created controller for login" />
+    <MESSAGE value="added session start" />
+    <MESSAGE value="added POST handeling and some minor changes in userrepository" />
+    <MESSAGE value="added some things for reset password WIP" />
+    <MESSAGE value="WIP" />
+    <MESSAGE value="removed old sql files and added new one that contains the whole db" />
+    <MESSAGE value="updated sql file" />
+    <MESSAGE value="minor fix" />
+    <MESSAGE value="added XSS for full website" />
+    <MESSAGE value="added apikey repository and database stuff" />
+    <MESSAGE value="added show all apikeys to the admin panel" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/routers/Router.php</url>
+          <line>50</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

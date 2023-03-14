@@ -16,6 +16,8 @@ use services\LocationService;
 use services\ReservationService;
 use services\ArtistService;
 use helpers\RedirectHelper;
+use services\ContentService;
+use services\ApiService;
 
 class AdminController
 {
@@ -28,8 +30,8 @@ class AdminController
     private ReservationService $reservationService;
     private ArtistService $artistService;
     private RedirectHelper $redirectHelper;
-    private $error;
-    private $confirmation;
+    private ContentService $contentService;
+    private ApiService $apiService;
 
     public function __construct()
     {
@@ -42,6 +44,8 @@ class AdminController
         $this->reservationService = new ReservationService();
         $this->artistService = new ArtistService();
         $this->redirectHelper = new RedirectHelper();
+        $this->contentService = new ContentService();
+        $this->apiService = new ApiService();
         if (
             (!$this->userService->checkPermissions("admin"))
             &&
@@ -56,7 +60,7 @@ class AdminController
         require_once __DIR__ . '/../views/admin/index.php';
     }
 
-    public function users()
+    public function showUsers()
     {
         $model = $this->userService->getAll();
         $roles = $this->roleService->getAll();
@@ -90,6 +94,81 @@ class AdminController
     {
         $this->userService->createUser($_POST['name'], $_POST['email'], $_POST['role'], $_POST['password']);
     }
+
+
+    // API ------------------------------------------------------------
+
+    public function showApiKeys()
+    {
+        $model = $this->apiService->getAll();
+        require_once __DIR__ . '/../views/admin/api/index.php';
+    }
+
+    public function createApiKey()
+    {
+        require_once __DIR__ . '/../views/admin/api/createkey.php';
+    }
+
+    public function deleteApiKey(string $key)
+    {
+        $this->apiService->deleteOne($key);
+        $this->userService->redirect('/admin/api?success=Api key deleted');
+    }
+
+    public function addApiKey()
+    {
+        $this->apiService->insertOne($_POST['description']);
+        $this->userService->redirect('/admin/api?success=Api key created');
+    }
+
+    public function emailApiKey(string $uuid)
+    {
+        require_once __DIR__ . '/../views/admin/api/email.php';
+    }
+    public function emailApiKeyPost(string $uuid)
+    {
+        $this->apiService->emailKey($uuid, $_POST['email']);
+        $this->userService->redirect('/admin/api?success=Email send');
+    }
+
+    // CONTENT ------------------------------------------------------------
+
+    public function showPages()
+    {
+        $model = $this->contentService->getAll();
+        require_once __DIR__ . '/../views/admin/content/index.php';
+    }
+
+    public function createPage()
+    {
+        require_once __DIR__ . '/../views/admin/content/create.php';
+    }
+
+    public function addPage()
+    {
+        $this->contentService->insertOne($_POST['title'], $_POST['body'], '');
+        $this->userService->redirect('/admin/content?success=Page is created');
+    }
+
+    public function updatePage($id)
+    {
+        $page = $this->contentService->getOneFromId($id);
+        require_once __DIR__ . '/../views/admin/content/update.php';
+    }
+
+    public function updatePagePost($id)
+    {
+        $this->contentService->updateOne($id, $_POST['title'], $_POST['body'], '');
+        $this->userService->redirect('/admin/content?success=Pages successfully updated');
+    }
+
+    public function deletePage($id)
+    {
+        $this->contentService->deleteOne($id);
+        $this->userService->redirect('/admin/content?success=Page successfully deleted');
+    }
+
+    // RESTAURANTS ------------------------------------------------------------
 
     public function restaurants(){
         $error = "";
@@ -232,6 +311,8 @@ class AdminController
         $this->redirectHelper->redirect("/admin/reservations");
     }
 
+    // LOCATIONS ------------------------------------------------------------
+
     public function locations(){
         $model = $this->locationService->getAll();
         require __DIR__ . '/../views/admin/location/locations.php';
@@ -273,6 +354,8 @@ class AdminController
         $this->locationService->deleteOne($locationId);
         $this->redirectHelper->redirect("/admin/locations");
     }
+
+    // ARTISTS ------------------------------------------------------------
 
     public function artists(){
         $model = $this->artistService->getAll();

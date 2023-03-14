@@ -2,8 +2,8 @@
 include_once __DIR__ . '/../admin-header.php';
 ?>
 
-<h1>Update <?php echo $api->getName(); ?></h1>
-<form action="/admin/users/update/<?php echo $api->getId(); ?>" method="post" class="form-horizontal">
+<h1>Update <?php echo $user->getName(); ?></h1>
+<form action="/admin/users/update/<?php echo $user->getId(); ?>" method="post" class="form-horizontal">
     <fieldset>
         <!-- Text input-->
         <div class="form-group">
@@ -11,7 +11,7 @@ include_once __DIR__ . '/../admin-header.php';
             <div class="col-md-4">
                 <input id="name" name="name"
                        type="text" class="form-control input-md"
-                       required="" value="<?php echo $api->getName() ?>">
+                       required="" value="<?php echo $user->getName() ?>">
             </div>
         </div>
 
@@ -21,7 +21,7 @@ include_once __DIR__ . '/../admin-header.php';
             <div class="col-md-4">
                 <input id="email" name="email"
                        type="text" class="form-control input-md"
-                       required="" value="<?php echo $api->getEmail() ?>">
+                       required="" value="<?php echo $user->getEmail() ?>">
             </div>
         </div>
 
@@ -32,7 +32,7 @@ include_once __DIR__ . '/../admin-header.php';
                 <select id="role" name="role" class="form-control">
                     <?php
                     foreach ($roles as $role) {
-                    if ($role->getId() === $api->getRoleId()) { ?>
+                    if ($role->getId() === $user->getRoleId()) { ?>
                         <option value='<?php echo $role->getId(); ?>' selected><?php echo $role->getName(); ?></option>
                     <?php } else { ?>
                         <option value='<?php echo $role->getId(); ?>'><?php echo $role->getName(); ?></option>
@@ -48,7 +48,7 @@ include_once __DIR__ . '/../admin-header.php';
             <div class="col-md-4">
                 <input id="created" name="created"
                        type="text" class="form-control input-md"
-                       value="<?php echo $api->getCreatedAt() ?>" readonly>
+                       value="<?php echo $user->getCreatedAt() ?>" readonly>
             </div>
         </div>
 

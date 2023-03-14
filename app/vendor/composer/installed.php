@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'bb48324b1840fda7c7766e7bf2693173b30b9da6',
+        'reference' => '865d6a28dfa688dd96c7de4d168e8820a81637c9',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'bb48324b1840fda7c7766e7bf2693173b30b9da6',
+            'reference' => '865d6a28dfa688dd96c7de4d168e8820a81637c9',
             'dev_requirement' => false,
         ),
         'bramus/router' => array(
