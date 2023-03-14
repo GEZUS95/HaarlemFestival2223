@@ -1,8 +1,6 @@
 <?php
 namespace controllers;
 
-//// testingggggg
-
 use services\RoleService;
 use models\Restaurant;
 use models\Session;
@@ -53,7 +51,7 @@ class AdminController
             &&
             (!$this->userService->checkPermissions("super-admin"))
         ) {
-            $this->userService->redirect('/?error=You do not have the permission to do this');
+            $this->redirectHelper->redirect('/?error=You do not have the permission to do this');
         }
     }
 
@@ -114,13 +112,13 @@ class AdminController
     public function deleteApiKey(string $key)
     {
         $this->apiService->deleteOne($key);
-        $this->userService->redirect('/admin/api?success=Api key deleted');
+        $this->redirectHelper->redirect('/admin/api?success=Api key deleted');
     }
 
     public function addApiKey()
     {
         $this->apiService->insertOne($_POST['description']);
-        $this->userService->redirect('/admin/api?success=Api key created');
+        $this->redirectHelper->redirect('/admin/api?success=Api key created');
     }
 
     public function emailApiKey(string $uuid)
@@ -130,7 +128,7 @@ class AdminController
     public function emailApiKeyPost(string $uuid)
     {
         $this->apiService->emailKey($uuid, $_POST['email']);
-        $this->userService->redirect('/admin/api?success=Email send');
+        $this->redirectHelper->redirect('/admin/api?success=Email send');
     }
 
     // CONTENT ------------------------------------------------------------
@@ -149,7 +147,7 @@ class AdminController
     public function addPage()
     {
         $this->contentService->insertOne($_POST['title'], $_POST['body'], '');
-        $this->userService->redirect('/admin/content?success=Page is created');
+        $this->redirectHelper->redirect('/admin/content?success=Page is created');
     }
 
     public function updatePage($id)
@@ -161,13 +159,13 @@ class AdminController
     public function updatePagePost($id)
     {
         $this->contentService->updateOne($id, $_POST['title'], $_POST['body'], '');
-        $this->userService->redirect('/admin/content?success=Pages successfully updated');
+        $this->redirectHelper->redirect('/admin/content?success=Pages successfully updated');
     }
 
     public function deletePage($id)
     {
         $this->contentService->deleteOne($id);
-        $this->userService->redirect('/admin/content?success=Page successfully deleted');
+        $this->redirectHelper->redirect('/admin/content?success=Page successfully deleted');
     }
 
     // RESTAURANTS ------------------------------------------------------------

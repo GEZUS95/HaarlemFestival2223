@@ -2,6 +2,7 @@
 
 namespace services;
 
+use helpers\RedirectHelper;
 use repositories\UserRepository;
 use repositories\RoleRepository;
 use models\User;
@@ -12,12 +13,14 @@ class UserService
     private UserRepository $repository;
     private RoleRepository $roleRepository;
     private PasswordResetService $passwordResetService;
+    private RedirectHelper $redirectHelper;
 
     public function __construct()
     {
         $this->repository = new UserRepository();
         $this->roleRepository = new RoleRepository();
         $this->passwordResetService = new PasswordResetService();
+        $this->redirectHelper = new RedirectHelper();
     }
 
     public function getAll(): false|array|null
@@ -61,15 +64,15 @@ class UserService
         session_unset();
         $user = $this->getOneByEmail($email);
         if (!$user) {
-            $this->redirect('/login?error=user not found');
+            $this->redirectHelper->redirect('/login?error=user not found');
         }
         if (!$this->verifyPassword($password, $user->getPasswordHash())) {
-            $this->redirect('/login?error=passwords does not match');
+            $this->redirectHelper->redirect('/login?error=passwords does not match');
         }
         // do login
         $this->setSession($user);
         //redirect to home page
-        $this->redirect('/?success=you have been successfully logged in');
+        $this->redirectHelper->redirect('/?success=you have been successfully logged in');
     }
 
     public function checkPermissions(string $roleName): bool
@@ -86,19 +89,13 @@ class UserService
     {
         session_unset();
         session_destroy();
-        $this->redirect('/?success=You have been successfully logged out');
-    }
-
-    public function redirect(string $url): void
-    {
-        header("Location: $url", true);
-        die;
+        $this->redirectHelper->redirect('/?success=You have been successfully logged out');
     }
 
     public function resetPassword(string $uuid, string $newpassword, string $newpasswordcheck)
     {
         if ($newpassword !== $newpasswordcheck) {
-            $this->redirect('/resetpassword?error=passwords does not match');
+            $this->redirectHelper->redirect('/resetpassword?error=passwords does not match');
         }
         $userId = $this->passwordResetService->getOneWithUuid($uuid)['user_id'];
 
@@ -110,20 +107,20 @@ class UserService
 
         $this->passwordResetService->deleteOne($uuid);
 
-        $this->redirect('/login?success=Password is successfully reset!');
+        $this->redirectHelper->redirect('/login?success=Password is successfully reset!');
     }
 
     public function register(string $name, string $email, string $emailVerify, string $password, string $passwordVerify)
     {
         if ($email !== $emailVerify) {
-            $this->redirect('/register?error=email does not match');
+            $this->redirectHelper->redirect('/register?error=email does not match');
         }
 
         $this->checkName($name, 'register');
         $this->checkEmail($email, 'register');
 
         if ($password !== $passwordVerify) {
-            $this->redirect('/register?error=passwords does not match');
+            $this->redirectHelper->redirect('/register?error=passwords does not match');
         }
 
         $user = new User();
@@ -134,13 +131,13 @@ class UserService
 
         $this->insertOne($user);
 
-        $this->redirect('/login?success=You have successfully registered');
+        $this->redirectHelper->redirect('/login?success=You have successfully registered');
     }
 
     public function update(string $name, string $email, string $emailVerify, int $id)
     {
         if ($email !== $emailVerify) {
-            $this->redirect('/user/update?error=email does not match');
+            $this->redirectHelper->redirect('/user/update?error=email does not match');
         }
 
         $user = $this->getOneById($id);
@@ -158,14 +155,14 @@ class UserService
         $this->updateOne($user);
         $this->setSession($user);
 
-        $this->redirect('/user/update?success=You have successfully updated your information');
+        $this->redirectHelper->redirect('/user/update?success=You have successfully updated your information');
     }
 
 
     public function deleteOne($userId): void
     {
         $this->repository->deleteOne($userId);
-        $this->redirect('/admin/users?success=You successfully deleted user');
+        $this->redirectHelper->redirect('/admin/users?success=You successfully deleted user');
     }
 
 
@@ -211,7 +208,7 @@ class UserService
         $user = $this->getOneById($_SESSION['user']['id']);
         $user->setPasswordHash('');
         if (!$user == $this->getUserFromSession()) {
-            $this->redirect('/login?error=Session_corrupted');
+            $this->redirectHelper->redirect('/login?error=Session_corrupted');
         }
     }
 
@@ -219,14 +216,14 @@ class UserService
     {
         $user = $this->getOneByEmail($email);
         if ($user) {
-            $this->redirect("/$uri?error=Email already in use");
+            $this->redirectHelper->redirect("/$uri?error=Email already in use");
         }
     }
     private function checkName(string $name, string $uri)
     {
         $user = $this->getOneByEmail($name);
         if ($user) {
-            $this->redirect("/$uri?error=Name already in use");
+            $this->redirectHelper->redirect("/$uri?error=Name already in use");
         }
     }
 
@@ -237,7 +234,7 @@ class UserService
         $user->setEmail($email);
         $user->setRoleId($role);
         $this->updateOne($user);
-        $this->redirect('/admin/users?success=You have successfully updated user');
+        $this->redirectHelper->redirect('/admin/users?success=You have successfully updated user');
     }
 
     public function createUser(string $name, string $email, int $roleId, string $password)
@@ -248,7 +245,7 @@ class UserService
         $user->setRoleId($roleId);
         $user->setPasswordhash($password);
         $this->insertOne($user);
-        $this->redirect('/admin/users?success=You have created a new user');
+        $this->redirectHelper->redirect('/admin/users?success=You have created a new user');
     }
 
     private function updatePassword(User $user)
@@ -260,9 +257,12 @@ class UserService
     {
         $user = $this->getOneByEmail($email);
         if ($this->passwordResetService->checkIfAlreadyExist($user->getId())) {
-            $this->redirect('/resetpassword?error=there is already an request, please try again or check your email');
+            $this->redirectHelper->redirect(
+                '/resetpassword?error=there is already an request,
+                 please try again or check your email'
+            );
         }
         $this->passwordResetService->newRequest($user->getEmail(), $user->getId());
-        $this->redirect('/?success=Email sent with a link for changing your password');
+        $this->redirectHelper->redirect('/?success=Email sent with a link for changing your password');
     }
 }
