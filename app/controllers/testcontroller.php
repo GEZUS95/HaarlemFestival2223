@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
 
+use helpers\EmailHelper;
 use helpers\PDFHelper;
 use helpers\UuidHelper;
 
@@ -8,15 +9,19 @@ class TestController
 {
     public function testTicket()
     {
+        $email = new EmailHelper();
         $customerName = 'John Doe';
         $eventName = 'Ratatouille';
         $eventDate = '07-03-2023';
         $ticketAmount = '4';
         $ticketuuid = (new UuidHelper)->generateUUID();
-        (new PDFHelper)->generateTicket($customerName, $eventName, $eventDate, $ticketAmount, $ticketuuid);
+        $pdf = (new PDFHelper)->generateTicket($customerName, $eventName, $eventDate, $ticketAmount, $ticketuuid);
+        $email->sendEmailWithAttachment('no-reply@haarlemfestival.com','ceesgribnau@hotmail.com','Your Ticket(s)','Ticket(s) just arrived!',$pdf,'HaarlemFestival_Ticket(s).pdf');
+
     }
 
     public function testInvoice(){
+        $email = new EmailHelper();
         $customerName = 'John Doe';
         $orderNumber = (new UuidHelper)->generateUUID();
         $orderDate = '07-03-2023';
@@ -58,6 +63,7 @@ class TestController
                 "taxRate" => (rand(0, 1) == 0) ? 0.09 : 0.21 // Random tax rate of either 9% or 21%
             )
         );
-        (new PDFHelper)->generateInvoice($customerName, $orderNumber, $orderDate, $items);
+        $pdf = (new PDFHelper)->generateInvoice($customerName, $orderNumber, $orderDate, $items);
+        $email->sendEmailWithAttachment('no-reply@haarlemfestival.com','ceesgribnau@hotmail.com','Your Invoice','Invoice has arrived!',$pdf,'HaarlemFestival_Invoice.pdf');
     }
 }
