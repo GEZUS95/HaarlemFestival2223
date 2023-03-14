@@ -35,7 +35,7 @@
                     <a class="nav-link dropdown-toggle"
                        id="navbarDropdownMenuLink"
                        data-bs-toggle="dropdown"
-                       aria-haspopup="true"
+                       role="button"
                        aria-expanded="false">
                         Events
                     </a>
