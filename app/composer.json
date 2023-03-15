@@ -11,6 +11,7 @@
         "psr-4": {
             "config\\": "config",
             "controllers\\": "controllers",
+            "controllers\\admin\\": "controllers\\admin",
             "models\\": "models",
             "repositories\\": "repositories",
             "routers\\": "routers",

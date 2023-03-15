@@ -1,25 +1,19 @@
 <?php
 namespace controllers;
 
-//// testingggggg
-
-use services\RoleService;
-use models\Restaurant;
-use models\Session;
-use models\Cuisine;
+use helpers\RedirectHelper;
+use models\Artist;
 use models\Location;
 use models\Reservation;
-use models\Artist;
-use services\UserService;
-use services\RestaurantService;
-use services\SessionService;
+use models\Restaurant;
+use models\Session;
+use services\ArtistService;
 use services\CuisineService;
 use services\LocationService;
 use services\ReservationService;
-use services\ArtistService;
-use helpers\RedirectHelper;
-use services\ContentService;
-use services\ApiService;
+use services\RestaurantService;
+use services\SessionService;
+use services\UserService;
 
 class AdminController
 {
@@ -27,13 +21,10 @@ class AdminController
     private RestaurantService $restaurantService;
     private SessionService $sessionService;
     private CuisineService $cuisineService;
-    private RoleService $roleService;
     private LocationService $locationService;
     private ReservationService $reservationService;
     private ArtistService $artistService;
     private RedirectHelper $redirectHelper;
-    private ContentService $contentService;
-    private ApiService $apiService;
 
     public function __construct()
     {
@@ -41,133 +32,22 @@ class AdminController
         $this->restaurantService = new RestaurantService();
         $this->sessionService = new SessionService();
         $this->cuisineService = new CuisineService();
-        $this->roleService = new RoleService();
         $this->locationService = new LocationService();
         $this->reservationService = new ReservationService();
         $this->artistService = new ArtistService();
         $this->redirectHelper = new RedirectHelper();
-        $this->contentService = new ContentService();
-        $this->apiService = new ApiService();
         if (
             (!$this->userService->checkPermissions("admin"))
             &&
             (!$this->userService->checkPermissions("super-admin"))
         ) {
-            $this->userService->redirect('/?error=You do not have the permission to do this');
+            $this->redirectHelper->redirect('/?error=You do not have the permission to do this');
         }
     }
 
     public function index()
     {
         require_once __DIR__ . '/../views/admin/index.php';
-    }
-
-    public function showUsers()
-    {
-        $model = $this->userService->getAll();
-        $roles = $this->roleService->getAll();
-        require_once __DIR__ . '/../views/admin/users/index.php';
-    }
-
-    public function updateUser($userId)
-    {
-        $user = $this->userService->getOneById($userId);
-        $roles = $this->roleService->getAll();
-        require_once __DIR__ . '/../views/admin/users/update.php';
-    }
-
-    public function updateUserPost($userId)
-    {
-        $this->userService->updateUser($userId, $_POST['name'], $_POST['email'], $_POST['role']);
-    }
-
-    public function deleteUser($userId)
-    {
-        $this->userService->deleteOne($userId);
-    }
-
-    public function createUser()
-    {
-        $roles = $this->roleService->getAll();
-        require_once __DIR__ . '/../views/admin/users/create.php';
-    }
-
-    public function createUserPost()
-    {
-        $this->userService->createUser($_POST['name'], $_POST['email'], $_POST['role'], $_POST['password']);
-    }
-
-
-    // API ------------------------------------------------------------
-
-    public function showApiKeys()
-    {
-        $model = $this->apiService->getAll();
-        require_once __DIR__ . '/../views/admin/api/index.php';
-    }
-
-    public function createApiKey()
-    {
-        require_once __DIR__ . '/../views/admin/api/createkey.php';
-    }
-
-    public function deleteApiKey(string $key)
-    {
-        $this->apiService->deleteOne($key);
-        $this->userService->redirect('/admin/api?success=Api key deleted');
-    }
-
-    public function addApiKey()
-    {
-        $this->apiService->insertOne($_POST['description']);
-        $this->userService->redirect('/admin/api?success=Api key created');
-    }
-
-    public function emailApiKey(string $uuid)
-    {
-        require_once __DIR__ . '/../views/admin/api/email.php';
-    }
-    public function emailApiKeyPost(string $uuid)
-    {
-        $this->apiService->emailKey($uuid, $_POST['email']);
-        $this->userService->redirect('/admin/api?success=Email send');
-    }
-
-    // CONTENT ------------------------------------------------------------
-
-    public function showPages()
-    {
-        $model = $this->contentService->getAll();
-        require_once __DIR__ . '/../views/admin/content/index.php';
-    }
-
-    public function createPage()
-    {
-        require_once __DIR__ . '/../views/admin/content/create.php';
-    }
-
-    public function addPage()
-    {
-        $this->contentService->insertOne($_POST['title'], $_POST['body'], '');
-        $this->userService->redirect('/admin/content?success=Page is created');
-    }
-
-    public function updatePage($id)
-    {
-        $page = $this->contentService->getOneFromId($id);
-        require_once __DIR__ . '/../views/admin/content/update.php';
-    }
-
-    public function updatePagePost($id)
-    {
-        $this->contentService->updateOne($id, $_POST['title'], $_POST['body'], '');
-        $this->userService->redirect('/admin/content?success=Pages successfully updated');
-    }
-
-    public function deletePage($id)
-    {
-        $this->contentService->deleteOne($id);
-        $this->userService->redirect('/admin/content?success=Page successfully deleted');
     }
 
     // RESTAURANTS ------------------------------------------------------------

@@ -4,12 +4,6 @@ $router->setNamespace('controllers');
 
 $router->get('/admin', 'AdminController@index');
 
-$router->get('/admin/users', 'AdminController@showUsers');
-$router->get('/admin/users/update/{id}', 'AdminController@updateUser');
-$router->post('/admin/users/update/{id}', 'AdminController@updateUserPost');
-$router->get('/admin/users/create', 'AdminController@createUser');
-$router->post('/admin/users/create', 'AdminController@createUserPost');
-$router->get('/admin/users/delete/{id}', 'AdminController@deleteUser');
 
 $router->get('/admin/restaurants', 'AdminController@restaurants');
 $router->get('/admin/restaurants/update/{id}', 'AdminController@updateRestaurant');
@@ -44,16 +38,25 @@ $router->get('/admin/artists/update/{id}', 'AdminController@updateArtist');
 $router->post('/admin/artists/update/{id}', 'AdminController@updateArtistPost');
 $router->get('/admin/artists/delete/{id}', 'AdminController@deleteArtist');
 
-$router->get('/admin/api', 'AdminController@showApiKeys');
-$router->get('/admin/api/create', 'AdminController@createApiKey');
-$router->post('/admin/api/create', 'AdminController@addApiKey');
-$router->get('/admin/api/delete/{uuid}', 'AdminController@deleteApiKey');
-$router->get('/admin/api/email/{uuid}', 'AdminController@emailApiKey');
-$router->post('/admin/api/email/{uuid}', 'AdminController@emailApiKeyPost');
 
-$router->get('/admin/content', 'AdminController@showPages');
-$router->get('/admin/content/create', 'AdminController@createPage');
-$router->post('/admin/content/create', 'AdminController@addPage');
-$router->get('/admin/content/update/{id}', 'AdminController@updatePage');
-$router->post('/admin/content/update/{id}', 'AdminController@updatePagePost');
-$router->get('/admin/content/delete/{id}', 'AdminController@deletePage');
+
+$router->get('/admin/users', 'admin\UserController@showUsers');
+$router->get('/admin/users/update/{id}', 'admin\UserController@updateUser');
+$router->post('/admin/users/update/{id}', 'admin\UserController@updateUserPost');
+$router->get('/admin/users/create', 'admin\UserController@createUser');
+$router->post('/admin/users/create', 'admin\UserController@createUserPost');
+$router->get('/admin/users/delete/{id}', 'admin\UserController@deleteUser');
+
+$router->get('/admin/api', 'admin\ApiController@showApiKeys');
+$router->get('/admin/api/create', 'admin\ApiController@createApiKey');
+$router->post('/admin/api/create', 'admin\ApiController@addApiKey');
+$router->get('/admin/api/delete/{uuid}', 'admin\ApiController@deleteApiKey');
+$router->get('/admin/api/email/{uuid}', 'admin\ApiController@emailApiKey');
+$router->post('/admin/api/email/{uuid}', 'admin\ApiController@emailApiKeyPost');
+
+$router->get('/admin/content', 'admin\ContentController@showPages');
+$router->get('/admin/content/create', 'admin\ContentController@createPage');
+$router->post('/admin/content/create', 'admin\ContentController@addPage');
+$router->get('/admin/content/update/{id}', 'admin\ContentController@updatePage');
+$router->post('/admin/content/update/{id}', 'admin\ContentController@updatePagePost');
+$router->get('/admin/content/delete/{id}', 'admin\ContentController@deletePage');
