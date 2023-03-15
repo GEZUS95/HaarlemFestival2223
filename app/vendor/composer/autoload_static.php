@@ -35,6 +35,7 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
         ),
         'c' => 
         array (
+            'controllers\\admin\\' => 18,
             'controllers\\' => 12,
             'config\\' => 7,
         ),
@@ -99,6 +100,10 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
         'helpers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/helpers',
+        ),
+        'controllers\\admin\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/controllers/admin',
         ),
         'controllers\\' => 
         array (
