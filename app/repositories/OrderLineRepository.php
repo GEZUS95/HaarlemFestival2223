@@ -58,7 +58,8 @@ class OrderLineRepository extends Repository
             $stmt = $this->connection->prepare("SELECT * FROM orderline WHERE uuid = :uuid LIMIT 1");
             $stmt->bindParam(':uuid', $uuid);
             $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_CLASS, OrderLine::class);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, OrderLine::class);
+            return $stmt->fetch();
 
         } catch (PDOException $e) {
             echo $e;

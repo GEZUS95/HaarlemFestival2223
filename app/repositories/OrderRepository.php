@@ -54,7 +54,8 @@ class OrderRepository extends Repository
             $stmt = $this->connection->prepare("SELECT * FROM orders WHERE id = :id LIMIT 1");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_CLASS, Order::class);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Order::class);
+            return $stmt->fetch();
 
         } catch (PDOException $e) {
             echo $e;
