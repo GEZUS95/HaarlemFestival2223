@@ -74,7 +74,8 @@ CREATE TABLE `orderline` (
                              `event_id` int(11) NOT NULL,
                              `program_id` int(11) NOT NULL,
                              `programitem_id` int(11) NOT NULL,
-                             `session_id` int(11) NOT NULL
+                             `session_id` int(11) NOT NULL,
+                             `quantity` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

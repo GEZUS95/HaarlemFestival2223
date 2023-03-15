@@ -38,6 +38,10 @@ include_once __DIR__ . '/../admin-header.php';
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
-        selector: '#body'
+        selector: '#body',
+        plugins: 'image',
+        menubar: '  insert',
+        image_uploadtab: true,
+        images_upload_base_path: '/public/images/pages'
     });
 </script>
