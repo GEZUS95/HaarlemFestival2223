@@ -74,7 +74,8 @@ CREATE TABLE `orderline` (
                              `event_id` int(11) NOT NULL,
                              `program_id` int(11) NOT NULL,
                              `programitem_id` int(11) NOT NULL,
-                             `session_id` int(11) NOT NULL
+                             `session_id` int(11) NOT NULL,
+                             `quantity` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -137,8 +138,7 @@ CREATE TABLE `restaurant` (
                               `seats` int(11) NOT NULL,
                               `price` double NOT NULL,
                               `price_child` double NOT NULL,
-                              `session_time` datetime NOT NULL,
-                              `accesibility` varchar(255) NOT NULL
+                              `accessibility` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -243,6 +243,19 @@ create table content (
     `image_path` varchar(255) null
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table reservation
+--
+
+CREATE TABLE reservation (
+                             id int(11) NOT NULL,
+                             session_id int(11) NOT NULL,
+                             remarks varchar(255) DEFAULT NULL,
+                             status varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 --
 -- Indexes for dumped tables
@@ -338,6 +351,19 @@ ALTER TABLE `user`
 --
 ALTER TABLE apikey
     ADD PRIMARY KEY (`uuid`);
+
+--
+-- Indexes for table reservation
+--
+ALTER TABLE reservation
+    ADD PRIMARY KEY (id),
+    ADD KEY session_id (session_id);
+
+--
+-- AUTO_INCREMENT for table reservation
+--
+ALTER TABLE reservation
+    MODIFY id int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `artist`
@@ -447,6 +473,12 @@ ALTER TABLE user ADD FOREIGN KEY (role_id) REFERENCES role (id) ON DELETE CASCAD
 -- passwordreset table
 ALTER TABLE passwordreset ADD FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+--
+-- Constraints for table reservation
+--
+ALTER TABLE reservation
+    ADD CONSTRAINT reservation_ibfk_1 FOREIGN KEY (session_id) REFERENCES session (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haarlem Festival 2023</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -27,9 +30,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/users">Users</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/events">Events</a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       id="navbarDropdownMenuLink"
+                       data-bs-toggle="dropdown"
+                       role="button"
+                       aria-expanded="false">
+                        Events
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/admin/events">Events</a>
+                        <a class="dropdown-item" href="/admin/locations">Locations</a>
+                        <a class="dropdown-item" href="/admin/artists">Artists</a>
+                    </div>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/content">Content Pages</a>
                 </li>
@@ -41,12 +57,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/reservations">Reservations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/locaions">Locations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/artists">Artists</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/api">Api keys</a>
@@ -73,10 +83,10 @@
 
     <?php
     if (isset($_GET['success'])) {
-        echo "<div class='alert-success'>" . $_GET['success'] . " </div>";
+        echo "<div class='alert alert-success'>" . $_GET['success'] . " </div>";
     }
     if (isset($_GET['error'])) {
-        echo "<div class='alert-danger'>" . $_GET['error'] . " </div>";
+        echo "<div class='alert alert-danger'>" . $_GET['error'] . " </div>";
     }
     ?>
 

@@ -19,12 +19,12 @@ class OrderLineRepository extends Repository
         }
     }
 
-    public function insertOne(string $uuid, int $oId, int $eId, int $pId, int $pIId, int $sId)
+    public function insertOne(string $uuid, int $oId, int $eId, int $pId, int $pIId, int $sId, int $quantity)
     {
         try {
             $stmt = $this->connection->prepare("
-                    INSERT INTO `orderline` (uuid, order_id, event_id, program_id, programitem_id, session_id)
-                    VALUES (:uuid, :oid, :eid, :pid, :piid, :sid)
+                    INSERT INTO `orderline` (uuid, order_id, event_id, program_id, programitem_id, session_id, quantity)
+                    VALUES (:uuid, :oid, :eid, :pid, :piid, :sid, :quantity)
                     ");
             $stmt->bindParam(':uuid', $uuid);
             $stmt->bindParam(':oid', $oId);
@@ -32,6 +32,7 @@ class OrderLineRepository extends Repository
             $stmt->bindParam(':pid', $pId);
             $stmt->bindParam(':piid', $pIId);
             $stmt->bindParam(':sid', $sId);
+            $stmt->bindParam(':quantity', $quantity);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo $e;
@@ -71,6 +72,22 @@ class OrderLineRepository extends Repository
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_CLASS, OrderLine::class);
+
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    public function updateOne(string $uuid, int $quantity)
+    {
+        try {
+            $stmt = $this->connection->prepare("
+                UPDATE orderline
+                SET quantity = :quantity
+                WHERE uuid = :id");
+            $stmt->bindParam(':quantity', $quantity);
+            $stmt->bindParam(':id', $uuid);
+            $stmt->execute();
 
         } catch (PDOException $e) {
             echo $e;

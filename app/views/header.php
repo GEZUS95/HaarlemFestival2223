@@ -7,8 +7,9 @@
     <title>Haarlem Festival 2023</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.cdnfonts.com/css/jokerman" rel="stylesheet">
 </head>
-<body>
+<body style="font-family: 'Jokerman', sans-serif;">
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <div class="container">
@@ -61,10 +62,9 @@
 
     <?php
     if (isset($_GET['success'])) {
-        echo "<div class='alert-success'>" . $_GET['success'] . " </div>";
+        echo "<div class='alert alert-success'>" . $_GET['success'] . " </div>";
     }
     if (isset($_GET['error'])) {
-        echo "<div class='alert-danger'>" . $_GET['error'] . " </div>";
+        echo "<div class='alert alert-danger'>" . $_GET['error'] . " </div>";
     }
     ?>
-</div>

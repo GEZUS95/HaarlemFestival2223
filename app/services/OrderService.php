@@ -69,4 +69,9 @@ class OrderService
     {
         $this->orderLineRepository->deleteOne($uuid);
     }
+
+    public function updateOrderLineQuantity(string $uuid, int $quantity)
+    {
+        $this->orderLineRepository->updateOne($uuid, $quantity);
+    }
 }
