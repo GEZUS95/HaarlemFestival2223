@@ -27,10 +27,18 @@ class OrderController
         }
     }
 
-    public function showOrders()
+    public function showAllOrders()
     {
         $orders = $this->orderService->getAllOrders();
-        require_once __DIR__ . '/../../views/admin/orders/orders.php';
+        require_once __DIR__ . '/../../views/admin/orders/index.php';
+    }
+
+    public function showOrder(int $id)
+    {
+        $order = $this->orderService->getOneOrderFromId($id);
+        $orderItems = $this->orderService->getAllOrderLinesFromOrderId($id);
+
+        require_once __DIR__ . '/../../views/admin/orders/order.php';
     }
 
 }
