@@ -69,12 +69,10 @@ CREATE TABLE `location` (
 --
 
 CREATE TABLE `orderline` (
-                             `uuid` varchar(255) NOT NULL,
+                             `id` int(11) NOT NULL,
                              `order_id` int(11) NOT NULL,
-                             `event_id` int(11) NOT NULL,
-                             `program_id` int(11) NOT NULL,
-                             `programitem_id` int(11) NOT NULL,
-                             `session_id` int(11) NOT NULL,
+                             `table` varchar(255) NOT NULL,
+                             `item_id` int(11) NOT NULL,
                              `quantity` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -283,7 +281,7 @@ ALTER TABLE `location`
 -- Indexes for table `orderline`
 --
 ALTER TABLE `orderline`
-    ADD PRIMARY KEY (`uuid`);
+    ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `passwordreset`
@@ -384,6 +382,12 @@ ALTER TABLE `location`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `orderline`
+--
+ALTER TABLE `orderline`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
@@ -442,11 +446,7 @@ ALTER TABLE `user`
 ALTER TABLE event ADD FOREIGN KEY (session_id) REFERENCES programitem (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- orderline table
-ALTER TABLE orderline ADD FOREIGN KEY (event_id) REFERENCES event (id) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE orderline ADD FOREIGN KEY (program_id) REFERENCES program (id) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE orderline ADD FOREIGN KEY (programitem_id) REFERENCES programitem (id) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE orderline ADD FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE orderline ADD FOREIGN KEY (session_id) REFERENCES programitem (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- orders table
 ALTER TABLE orders ADD FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE;
