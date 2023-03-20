@@ -10,7 +10,7 @@ include_once __DIR__ . '/../admin-header.php';
         <th scope="col">Userid</th>
         <th scope="col">Share Id</th>
         <th scope="col">Status</th>
-        <th scope="col"><a href="/admin/orders/create" class="btn btn-success" role="button">Create Order</a></th>
+        <th scope="col"><a href="/admin/orders/create" class="btn btn-success disabled" role="button">Create Order</a></th>
     </tr>
     </thead>
     <tbody>
@@ -25,7 +25,8 @@ include_once __DIR__ . '/../admin-header.php';
             <td><?php echo $order->getStatus() ?></td>
             <td>
                 <a href="/admin/order/<?php echo $order->getId() ?>" class="btn btn-warning">Show order</a>
-<!--                <a href="/admin/users/delete/--><?php //echo $order->getId() ?><!--" class="btn btn-danger">Delete User</a>-->
+                <a href="/admin/order/<?php echo $order->getId() ?>/invoice" class="btn btn-success">Get Invoice</a>
+                <a href="/admin/order/<?php echo $order->getId() ?>/updatestatus" class="btn btn-danger">Update Status</a>
             </td>
         </tr>
 

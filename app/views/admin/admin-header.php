@@ -59,6 +59,9 @@
                     <a class="nav-link" href="/admin/reservations">Reservations</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/admin/orders">Orders</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/admin/api">Api keys</a>
                 </li>
             </ul>

@@ -41,4 +41,14 @@ class OrderController
         require_once __DIR__ . '/../../views/admin/orders/order.php';
     }
 
+    public function orderStatusUpdate(int $id)
+    {
+        $this->orderService->updateStatus($id);
+    }
+
+    public function getInvoice(int $id)
+    {
+        //todo: implement this function with floris
+    }
+
 }

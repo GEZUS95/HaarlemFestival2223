@@ -4,28 +4,11 @@ namespace models;
 
 class OrderLine
 {
-    private string $uuid;
     private int $id;
-    private int $eventId;
-    private int $programId;
-    private int $programItemId;
-    private int $sessionId;
-
-    /**
-     * @return string
-     */
-    public function getUuid(): string
-    {
-        return $this->uuid;
-    }
-
-    /**
-     * @param string $uuid
-     */
-    public function setUuid(string $uuid): void
-    {
-        $this->uuid = $uuid;
-    }
+    private int $order_id;
+    private string $table;
+    private int $item_id;
+    private int $quantity;
 
     /**
      * @return int
@@ -46,65 +29,67 @@ class OrderLine
     /**
      * @return int
      */
-    public function getEventId(): int
+    public function getOrderId(): int
     {
-        return $this->eventId;
+        return $this->order_id;
     }
 
     /**
-     * @param int $eventId
+     * @param int $order_id
      */
-    public function setEventId(int $eventId): void
+    public function setOrderId(int $order_id): void
     {
-        $this->eventId = $eventId;
+        $this->order_id = $order_id;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getProgramId(): int
+    public function getTable(): string
     {
-        return $this->programId;
+        return $this->table;
     }
 
     /**
-     * @param int $programId
+     * @param string $table
      */
-    public function setProgramId(int $programId): void
+    public function setTable(string $table): void
     {
-        $this->programId = $programId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getProgramItemId(): int
-    {
-        return $this->programItemId;
-    }
-
-    /**
-     * @param int $programItemId
-     */
-    public function setProgramItemId(int $programItemId): void
-    {
-        $this->programItemId = $programItemId;
+        $this->table = $table;
     }
 
     /**
      * @return int
      */
-    public function getSessionId(): int
+    public function getItemId(): int
     {
-        return $this->sessionId;
+        return $this->item_id;
     }
 
     /**
-     * @param int $sessionId
+     * @param int $item_id
      */
-    public function setSessionId(int $sessionId): void
+    public function setItemId(int $item_id): void
     {
-        $this->sessionId = $sessionId;
+        $this->item_id = $item_id;
     }
+
+    /**
+     * @return int
+     */
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param int $quantity
+     */
+    public function setQuantity(int $quantity): void
+    {
+        $this->quantity = $quantity;
+    }
+
+
 
 }
