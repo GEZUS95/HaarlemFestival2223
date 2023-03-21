@@ -91,4 +91,18 @@ class OrderRepository extends Repository
             echo $e;
         }
     }
+
+    public function getItemFromDB($table, $itemId)
+    {
+        try {
+            $stmt = $this->connection->prepare("SELECT * FROM :table WHERE id = :id LIMIT 1");
+            $stmt->bindParam(':table', $table);
+            $stmt->bindParam(':id', $itemId);
+            $stmt->execute();
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
 }

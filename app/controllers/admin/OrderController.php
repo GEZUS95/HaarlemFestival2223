@@ -2,6 +2,7 @@
 
 namespace controllers\admin;
 
+use helpers\PDFHelper;
 use helpers\RedirectHelper;
 use services\OrderService;
 use services\UserService;
@@ -46,9 +47,9 @@ class OrderController
         $this->orderService->updateStatus($id);
     }
 
-    public function getInvoice(int $id)
+    public function getInvoice(int $orderId)
     {
-        //todo: implement this function with floris
+        $this->orderService->createInvoice($orderId);
     }
 
 }

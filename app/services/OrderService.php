@@ -2,8 +2,10 @@
 
 namespace services;
 
+use helpers\PDFHelper;
 use helpers\RedirectHelper;
 use helpers\UuidHelper;
+use models\Order;
 use repositories\OrderLineRepository;
 use repositories\OrderRepository;
 
@@ -13,6 +15,8 @@ class OrderService
     private OrderLineRepository $orderLineRepository;
     private UuidHelper $uuidHelper;
     private RedirectHelper $redirectHelper;
+    private PDFHelper $PDFHelper;
+    private UserService $userService;
 
     public function __construct()
     {
@@ -20,6 +24,8 @@ class OrderService
         $this->orderLineRepository = new OrderLineRepository();
         $this->uuidHelper = new UuidHelper();
         $this->redirectHelper = new RedirectHelper();
+        $this->PDFHelper = new PDFHelper();
+        $this->userService = new UserService();
     }
 
     public function getAllOrders()
@@ -101,5 +107,37 @@ class OrderService
         } else {
             $this->redirectHelper->redirect('/admin/orders?error=There was some problem with order status');
         }
+    }
+
+    public function createInvoice(int $orderId)
+    {
+        $order = $this->getOneOrderFromId($orderId);
+        $user = $this->userService->getOneById($order->getUserId());
+
+        $items = $this->getOrderItemsNiceNamed($order);
+
+        $date = new \DateTime();
+
+        $this->PDFHelper->generateInvoice($user->getName(), $orderId, $date->format('DATE_RFC2822'), $items);
+        $this->redirectHelper->redirect('/admin/orders?success=PDF generated!');
+    }
+
+    public function getOrderItemsNiceNamed(Order $order) :array
+    {
+        $items = $this->getAllOrderLinesFromOrderId($order->getId());
+
+        $newItems = array();
+
+        foreach ($items as $item) {
+            $object = $this->orderRepository->getItemFromDB($item->getTable(), $item->getItemId());
+            $newItems[] = array(
+                "name" => $object['title'],
+                "quantity" => $item->getQuantity(),
+                "price" => $object['price'],
+                "taxRate" => 0.21
+            );
+        }
+
+        return $newItems;
     }
 }
