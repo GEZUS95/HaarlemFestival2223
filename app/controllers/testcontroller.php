@@ -4,9 +4,13 @@ namespace controllers;
 use helpers\EmailHelper;
 use helpers\PDFHelper;
 use helpers\UuidHelper;
+use helpers\PaymentHelper;
 
 class TestController
 {
+    public function testPayment(){
+        (new \helpers\PaymentHelper)->Pay();
+    }
     public function testTicket()
     {
         $email = new EmailHelper();
