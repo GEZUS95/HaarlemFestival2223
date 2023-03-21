@@ -19,14 +19,14 @@ include_once __DIR__ . '/../admin-header.php';
         ?>
 
         <tr>
-            <th scope="row"><?php echo $order->getId() ?></th>
-            <td><?php echo $order->getUserId() ?></td>
-            <td><?php echo $order->getShareUuid() ?></td>
-            <td><?php echo $order->getStatus() ?></td>
+            <th scope="row"><?= $order->getId() ?></th>
+            <td><?= $order->getUserId() ?></td>
+            <td><?= $order->getShareUuid() ?></td>
+            <td><?= $order->getStatus() ?></td>
             <td>
-                <a href="/admin/order/<?php echo $order->getId() ?>" class="btn btn-warning">Show order</a>
-                <a href="/admin/order/<?php echo $order->getId() ?>/invoice" class="btn btn-success">Get Invoice</a>
-                <a href="/admin/order/<?php echo $order->getId() ?>/updatestatus" class="btn btn-danger">Update Status</a>
+                <a href="/admin/order/<?= $order->getId() ?>" class="btn btn-warning">Show order</a>
+                <a href="/admin/order/<?= $order->getId() ?>/invoice" class="btn btn-success">Get Invoice</a>
+                <a href="/admin/order/<?= $order->getId() ?>/updatestatus" class="btn btn-danger">Update Status</a>
             </td>
         </tr>
 
