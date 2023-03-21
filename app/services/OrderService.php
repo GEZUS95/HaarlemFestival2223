@@ -37,6 +37,16 @@ class OrderService
         return $this->orderRepository->getOneFromId($id);
     }
 
+    public function getOneOrderFromUserId(int $id)
+    {
+        $order = $this->orderRepository->getOneFromUserId($id);
+        if (!$order) {
+            $this->createOrder($id);
+            $order = $this->orderRepository->getOneFromUserId($id);
+        }
+        return $order;
+    }
+
     public function getAllOrderLinesFromOrderId(int $id)
     {
         return $this->orderLineRepository->getAllFromOrderId($id);

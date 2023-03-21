@@ -62,6 +62,20 @@ class OrderRepository extends Repository
         }
     }
 
+    public function getOneFromUserId(int $id)
+    {
+        try {
+            $stmt = $this->connection->prepare("SELECT * FROM orders WHERE user_id = :id AND status = 'open' LIMIT 1");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Order::class);
+            return $stmt->fetch();
+
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
     public function updateStatus(int $id, string $status)
     {
         try {
