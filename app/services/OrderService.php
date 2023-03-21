@@ -80,11 +80,13 @@ class OrderService
     public function deleteOrdeLine(int $id)
     {
         $this->orderLineRepository->deleteOne($id);
+        $this->redirectHelper->redirect('/cart?success=Item Deleted');
     }
 
     public function updateOrderLineQuantity(int $id, int $quantity)
     {
         $this->orderLineRepository->updateOne($id, $quantity);
+        $this->redirectHelper->redirect('/cart?success=Quantity updated');
     }
 
     public function updateStatus(int $id)
