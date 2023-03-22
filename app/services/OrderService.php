@@ -119,7 +119,7 @@ class OrderService
 
         $date = new \DateTime();
 
-        $this->PDFHelper->generateInvoice($user->getName(), $orderId, $date->format(DATE_RFC2822), $items);
+        $this->PDFHelper->generateInvoiceDownload($user->getName(), $orderId, $date->format(DATE_RFC2822), $items);
         $this->redirectHelper->redirect('/admin/orders?success=PDF generated!');
     }
 
@@ -133,15 +133,19 @@ class OrderService
             $object = $this->orderRepository->getItemFromDB($item->getTable(), $item->getItemId());
             if ($item->isChild()) {
             $newItems[] = array(
+                "id" => $item->getId(),
                 "name" => $object['title'],
                 "quantity" => $item->getQuantity(),
+                "isChild" => 'yes',
                 "price" => $object['price_child'],
                 "taxRate" => 0.21
             );
             } else {
                 $newItems[] = array(
+                    "id" => $item->getId(),
                     "name" => $object['title'],
                     "quantity" => $item->getQuantity(),
+                    "isChild" => 'no',
                     "price" => $object['price'],
                     "taxRate" => 0.21
                 );
