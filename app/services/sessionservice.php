@@ -41,4 +41,13 @@ class SessionService {
     {
         $this->sessionRepository->deleteOne($id);
     }
+
+    public function postSession()
+    {
+        $session = new Session();
+        $session->setRestaurantId($_POST["restaurant_id"]);
+        $session->setStartTime(new \DateTime($_POST["start_time"]));
+        $session->setEndTime(new \DateTime($_POST["end_time"]));
+        return $session;
+    }
 }

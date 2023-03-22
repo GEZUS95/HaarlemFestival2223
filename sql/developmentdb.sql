@@ -43,7 +43,7 @@ CREATE TABLE `event` (
                          `id` int(11) NOT NULL,
                          `session_id` int(11) NOT NULL,
                          `title` varchar(255) NOT NULL,
-                         `total_price_event` varchar(255) NOT NULL,
+                         `price` varchar(255) NOT NULL,
                          `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -99,7 +99,7 @@ CREATE TABLE `program` (
                            `id` int(11) NOT NULL,
                            `event_id` int(11) NOT NULL,
                            `title` varchar(255) NOT NULL,
-                           `total_price_program` double NOT NULL,
+                           `price` double NOT NULL,
                            `start_time` datetime NOT NULL,
                            `end_time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -116,6 +116,7 @@ CREATE TABLE `programitem` (
                                `location_id` int(11) NOT NULL,
                                `artist_id` int(11) NOT NULL,
                                `special_guest_id` int(11) DEFAULT NULL,
+                               `title` varchar(255) NOT NULL,
                                `start_time` datetime NOT NULL,
                                `end_time` datetime NOT NULL,
                                `price` double NOT NULL

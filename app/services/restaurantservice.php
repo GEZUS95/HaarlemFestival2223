@@ -35,4 +35,17 @@ class RestaurantService {
     public function deleteOne(int $id){
         $this->repository->deleteOne($id);
     }
+
+    public function postRestaurant(){
+        $restaurant = new Restaurant();
+        $restaurant->setName($_POST["name"]);
+        $restaurant->setDescription($_POST["description"]);
+        $restaurant->setStars($_POST["stars"]);
+        $restaurant->setSeats($_POST["seats"]);
+        $restaurant->setPrice($_POST["price"]);
+        $restaurant->setPriceChild($_POST["price_child"]);
+        $restaurant->setAccessibility($_POST["accessibility"]);
+        $restaurant->setLocationId($_POST["location_id"]);
+        return $restaurant;
+    }
 }

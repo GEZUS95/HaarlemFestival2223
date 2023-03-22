@@ -34,4 +34,14 @@ class LocationService
     public function getByStage(string $stage){
         return $this->repository->getByStage($stage);
     }
+
+    public function postLocation(){
+        $location = new Location();
+        $location->setName($_POST["name"]);
+        $location->setCity($_POST["city"]);
+        $location->setAddress($_POST["address"]);
+        $location->setStage($_POST["stage"]);
+        $location->setSeats($_POST["seats"]);
+        return $location;
+    }
 }

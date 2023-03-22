@@ -35,4 +35,12 @@ class ReservationService {
     public function updateOne(Reservation $reservation){
         $this->repository->updateOne($reservation);
     }
+
+    public function postReservation(){
+        $reservation = new Reservation();
+        $reservation->setSessionId($_POST["session_id"]);
+        $reservation->setRemarks($_POST["remarks"]);
+        $reservation->setStatus("active");
+        return $reservation;
+    }
 }

@@ -5,40 +5,45 @@ $router->setNamespace('controllers');
 $router->get('/admin', 'AdminController@index');
 
 
-$router->get('/admin/restaurants', 'AdminController@restaurants');
-$router->get('/admin/restaurants/update/{id}', 'AdminController@updateRestaurant');
-$router->post('/admin/restaurants/update/{id}', 'AdminController@updateRestaurantPost');
-$router->get('/admin/newrestaurant', 'AdminController@newrestaurant');
-$router->post('/admin/newrestaurant', 'AdminController@newrestaurantPost');
-$router->get('/admin/restaurants/delete/{id}', 'AdminController@deleteRestaurant');
+$router->get('/admin/restaurants', 'admin\RestaurantController@showRestaurants');
+$router->get('/admin/restaurants/update/{id}', 'admin\RestaurantController@updateRestaurant');
+$router->post('/admin/restaurants/update/{id}', 'admin\RestaurantController@updateRestaurantPost');
+$router->get('/admin/newrestaurant', 'admin\RestaurantController@newRestaurant');
+$router->post('/admin/newrestaurant', 'admin\RestaurantController@newRestaurantPost');
+$router->get('/admin/restaurants/delete/{id}', 'admin\RestaurantController@deleteRestaurant');
 
-$router->get('/admin/sessions', 'AdminController@sessions');
-$router->get('/admin/newsession', 'AdminController@newsession');
-$router->post('/admin/newsession', 'AdminController@newsessionPost');
-$router->get('/admin/sessions/update/{id}', 'AdminController@updateSession');
-$router->post('/admin/sessions/update/{id}', 'AdminController@updateSessionPost');
-$router->get('/admin/sessions/delete/{id}', 'AdminController@deleteSession');
+$router->get('/admin/sessions', 'admin\SessionController@showSessions');
+$router->get('/admin/newsession', 'admin\SessionController@newSession');
+$router->post('/admin/newsession', 'admin\SessionController@newSessionPost');
+$router->get('/admin/sessions/update/{id}', 'admin\SessionController@updateSession');
+$router->post('/admin/sessions/update/{id}', 'admin\SessionController@updateSessionPost');
+$router->get('/admin/sessions/delete/{id}', 'admin\SessionController@deleteSession');
 
-$router->get('/admin/reservations', 'AdminController@reservations');
-$router->get('/admin/reservations/update/{id}', 'AdminController@updateReservation');
-$router->get('/admin/newreservation', 'AdminController@newreservation');
-$router->post('/admin/newreservation', 'AdminController@newreservationPost');
+$router->get('/admin/reservations', 'admin\ReservationController@showReservations');
+$router->get('/admin/reservations/update/{id}', 'admin\ReservationController@updateReservation');
+$router->get('/admin/newreservation', 'admin\ReservationController@newReservation');
+$router->post('/admin/newreservation', 'admin\ReservationController@newReservationPost');
 
-$router->get('/admin/locations', 'AdminController@locations');
-$router->get('/admin/newlocation', 'AdminController@newlocation');
-$router->post('/admin/newlocation', 'AdminController@newLocationPost');
-$router->get('/admin/locations/update/{id}', 'AdminController@updateLocation');
-$router->post('/admin/locations/update/{id}', 'AdminController@updateLocationPost');
-$router->get('/admin/locations/delete/{id}', 'AdminController@deleteLocation');
+$router->get('/admin/locations', 'admin\LocationController@showLocations');
+$router->get('/admin/newlocation', 'admin\LocationController@newLocation');
+$router->post('/admin/newlocation', 'admin\LocationController@newLocationPost');
+$router->get('/admin/locations/update/{id}', 'admin\LocationController@updateLocation');
+$router->post('/admin/locations/update/{id}', 'admin\LocationController@updateLocationPost');
+$router->get('/admin/locations/delete/{id}', 'admin\LocationController@deleteLocation');
 
-$router->get('/admin/artists', 'AdminController@artists');
-$router->get('/admin/newartist', 'AdminController@newartist');
-$router->post('/admin/newartist', 'AdminController@newArtistPost');
-$router->get('/admin/artists/update/{id}', 'AdminController@updateArtist');
-$router->post('/admin/artists/update/{id}', 'AdminController@updateArtistPost');
-$router->get('/admin/artists/delete/{id}', 'AdminController@deleteArtist');
+$router->get('/admin/artists', 'admin\ArtistController@showArtists');
+$router->get('/admin/newartist', 'admin\ArtistController@newArtist');
+$router->post('/admin/newartist', 'admin\ArtistController@newArtistPost');
+$router->get('/admin/artists/update/{id}', 'admin\ArtistController@updateArtist');
+$router->post('/admin/artists/update/{id}', 'admin\ArtistController@updateArtistPost');
+$router->get('/admin/artists/delete/{id}', 'admin\ArtistController@deleteArtist');
 
-
+$router->get('/admin/events', 'admin\EventController@showEvents');
+$router->get('/admin/newevent', 'admin\EventController@newEvent');
+$router->post('/admin/newevent', 'admin\EventController@newEventPost');
+$router->get('/admin/events/update/{id}', 'admin\EventController@updateEvent');
+$router->post('/admin/events/update/{id}', 'admin\EventController@updateEventPost');
+$router->get('/admin/events/delete/{id}', 'admin\EventController@deleteEvent');
 
 $router->get('/admin/users', 'admin\UserController@showUsers');
 $router->get('/admin/users/update/{id}', 'admin\UserController@updateUser');

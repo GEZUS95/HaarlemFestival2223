@@ -42,4 +42,8 @@ class CuisineService {
         public function deleteOne(Cuisine $cuisine){
             $this->repository->deleteOne($cuisine);
         }
+
+        public function postCuisines(){
+            return $_POST["cuisines"];
+        }
 }
