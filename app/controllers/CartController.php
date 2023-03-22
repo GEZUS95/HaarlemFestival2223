@@ -20,7 +20,7 @@ class CartController
     public function index()
     {
         $order = $this->orderService->getOneOrderFromUserId($_SESSION['user']['id']);
-        $orderItems = $this->orderService->getAllOrderLinesFromOrderId($order->getId());
+        $orderItems = $this->orderService->getOrderItemsNiceNamed($order);
         require __DIR__ . '/../views/cart/index.php';
     }
 
