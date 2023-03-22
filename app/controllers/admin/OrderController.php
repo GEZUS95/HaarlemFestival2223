@@ -37,7 +37,7 @@ class OrderController
     public function showOrder(int $id)
     {
         $order = $this->orderService->getOneOrderFromId($id);
-        $orderItems = $this->orderService->getAllOrderLinesFromOrderId($id);
+        $orderItems = $this->orderService->getOrderItemsNiceNamed($order);
 
         require_once __DIR__ . '/../../views/admin/orders/order.php';
     }
