@@ -5,17 +5,16 @@ namespace helpers;
 use Mollie\Api\MollieApiClient;
 
 class PaymentHelper
-{
-    public function Pay(){
+{    public function Pay($value, $description){
         $mollie = new MollieApiClient();
         $mollie->setApiKey("test_Ds3fz4U9vNKxzCfVvVHJT2sgW5ECD8");
 
         $payment = $mollie->payments->create([
             "amount" => [
                 "currency" => "EUR",
-                "value" => "10.00"
+                "value" => "$value"
             ],
-            "description" => "My first API payment",
+            "description" => "$description",
             "redirectUrl" => "https://iris.inholland.nl/",
             "webhookUrl"  => "https://webshop.example.org/mollie-webhook/",
         ]);
