@@ -33,20 +33,40 @@ class EmailHelper
         //Use the previously made mailer to send the mail
         $this->mailer->send($email);
     }
-    public function sendEmailWithAttachment($addressFrom, $addressTo, $subject, $message, $attachment, $attachmentName): void
+
+    //Call this functionality to send an email with attachments
+    //Make sure that $attachments is an array of attachments where each attachment has a pdfFile of type TCPDF
+    //and a name (String)
+    public function sendEmailWithAttachments($addressFrom, $addressTo, $subject, $message, $attachments): void
     {
-        //Add the data to the Email
+        // Initialize an empty array to hold the attachment data
+        $attachmentData = array();
+
+        // Loop through each Attachment object and extract the necessary information
+        foreach ($attachments as $attachment) {
+            $attachmentFile = $attachment->getAttachmentFile();
+            $attachmentName = $attachment->getAttachmentName();
+
+            // Build an array of attachment data and add it to the $attachmentData array
+            $attachmentData[] = array(
+                'data' => $attachmentFile,
+                'name' => $attachmentName,
+                'mime' => 'application/pdf'
+            );
+        }
+
+        // Add the data to the Email
         $email = (new Email())
             ->from($addressFrom)
             ->to($addressTo)
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
             ->subject($subject)
-            ->text($message)//->html('<p>See Twig integration for better HTML integration!</p>')
-            ->attach($attachment, $attachmentName, 'application/pdf')
-        ;
+            ->text($message);
+
+        // Loop through the $attachmentData array and add each attachment to the email
+        foreach ($attachmentData as $attachment) {
+            $email->attach($attachment['data'], $attachment['name'] . ".pdf", $attachment['mime']);
+        }
+
         //Use the previously made mailer to send the mail
         $this->mailer->send($email);
     }
