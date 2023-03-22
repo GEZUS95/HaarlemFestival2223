@@ -92,6 +92,7 @@ class OrderService
 
     public function updateOrderLineQuantity(int $id, int $quantity)
     {
+        //todo: check if tickets ar available
         $this->orderLineRepository->updateOne($id, $quantity);
         $this->redirectHelper->redirect('/cart?success=Quantity updated');
     }
