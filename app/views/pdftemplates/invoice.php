@@ -49,7 +49,7 @@
             <td><?php echo $name; ?></td>
             <td><?php echo $quantity; ?></td>
             <td>&euro;<?php echo number_format($priceExclTax, 2); ?></td>
-            <td>&euro;<?php echo number_format($taxRate * 100) . '%'; ?></td>
+            <td><?php echo number_format($taxRate * 100) . '%'; ?></td>
             <td>&euro;<?php echo number_format($taxAmount, 2); ?></td>
             <td>&euro;<?php echo number_format($priceInclTax, 2); ?></td>
         </tr>
