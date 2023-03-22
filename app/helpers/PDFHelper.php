@@ -74,6 +74,6 @@ class PDFHelper
         $pdf->writeHTML($html, true, false, true, false, '');
 
         // Output the generated PDF file
-        return $pdf->Output($orderNumber . '_invoice.pdf', 'S');
+        return $pdf->Output($orderNumber . '_invoice.pdf', 'I');
     }
 }

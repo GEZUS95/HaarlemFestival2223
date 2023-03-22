@@ -140,7 +140,7 @@ CREATE TABLE `orderline` (
   `table` varchar(255) NOT NULL,
   `item_id` int(11) NOT NULL,
   `quantity` int(3) NOT NULL,
-  `child` tinyint(1) DEFAULT NULL
+  `child` BOOLEAN DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -148,7 +148,7 @@ CREATE TABLE `orderline` (
 --
 
 INSERT INTO `orderline` (`id`, `order_id`, `table`, `item_id`, `quantity`, `child`) VALUES
-(1, 1, 'reservation', 1, 3, NULL),
+(1, 1, 'reservation', 1, 3, 0),
 (2, 1, 'reservation', 2, 2, 1);
 
 -- --------------------------------------------------------

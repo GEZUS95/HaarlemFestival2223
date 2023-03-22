@@ -8,6 +8,7 @@ use helpers\UuidHelper;
 use models\Order;
 use repositories\OrderLineRepository;
 use repositories\OrderRepository;
+use function Composer\Autoload\includeFile;
 
 class OrderService
 {
@@ -118,7 +119,7 @@ class OrderService
 
         $date = new \DateTime();
 
-        $this->PDFHelper->generateInvoice($user->getName(), $orderId, $date->format('DATE_RFC2822'), $items);
+        $this->PDFHelper->generateInvoice($user->getName(), $orderId, $date->format(DATE_RFC2822), $items);
         $this->redirectHelper->redirect('/admin/orders?success=PDF generated!');
     }
 
@@ -130,12 +131,21 @@ class OrderService
 
         foreach ($items as $item) {
             $object = $this->orderRepository->getItemFromDB($item->getTable(), $item->getItemId());
+            if ($item->isChild()) {
             $newItems[] = array(
                 "name" => $object['title'],
                 "quantity" => $item->getQuantity(),
-                "price" => $object['price'],
+                "price" => $object['price_child'],
                 "taxRate" => 0.21
             );
+            } else {
+                $newItems[] = array(
+                    "name" => $object['title'],
+                    "quantity" => $item->getQuantity(),
+                    "price" => $object['price'],
+                    "taxRate" => 0.21
+                );
+            }
         }
 
         return $newItems;

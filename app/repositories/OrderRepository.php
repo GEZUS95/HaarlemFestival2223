@@ -95,8 +95,7 @@ class OrderRepository extends Repository
     public function getItemFromDB($table, $itemId)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM :table WHERE id = :id LIMIT 1");
-            $stmt->bindParam(':table', $table);
+            $stmt = $this->connection->prepare("SELECT * FROM " . $table . " WHERE id = :id LIMIT 1");
             $stmt->bindParam(':id', $itemId);
             $stmt->execute();
 
