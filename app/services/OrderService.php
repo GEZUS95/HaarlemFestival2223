@@ -92,7 +92,7 @@ class OrderService
 
     public function updateOrderLineQuantity(int $id, int $quantity)
     {
-        //todo: check if tickets ar available
+        $this->ticketsAvailable($id, $quantity);
         $this->orderLineRepository->updateOne($id, $quantity);
         $this->redirectHelper->redirect('/cart?success=Quantity updated');
     }
@@ -154,5 +154,19 @@ class OrderService
         }
 
         return $newItems;
+    }
+
+    private function ticketsAvailable(int $id, int $quantity)
+    {
+        $order = $this->orderLineRepository->getOneFromId($id);
+        $item = $this->orderRepository->getItemFromDB($order->getTable(), $order->getItemId());
+        $ticketsAvailable = $item['seats_left'];
+        if ($ticketsAvailable >= $quantity) {
+            $ticketsAvailable = $ticketsAvailable - $quantity;
+
+            $this->orderRepository->updateTicketsAvailable($order->getTable(), $order->getItemId(), $ticketsAvailable);
+        } else {
+            $this->redirectHelper->redirect('/cart?error=Not enough tickets available');
+        }
     }
 }

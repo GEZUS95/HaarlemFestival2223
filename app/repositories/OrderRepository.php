@@ -92,7 +92,7 @@ class OrderRepository extends Repository
         }
     }
 
-    public function getItemFromDB($table, $itemId)
+    public function getItemFromDB(string $table, int $itemId)
     {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM " . $table . " WHERE id = :id LIMIT 1");
@@ -100,6 +100,22 @@ class OrderRepository extends Repository
             $stmt->execute();
 
             return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    public function updateTicketsAvailable(string $table, int $itemId, int $ticketsAvailable)
+    {
+        try {
+            $stmt = $this->connection->prepare(
+                "UPDATE " . $table . "
+                SET seats_left = :ticketsAvailable
+                WHERE id = :id");
+            $stmt->bindParam(':ticketsAvailable', $ticketsAvailable);
+            $stmt->bindParam(':id', $itemId);
+            $stmt->execute();
+
         } catch (PDOException $e) {
             echo $e;
         }
