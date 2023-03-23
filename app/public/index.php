@@ -10,6 +10,8 @@ require_once __DIR__ . '/../routers/CartRouter.php';
 require_once __DIR__ . '/../routers/TestRouter.php';
 require_once __DIR__ . '/../routers/UserRouter.php';
 require_once __DIR__ . '/../routers/PaymentRouter.php';
+require_once __DIR__ . '/../routers/UploadRouter.php';
+
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

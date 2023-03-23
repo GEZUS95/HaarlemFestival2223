@@ -37,6 +37,10 @@ include_once __DIR__ . '/../admin-header.php';
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
-        selector: '#body'
+        selector: '#body',
+        plugins: 'image',
+        menubar: 'insert',
+        image_uploadtab: 'upload',
+        images_upload_url: 'https://01cc-145-81-192-114.eu.ngrok.io/upload/uploadImage',
     });
 </script>

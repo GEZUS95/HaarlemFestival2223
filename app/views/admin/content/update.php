@@ -40,8 +40,8 @@ include_once __DIR__ . '/../admin-header.php';
     tinymce.init({
         selector: '#body',
         plugins: 'image',
-        menubar: '  insert',
-        image_uploadtab: true,
-        images_upload_base_path: '/public/images/pages'
+        menubar: 'insert',
+        image_uploadtab: 'upload',
+        images_upload_url: '/upload/uploadImage',
     });
 </script>
