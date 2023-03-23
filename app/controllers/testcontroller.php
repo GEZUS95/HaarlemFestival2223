@@ -4,13 +4,13 @@ namespace controllers;
 use helpers\EmailHelper;
 use helpers\PDFHelper;
 use helpers\UuidHelper;
-use helpers\PaymentHelper;
 use models\Attachment;
 
 class TestController
 {
     public function testPayment(){
-        (new \helpers\PaymentHelper)->Pay();
+        $paymentHelper = new PaymentController();
+        $paymentHelper->Pay('20.00', 1);
     }
     public function testTicket()
     {
