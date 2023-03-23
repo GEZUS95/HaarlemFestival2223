@@ -61,4 +61,7 @@ $router->get('/admin/content/update/{id}', 'admin\ContentController@updatePage')
 $router->post('/admin/content/update/{id}', 'admin\ContentController@updatePagePost');
 $router->get('/admin/content/delete/{id}', 'admin\ContentController@deletePage');
 
-$router->get('/admin/orders', 'admin\OrderController@showOrders');
+$router->get('/admin/orders', 'admin\OrderController@showAllOrders');
+$router->get('/admin/order/{id}/updatestatus', 'admin\OrderController@orderStatusUpdate');
+$router->get('/admin/order/{id}/invoice', 'admin\OrderController@getInvoice');
+$router->get('/admin/order/{id}', 'admin\OrderController@showOrder');

@@ -19,19 +19,16 @@ class OrderLineRepository extends Repository
         }
     }
 
-    public function insertOne(string $uuid, int $oId, int $eId, int $pId, int $pIId, int $sId, int $quantity)
+    public function insertOne(int $orderId, string $table, int $itemId, int $quantity)
     {
         try {
             $stmt = $this->connection->prepare("
-                    INSERT INTO `orderline` (uuid, order_id, event_id, program_id, programitem_id, session_id, quantity)
-                    VALUES (:uuid, :oid, :eid, :pid, :piid, :sid, :quantity)
+                    INSERT INTO `orderline` (order_id, `table`, item_id, quantity)
+                    VALUES (:orderid, :table, :itemid, :quantity)
                     ");
-            $stmt->bindParam(':uuid', $uuid);
-            $stmt->bindParam(':oid', $oId);
-            $stmt->bindParam(':eid', $eId);
-            $stmt->bindParam(':pid', $pId);
-            $stmt->bindParam(':piid', $pIId);
-            $stmt->bindParam(':sid', $sId);
+            $stmt->bindParam(':orderid', $orderId);
+            $stmt->bindParam(':table', $table);
+            $stmt->bindParam(':itemid', $itemId);
             $stmt->bindParam(':quantity', $quantity);
             return $stmt->execute();
         } catch (PDOException $e) {
@@ -39,26 +36,27 @@ class OrderLineRepository extends Repository
         }
     }
 
-    public function deleteOne(string $uuid)
+    public function deleteOne(int $id)
     {
         try {
             $stmt = $this->connection->prepare("
-                    DELETE FROM orderline WHERE uuid = :uuid
+                    DELETE FROM orderline WHERE id = :id
                     ");
-            $stmt->bindParam(':uuid', $uuid);
+            $stmt->bindParam(':id', $id);
             $stmt->execute();
         } catch (PDOException $e) {
             echo $e;
         }
     }
 
-    public function getOneFromId(string $uuid)
+    public function getOneFromId(int $id)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM orderline WHERE uuid = :uuid LIMIT 1");
-            $stmt->bindParam(':uuid', $uuid);
+            $stmt = $this->connection->prepare("SELECT * FROM orderline WHERE id = :id LIMIT 1");
+            $stmt->bindParam(':id', $id);
             $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_CLASS, OrderLine::class);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, OrderLine::class);
+            return $stmt->fetch();
 
         } catch (PDOException $e) {
             echo $e;
@@ -78,15 +76,15 @@ class OrderLineRepository extends Repository
         }
     }
 
-    public function updateOne(string $uuid, int $quantity)
+    public function updateOne(int $id, int $quantity)
     {
         try {
             $stmt = $this->connection->prepare("
                 UPDATE orderline
                 SET quantity = :quantity
-                WHERE uuid = :id");
+                WHERE id = :id");
             $stmt->bindParam(':quantity', $quantity);
-            $stmt->bindParam(':id', $uuid);
+            $stmt->bindParam(':id', $id);
             $stmt->execute();
 
         } catch (PDOException $e) {
