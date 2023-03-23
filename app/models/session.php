@@ -5,10 +5,11 @@ use DateTime;
 use Exception;
 
 class Session {
-    public int $id;
-    public int $restaurant_id;
-    public \DateTime $start_time;
-    public \DateTime $end_time;
+    private int $id;
+    private int $restaurant_id;
+    private \DateTime $start_time;
+    private \DateTime $end_time;
+    private int $seats_left;
 
     public function __construct(string $startTimeStr, string $endTimeStr) {
         $this->start_time = new \DateTime($startTimeStr);
@@ -77,5 +78,21 @@ class Session {
     public function setEndTime(DateTime $end_time): void
     {
         $this->end_time = $end_time;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSeatsLeft(): int
+    {
+        return $this->seats_left;
+    }
+
+    /**
+     * @param int $seats_left
+     */
+    public function setSeatsLeft(int $seats_left): void
+    {
+        $this->seats_left = $seats_left;
     }
 }

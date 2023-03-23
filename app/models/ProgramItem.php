@@ -11,6 +11,7 @@ class ProgramItem {
     private \DateTime $start_time;
     private \DateTime $end_time;
     private float $price;
+    private int $seats_left;
 
     /**
      * @return int
@@ -138,5 +139,21 @@ class ProgramItem {
     public function setPrice(float $price): void
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSeatsLeft(): int
+    {
+        return $this->seats_left;
+    }
+
+    /**
+     * @param int $seats_left
+     */
+    public function setSeatsLeft(int $seats_left): void
+    {
+        $this->seats_left = $seats_left;
     }
 }

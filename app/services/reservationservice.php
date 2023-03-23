@@ -38,6 +38,7 @@ class ReservationService {
 
     public function postReservation(){
         $reservation = new Reservation();
+        $reservation->setUserId($_POST["user_id"]);
         $reservation->setSessionId($_POST["session_id"]);
         $reservation->setRemarks($_POST["remarks"]);
         $reservation->setStatus("active");

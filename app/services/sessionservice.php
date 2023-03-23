@@ -48,6 +48,7 @@ class SessionService {
         $session->setRestaurantId($_POST["restaurant_id"]);
         $session->setStartTime(new \DateTime($_POST["start_time"]));
         $session->setEndTime(new \DateTime($_POST["end_time"]));
+        $session->setSeatsLeft($_POST["seats_left"]);
         return $session;
     }
 }

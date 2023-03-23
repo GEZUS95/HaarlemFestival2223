@@ -44,7 +44,7 @@ class SessionController {
 
     public function newSessionPost() {
         $session = $this->sessionService->postSession($_POST);
-        $this->sessionService->insertOne($session->getRestaurantId(), $session->getStartTime(), $session->getEndTime());
+        $this->sessionService->insertOne($session->getRestaurantId(), $session->getStartTime(), $session->getEndTime(), $session->getSeatsLeft());
         $this->redirectHelper->redirect("/admin/sessions");
     }
 

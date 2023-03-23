@@ -19,24 +19,19 @@ class ProgramService
         return $this->repository->getAll();
     }
 
-    public function getProgramItemsByProgramId(int $id)
-    {
-        return $this->repository->getProgramItemsByProgramId($id);
-    }
-
     public function getOneById(int $id)
     {
         return $this->repository->getOneById($id);
     }
 
-    public function getOneByEventId(int $id)
+    public function getOneByEventId(int $event_id)
     {
-        return $this->repository->getOneByEventId($id);
+        return $this->repository->getOneByEventId($event_id);
     }
 
-    public function getOneByContentId(int $id)
+    public function getOneByContentId(int $content_id)
     {
-        return $this->repository->getOneByContentId($id);
+        return $this->repository->getOneByContentId($content_id);
     }
 
     public function getOneByTitle(string $title)
@@ -44,53 +39,18 @@ class ProgramService
         return $this->repository->getOneByTitle($title);
     }
 
-    public function getOneByTotalPriceProgram(float $totalPriceProgram)
+    public function insertOne(int $event_id, int $content_id, string $title, float $total_price_program, \DateTime $start_time, \DateTime $end_time)
     {
-        return $this->repository->getOneByTotalPriceProgram($totalPriceProgram);
+        $this->repository->insertOne($event_id, $content_id, $title, $total_price_program, $start_time, $end_time);
     }
 
-    public function insertOneProgramWithProgramItems(Program $program)
+    public function updateOne(int $id, int $event_id, int $content_id, string $title, float $total_price_program, \DateTime $start_time, \DateTime $end_time)
     {
-        $this->repository->insertOneProgramWithProgramItems($program);
+        $this->repository->updateOne($id, $event_id, $content_id, $title, $total_price_program, $start_time, $end_time);
     }
 
-    public function insertOneProgram(Program $program, array $programItems)
+    public function deleteOne(int $id)
     {
-        $this->repository->insertOneProgram($program, $programItems);
-    }
-
-    public function insertOneProgramItem(ProgramItem $programItem)
-    {
-        $this->repository->insertOneProgramItem($programItem);
-    }
-
-    public function insertProgramItems(array $programItems, int $programId)
-    {
-        $this->repository->insertProgramItems($programItems, $programId);
-    }
-
-    public function updateOneProgram(Program $program)
-    {
-        $this->repository->updateOneProgram($program);
-    }
-
-    public function updateOneProgramItem(ProgramItem $programItem)
-    {
-        $this->repository->updateOneProgramItem($programItem);
-    }
-
-    public function deleteOneProgram(Program $program)
-    {
-        $this->repository->deleteOneProgram($program);
-    }
-
-    public function deleteOneProgramItem(ProgramItem $programItem)
-    {
-        $this->repository->deleteOneProgramItem($programItem);
-    }
-
-    public function deleteProgramItemsByProgramId(int $programId)
-    {
-        $this->repository->deleteProgramItemsByProgramId($programId);
+        $this->repository->deleteOne($id);
     }
 }
