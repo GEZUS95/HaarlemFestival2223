@@ -10,7 +10,7 @@ class TestController
 {
     public function testPayment(){
         $paymentHelper = new PaymentController();
-        $paymentHelper->Pay('20.00', 123456);
+        $paymentHelper->Pay('20.00', 1);
     }
     public function testTicket()
     {

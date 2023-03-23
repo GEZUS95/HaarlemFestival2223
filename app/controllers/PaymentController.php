@@ -16,7 +16,7 @@ class PaymentController
                 "value" => "$value",
             ],
             "description" => "Order #{$orderID}",
-            "redirectUrl" => "https://01cc-145-81-192-114.eu.ngrok.io/changePaymentStatus?order_id=$orderID",
+            "redirectUrl" => "https://01cc-145-81-192-114.eu.ngrok.io/payments/changePaymentStatus?order_id=$orderID",
             "metadata" => [
                 "order_id" => $orderID,
             ],
