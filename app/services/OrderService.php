@@ -120,7 +120,7 @@ class OrderService
 
         $date = new \DateTime();
 
-        $this->PDFHelper->generateInvoiceDownload($user->getName(), $orderId, $date->format(DATE_RFC2822), $items);
+        $this->PDFHelper->generateInvoiceDownload($user->getName(), $order->getShareUuid(), $date->format('d-m-Y'), $items);
         $this->redirectHelper->redirect('/admin/orders?success=PDF generated!');
     }
 

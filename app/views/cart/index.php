@@ -46,7 +46,7 @@ include __DIR__ . '/../header.php';
             </td>
             <td><?= $item['isChild'] ?></td>
             <td><?= $item['price'] * $item['quantity'] ?></td>
-            <td><a href="/cart/delete/<?= $item['id'] ?>" class="btn btn-warning">Remove from cart</a></td>
+            <td><a href="/cart/delete/<?= $item['id'] ?>" class="btn btn-danger">Remove from cart</a></td>
         </tr>
 
         <?php

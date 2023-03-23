@@ -148,8 +148,8 @@ CREATE TABLE `orderline` (
 --
 
 INSERT INTO `orderline` (`id`, `order_id`, `table`, `item_id`, `quantity`, `child`) VALUES
-(1, 1, 'reservation', 1, 3, 0),
-(2, 1, 'reservation', 2, 2, 1);
+(1, 1, 'restaurant', 1, 3, 0),
+(2, 1, 'restaurant', 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -170,7 +170,7 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `user_id`, `share_uuid`, `status`) VALUES
 (1, 1, '82336383-1950-47c2-874e-9a9191cf2e4d', 'paid'),
-(2, 1, 'a44aa6b2-c8b9-11ed-afa1-0242ac120002', 'paid');
+(2, 1, 'a44aa6b2-c8b9-11ed-afa1-0242ac120002', 'open');
 
 -- --------------------------------------------------------
 
@@ -270,7 +270,7 @@ INSERT INTO `reservation` (`id`, `session_id`, `remarks`, `status`) VALUES
 CREATE TABLE `restaurant` (
   `id` int(11) NOT NULL,
   `location_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `stars` int(11) NOT NULL,
   `seats` int(11) NOT NULL,
@@ -283,7 +283,7 @@ CREATE TABLE `restaurant` (
 -- Dumping data for table `restaurant`
 --
 
-INSERT INTO `restaurant` (`id`, `location_id`, `name`, `description`, `stars`, `seats`, `price`, `price_child`, `accessibility`) VALUES
+INSERT INTO `restaurant` (`id`, `location_id`, `title`, `description`, `stars`, `seats`, `price`, `price_child`, `accessibility`) VALUES
 (1, 1, 'Ratatouille', 'Ratatouille has a lot of food.', 5, 100, 20, 10, 'none'),
 (2, 2, 'McDonalds', 'McDonalds is known for their high culinary standards. ', 5, 500, 5000, 3000, 'Wheelchair Accessible');
 

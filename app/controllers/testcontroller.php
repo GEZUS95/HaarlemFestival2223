@@ -87,6 +87,6 @@ class TestController
             )
         );
         $pdf = (new PDFHelper)->generateInvoice($customerName, $orderNumber, $orderDate, $items);
-        $email->sendEmailWithAttachments('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your Invoice','Invoice has arrived!',$pdf,'HaarlemFestival_Invoice.pdf');
+        $email->sendEmailWithAttachments('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your Invoice','Invoice has arrived!',array(new Attachment($pdf, "pdf1")),'HaarlemFestival_Invoice.pdf');
     }
 }
