@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use helpers\RedirectHelper;
 use services\PasswordResetService;
 use services\UserService;
 
@@ -9,11 +10,13 @@ class UserController
 {
     private UserService $userService;
     private PasswordResetService $passwordResetService;
+    private RedirectHelper $redirectHelper;
 
     public function __construct()
     {
         $this->userService = new UserService();
         $this->passwordResetService = new PasswordResetService();
+        $this->redirectHelper = new RedirectHelper();
     }
 
     public function requestResetPassword()
@@ -24,7 +27,7 @@ class UserController
     public function requestResetPasswordPost()
     {
         if (!isset($_POST['email'])) {
-            $this->userService->redirect('/resetpassword?error=No email provided');
+            $this->redirectHelper->redirect('/resetpassword?error=No email provided');
         }
         $this->userService->requestPasswordReset($_POST['email']);
     }
@@ -32,7 +35,7 @@ class UserController
     public function resetPasswordPage(string $uuid)
     {
         if (!$this->passwordResetService->checkUuid($uuid)) {
-            $this->userService->redirect('/passwordreset?error=This link is not valid, please try again');
+            $this->redirectHelper->redirect('/passwordreset?error=This link is not valid, please try again');
         }
 
         require_once __DIR__ . '/../views/user/resetpassword.php';

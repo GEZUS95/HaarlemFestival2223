@@ -44,18 +44,16 @@ class PasswordResetService
 
         $this->insertOne($uuid, $userId, $expires);
 
-        $this->emailService->sendEmail(
+        ob_start();
+        include __DIR__ . '/../views/templates/emailtemplates/passwordReset.php';
+        $emailmsg = ob_get_clean();
+
+        $this->emailService->sendHTMLEmail(
             'no-reply@haarlemfestival.com',
             $email,
             'Forgotten Password',
-            "
-<!DOCTYPE html>
-<html>
-    <body>
-                <a href='http://localhost/resetpassword/$uuid'>Klik hier om je wachtwoord te resetten</a> /r
-                if the link does not work  http://localhost/resetpassword/$uuid
-    </body>
-</html>"
+            $emailmsg
+
         );
     }
 

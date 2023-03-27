@@ -258,8 +258,7 @@ class UserService
         $user = $this->getOneByEmail($email);
         if ($this->passwordResetService->checkIfAlreadyExist($user->getId())) {
             $this->redirectHelper->redirect(
-                '/resetpassword?error=there is already an request,
-                 please try again or check your email'
+                '/resetpassword?error=there is already an request, please try again or check your email'
             );
         }
         $this->passwordResetService->newRequest($user->getEmail(), $user->getId());
