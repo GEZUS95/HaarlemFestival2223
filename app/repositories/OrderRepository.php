@@ -8,10 +8,13 @@ use PDOException;
 
 class OrderRepository extends Repository
 {
-    public function getAll()
+    public function getAll(int $limit, int $offset)
     {
         try {
-            $stmt = $this->connection->prepare('SELECT * FROM orders');
+            $stmt = $this->connection->prepare('SELECT * FROM orders LIMIT :limit OFFSET :offset');
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_CLASS, Order::class);
         } catch (PDOException $e) {

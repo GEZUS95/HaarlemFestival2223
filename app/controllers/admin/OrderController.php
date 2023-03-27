@@ -30,7 +30,8 @@ class OrderController
 
     public function showAllOrders()
     {
-        $orders = $this->orderService->getAllOrders();
+        $page = $_GET['p'] ?? 0;
+        $orders = $this->orderService->getAllOrders($_GET['l'] ?? 15, $page * ($_GET['l'] ?? 15));
         require_once __DIR__ . '/../../views/admin/orders/index.php';
     }
 

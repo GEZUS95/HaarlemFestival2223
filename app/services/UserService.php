@@ -23,9 +23,9 @@ class UserService
         $this->redirectHelper = new RedirectHelper();
     }
 
-    public function getAll(): false|array|null
+    public function getAll(int $limit, int $offset): false|array|null
     {
-        return $this->repository->getAll();
+        return $this->repository->getAll($limit, $offset);
     }
 
     public function updateOne(User $user): void

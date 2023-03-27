@@ -28,9 +28,9 @@ class OrderService
         $this->userService = new UserService();
     }
 
-    public function getAllOrders()
+    public function getAllOrders(int $limit, int $offset)
     {
-        return $this->orderRepository->getAll();
+        return $this->orderRepository->getAll($limit, $offset);
     }
 
     public function getAllOrderLines()

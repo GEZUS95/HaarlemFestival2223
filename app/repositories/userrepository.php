@@ -8,10 +8,12 @@ use PDOException;
 
 class UserRepository extends Repository
 {
-    public function getAll()
+    public function getAll(int $limit, int $offset)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM user");
+            $stmt = $this->connection->prepare("SELECT * FROM user LIMIT :limit OFFSET :offset");
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
