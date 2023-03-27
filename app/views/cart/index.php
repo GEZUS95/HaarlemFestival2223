@@ -13,6 +13,7 @@ include __DIR__ . '/../header.php';
         <th scope="col">quantity</th>
         <th scope="col">child ticket</th>
         <th scope="col">price (excl. VAT)</th>
+        <th scope="col">VAT</th>
         <th scope="col"></th>
 
     </tr>
@@ -46,6 +47,7 @@ include __DIR__ . '/../header.php';
             </td>
             <td><?= $item['isChild'] ?></td>
             <td><?= $item['price'] * $item['quantity'] ?></td>
+            <td><?= ($item['price'] * $item['quantity']) * $item['taxRate'] ?></td>
             <td><a href="/cart/delete/<?= $item['id'] ?>" class="btn btn-danger">Remove from cart</a></td>
         </tr>
 
