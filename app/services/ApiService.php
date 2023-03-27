@@ -54,4 +54,9 @@ class ApiService
             $html
         );
     }
+
+    public function verifyToken(string $token)
+    {
+        return $this->getOneFromUuid($token);
+    }
 }
