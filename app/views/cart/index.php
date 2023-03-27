@@ -4,7 +4,7 @@ include __DIR__ . '/../header.php';
 
     <h1>Shopping cart</h1>
 
-    <a href="/pay/<?= $order->getId()?>" class="btn btn-primary disabled">Pay</a>
+    <a href="/cart/pay/<?= $order->getId()?>" class="btn btn-success">Pay</a>
 
     <table class="table table-striped" aria-describedby="description">
     <thead>
@@ -12,7 +12,7 @@ include __DIR__ . '/../header.php';
         <th scope="col">Item</th>
         <th scope="col">quantity</th>
         <th scope="col">child ticket</th>
-        <th scope="col">price</th>
+        <th scope="col">price (excl. VAT)</th>
         <th scope="col"></th>
 
     </tr>
