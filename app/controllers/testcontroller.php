@@ -89,4 +89,18 @@ class TestController
         $pdf = (new PDFHelper)->generateInvoice($customerName, $orderNumber, $orderDate, $items);
         $email->sendEmailWithAttachments('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your Invoice','Invoice has arrived!',array(new Attachment($pdf, "pdf1")),'HaarlemFestival_Invoice.pdf');
     }
+
+    public function testHTMLEmail(){
+        $email = new EmailHelper();
+
+        //this is the name that will be seen in the email
+        $name = 'Hendrik';
+
+        //Read the PHP template file and render its contents as HTML, passing in the variables
+        ob_start(); // This will Start output buffering
+        include __DIR__ . '/../views/templates/emailtemplates/example.php'; // This will load the template (in this case example.php)
+        $html = ob_get_clean(); // This will get the contents of the output buffer and clear it
+
+        $email->sendHTMLEmail('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your HTML email',$html);
+    }
 }

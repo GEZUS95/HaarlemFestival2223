@@ -70,4 +70,22 @@ class EmailHelper
         //Use the previously made mailer to send the mail
         $this->mailer->send($email);
     }
+
+    //Use this function to send HTML emails, instead of a message, html needs to be provided
+    //For usage see testcontroller -> testHTMLEmail()
+    public function sendHTMLEmail($addressFrom, $addressTo, $subject, $html){
+        //Add the data to the Email
+        $email = (new Email())
+            ->from($addressFrom)
+            ->to($addressTo)
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject($subject)
+            ->html($html)
+        ;
+        //Use the previously made mailer to send the mail
+        $this->mailer->send($email);
+    }
 }
