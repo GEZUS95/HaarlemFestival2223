@@ -4,6 +4,34 @@ include_once __DIR__ . '/../admin-header.php';
 
 <h1 id="description">Welcome to the users panel</h1>
 
+<!-- HTML form -->
+<form method="GET" action="/admin/users" class="form-horizontal">
+    <label for="search">Search:</label>
+    <input type="text" id="search" name="search">
+
+    <label for="filter">Filter:</label>
+    <select id="filter" name="filter">
+        <option value="">-- Select Role --</option>
+        <option value="3">Super-Admin</option>
+        <option value="2">Admin</option>
+        <option value="1">User</option>
+    </select>
+
+    <label for="sort">Sort:</label>
+    <select id="sort" name="sort">
+        <option value="">-- Select Column --</option>
+        <option value="name ASC">Name (A-Z)</option>
+        <option value="name DESC">Name (Z-A)</option>
+        <option value="email ASC">Email (A-Z)</option>
+        <option value="email DESC">Email (Z-A)</option>
+        <option value="created_at ASC">Created (A-Z)</option>
+        <option value="created_at DESC">Created (Z-A)</option>
+    </select>
+
+    <button type="submit">Submit</button>
+</form>
+
+
 <table class="table table-striped" aria-describedby="description">
     <thead>
     <tr>

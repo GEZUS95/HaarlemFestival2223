@@ -30,7 +30,13 @@ class UserController
     public function showUsers()
     {
         $page = $_GET['p'] ?? 0;
-        $model = $this->userService->getAll($_GET['l'] ?? 15, $page * ($_GET['l'] ?? 15));
+        $model = $this->userService->getAll(
+            $_GET['l'] ?? 15,
+            $page * ($_GET['l'] ?? 15),
+            $_GET['search'] ?? null,
+            $_GET['filter'] ?? null,
+            $_GET['sort'] ?? null
+        );
         $roles = $this->roleService->getAll();
         require_once __DIR__ . '/../../views/admin/users/index.php';
     }
