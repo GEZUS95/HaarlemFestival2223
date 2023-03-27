@@ -4,6 +4,8 @@ namespace repositories;
 
 
 use models\ProgramItem;
+use PDO;
+use PDOException;
 
 class ProgramItemRepository extends Repository
 {

@@ -59,9 +59,9 @@ class Session {
     /**
      * @param DateTime $start_time
      */
-    public function setStartTime(DateTime $start_time): void
+    public function setStartTime(string $start_time): void
     {
-        $this->start_time = $start_time;
+        $this->start_time = new DateTime($start_time);
     }
 
     /**
@@ -75,9 +75,9 @@ class Session {
     /**
      * @param DateTime $end_time
      */
-    public function setEndTime(DateTime $end_time): void
+    public function setEndTime(string $end_time): void
     {
-        $this->end_time = $end_time;
+        $this->end_time = new DateTime($end_time);
     }
 
     /**

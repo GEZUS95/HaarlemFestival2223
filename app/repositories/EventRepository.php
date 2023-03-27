@@ -66,18 +66,12 @@ class EventRepository extends Repository
         }
     }
 
-    public function insertOne(Event $event)
+    public function insertOne(string $title, string $description)
     {
         try {
-            $stmt = $this->connection->prepare('INSERT INTO event (session_id, title, price, description) VALUES (?, ?, ?, ?)');
-            $session_id = $event->getSessionId();
-            $title = $event->getTitle();
-            $price = $event->getPrice();
-            $description = $event->getDescription();
-            $stmt->bindParam(1, $session_id);
-            $stmt->bindParam(2, $title);
-            $stmt->bindParam(3, $price);
-            $stmt->bindParam(4, $description);
+            $stmt = $this->connection->prepare('INSERT INTO event (title, description) VALUES (?, ?)');
+            $stmt->bindParam(1, $title);
+            $stmt->bindParam(2, $description);
             $stmt->execute();
         } catch (PDOException $e)
         {
@@ -85,20 +79,13 @@ class EventRepository extends Repository
         }
     }
 
-    public function updateOne(Event $event)
+    public function updateOne(string $title, string $description, int $id)
     {
         try {
-            $stmt = $this->connection->prepare('UPDATE event SET session_id = ?, title = ?, price = ?, description = ? WHERE id = ?');
-            $session_id = $event->getSessionId();
-            $title = $event->getTitle();
-            $price = $event->getPrice();
-            $description = $event->getDescription();
-            $id = $event->getId();
-            $stmt->bindParam(1, $session_id);
-            $stmt->bindParam(2, $title);
-            $stmt->bindParam(3, $price);
-            $stmt->bindParam(4, $description);
-            $stmt->bindParam(5, $id);
+            $stmt = $this->connection->prepare('UPDATE event SET title = ?, description = ? WHERE id = ?');
+            $stmt->bindParam(1, $title);
+            $stmt->bindParam(2, $description);
+            $stmt->bindParam(3, $id);
             $stmt->execute();
         } catch (PDOException $e)
         {

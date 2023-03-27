@@ -4,12 +4,13 @@ namespace models;
 
 class ProgramItem {
     private int $id;
+    private int $program_id;
     private int $location_id;
     private int $artist_id;
     private int $special_guest_id;
-    private int $content_id;
-    private \DateTime $start_time;
-    private \DateTime $end_time;
+    private string $title;
+    private string $start_time;
+    private string $end_time;
     private float $price;
     private int $seats_left;
 
@@ -27,6 +28,22 @@ class ProgramItem {
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProgramId(): int
+    {
+        return $this->program_id;
+    }
+
+    /**
+     * @param int $program_id
+     */
+    public function setProgramId(int $program_id): void
+    {
+        $this->program_id = $program_id;
     }
 
     /**
@@ -78,49 +95,49 @@ class ProgramItem {
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getContentId(): int
+    public function getTitle(): string
     {
-        return $this->content_id;
+        return $this->title;
     }
 
     /**
-     * @param int $content_id
+     * @param string $title
      */
-    public function setContentId(int $content_id): void
+    public function setTitle(string $title): void
     {
-        $this->content_id = $content_id;
+        $this->title = $title;
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getStartTime(): \DateTime
+    public function getStartTime(): string
     {
         return $this->start_time;
     }
 
     /**
-     * @param \DateTime $start_time
+     * @param string $start_time
      */
-    public function setStartTime(\DateTime $start_time): void
+    public function setStartTime(string $start_time): void
     {
         $this->start_time = $start_time;
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getEndTime(): \DateTime
+    public function getEndTime(): string
     {
         return $this->end_time;
     }
 
     /**
-     * @param \DateTime $end_time
+     * @param string $end_time
      */
-    public function setEndTime(\DateTime $end_time): void
+    public function setEndTime(string $end_time): void
     {
         $this->end_time = $end_time;
     }
@@ -156,4 +173,5 @@ class ProgramItem {
     {
         $this->seats_left = $seats_left;
     }
+
 }

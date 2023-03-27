@@ -1,7 +1,7 @@
 <?php
 
 namespace services;
-use repositories\ProgramRepository;
+use repositories\ProgramItemRepository;
 use models\Program;
 use models\ProgramItem;
 

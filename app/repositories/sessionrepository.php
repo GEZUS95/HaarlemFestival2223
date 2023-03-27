@@ -11,7 +11,7 @@ class SessionRepository extends Repository {
             $stmt->bindParam(1, $restaurantId);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
-            $sessions = $stmt->fetchAll();
+            $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $sessions;
         } catch (PDOException $e) {
             echo $e;
@@ -23,13 +23,12 @@ class SessionRepository extends Repository {
             $stmt = $this->connection->prepare('SELECT * FROM session');
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
-            $sessions = $stmt->fetchAll();
+            $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $sessions;
         } catch (PDOException $e) {
             echo $e;
         }
     }
-
 
     public function getOneById(int $id) {
         try {
@@ -37,8 +36,21 @@ class SessionRepository extends Repository {
             $stmt->bindParam(1, $id);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
-            $session = $stmt->fetch();
+            $session = $stmt->fetch(PDO::FETCH_ASSOC);
             return $session;
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    public function getAllFutureSessionsForRestaurant(int $restaurantId) {
+        try {
+            $stmt = $this->connection->prepare('SELECT * FROM session WHERE restaurant_id = ? AND start_time > NOW()');
+            $stmt->bindParam(1, $restaurantId);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
+            $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $sessions;
         } catch (PDOException $e) {
             echo $e;
         }

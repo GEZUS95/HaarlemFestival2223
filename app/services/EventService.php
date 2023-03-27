@@ -25,12 +25,12 @@ class EventService {
         return $this->repository->getOneByTitle($title);
     }
 
-    public function insertOne(Event $event){
-        $this->repository->insertOne($event);
+    public function insertOne(string $title, string $description){
+        $this->repository->insertOne($title, $description);
     }
 
-    public function updateOne(Event $event){
-        $this->repository->updateOne($event);
+    public function updateOne(string $title, string $description, int $id){
+        $this->repository->updateOne($title, $description, $id);
     }
 
     public function deleteOne(Event $event){
@@ -41,10 +41,6 @@ class EventService {
         $event = new Event();
         $event->setTitle($_POST["title"]);
         $event->setDescription($_POST["description"]);
-        $event->setPrice($_POST["price"]);
-        $event->setStartTime($_POST["start_time"]);
-        $event->setEndTime($_POST["end_time"]);
-        $event->setSessionId($_POST["session_id"]);
         return $event;
     }
 }

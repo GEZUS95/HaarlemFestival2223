@@ -10,9 +10,9 @@ class Program {
     private int $content_id;
     private array $program_items;
     private string $title;
-    private float $total_price_program;
-    private \DateTime $start_time;
-    private \DateTime $end_time;
+    private float $price;
+    private string $start_time;
+    private string $end_time;
 
     /**
      * @return int
@@ -97,56 +97,48 @@ class Program {
     /**
      * @return float
      */
-    public function getTotalPriceProgram(): float
+    public function getPrice(): float
     {
-        return $this->total_price_program;
-    }
-
-    public function setTotalPriceProgram(): void
-    {
-        // calc total price from all program items
-        $total_price = 0;
-        if (!empty($this->program_items)) {
-            foreach ($this->program_items as $program_item) {
-                $total_price += $program_item->getPrice();
-            }
-            $this->total_price_program = $total_price;
-        }
-        else {
-            $this->total_price_program = 0;
-        }
+        return $this->price;
     }
 
     /**
-     * @return \DateTime
+     * @param float $price
      */
-    public function getStartTime(): \DateTime
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStartTime(): string
     {
         return $this->start_time;
     }
 
     /**
-     * @param \DateTime $start_time
+     * @param string $start_time
      */
-    public function setStartTime(\DateTime $start_time): void
+    public function setStartTime(string $start_time): void
     {
         $this->start_time = $start_time;
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getEndTime(): \DateTime
+    public function getEndTime(): string
     {
         return $this->end_time;
     }
 
     /**
-     * @param \DateTime $end_time
+     * @param string $end_time
      */
-    public function setEndTime(\DateTime $end_time): void
+    public function setEndTime(string $end_time): void
     {
         $this->end_time = $end_time;
     }
-
 }
