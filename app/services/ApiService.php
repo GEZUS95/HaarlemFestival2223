@@ -20,9 +20,9 @@ class ApiService
     }
 
 
-    public function getAll()
+    public function getAll(int $limit = 0, int $offset = 0)
     {
-        return $this->repository->getAll();
+        return $this->repository->getAll($limit, $offset);
     }
 
     public function insertOne(string $description)
