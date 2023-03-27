@@ -14,9 +14,9 @@ class ContentService
         $this->repository = new ContentRepository();
     }
 
-    public function getAll()
+    public function getAll(int $limit, int $offset)
     {
-        return $this->repository->getAll();
+        return $this->repository->getAll($limit, $offset);
     }
 
     public function getOneFromTitle(string $title)

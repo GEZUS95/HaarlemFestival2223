@@ -29,7 +29,8 @@ class ContentController
 
     public function showPages()
     {
-        $model = $this->contentService->getAll();
+        $page = $_GET['p'] ?? 0;
+        $model = $this->contentService->getAll($_GET['l'] ?? 15, $page * ($_GET['l'] ?? 15));
         require_once __DIR__ . '/../../views/admin/content/index.php';
     }
 

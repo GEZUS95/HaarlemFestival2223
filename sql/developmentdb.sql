@@ -80,8 +80,8 @@ CREATE TABLE `content` (
 
 INSERT INTO `content` (`id`, `title`, `body`, `image_path`) VALUES
 (1, 'home', '&#60;p&#62;this is an test for the homepage&#60;/p&#62;&#13;&#10;&#60;p&#62;&#38;nbsp;&#60;/p&#62;&#13;&#10;&#60;p&#62;it is working now!&#60;/p&#62;', ''),
-(2, 'Venues', 'We partnered with a lot of venues to give you the best experience at Haarlem Festival.', NULL),
-(3, 'Haarlem Information', 'Haarlem is a beautiful city with lots to see and discover.', NULL);
+(2, 'Venues', 'We partnered with a lot of venues to give you the best experience at Haarlem Festival.', ''),
+(3, 'Haarlem Information', 'Haarlem is a beautiful city with lots to see and discover.', '');
 
 -- --------------------------------------------------------
 

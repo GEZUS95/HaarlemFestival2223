@@ -8,11 +8,13 @@ use PDOException;
 
 class ContentRepository extends Repository
 {
-    public function getAll()
+    public function getAll(int $limit, int $offset)
     {
         {
             try {
-                $stmt = $this->connection->prepare("SELECT * FROM content");
+                $stmt = $this->connection->prepare("SELECT * FROM content LIMIT :limit OFFSET :offset");
+                $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+                $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
                 $stmt->execute();
 
                 $stmt->setFetchMode(PDO::FETCH_CLASS, Content::class);
