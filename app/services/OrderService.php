@@ -8,7 +8,6 @@ use helpers\UuidHelper;
 use models\Order;
 use repositories\OrderLineRepository;
 use repositories\OrderRepository;
-use function Composer\Autoload\includeFile;
 
 class OrderService
 {
@@ -67,6 +66,7 @@ class OrderService
 
     public function addOrderline(int $orderId, string $table, int $itemId, int $quantity)
     {
+        $this->ticketsAvailable($orderId, $quantity);
         $this->orderLineRepository->insertOne($orderId, $table, $itemId, $quantity);
     }
 
