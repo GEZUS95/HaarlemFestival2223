@@ -7,10 +7,12 @@ use PDOException;
 
 class ApiKeyRepository extends Repository
 {
-    public function getAll()
+    public function getAll(int $limit, int $offset)
     {
         try {
-            $stmt = $this->connection->prepare('SELECT * FROM apikey');
+            $stmt = $this->connection->prepare("SELECT * FROM apikey LIMIT :limit OFFSET :offset");
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {

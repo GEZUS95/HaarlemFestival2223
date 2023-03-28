@@ -20,9 +20,9 @@ class ApiService
     }
 
 
-    public function getAll()
+    public function getAll(int $limit = 0, int $offset = 0)
     {
-        return $this->repository->getAll();
+        return $this->repository->getAll($limit, $offset);
     }
 
     public function insertOne(string $description)
@@ -43,16 +43,20 @@ class ApiService
 
     public function emailKey(string $uuid, string $email)
     {
-        $this->emailService->sendEmail(
+        ob_start();
+        include __DIR__. '/../views/templates/emailtemplates/apikey.php';
+        $html = ob_get_clean();
+
+        $this->emailService->sendHTMLEmail(
             'no-reply@haarlemfestival.com',
             $email,
             'Your new API key',
-            "
-            You have requested an API key for the Haarlem Festival, in this email you will find your new API key.
-            
-            
-            Your new API key is ' $uuid '
-            "
+            $html
         );
+    }
+
+    public function verifyToken(string $token)
+    {
+        return $this->getOneFromUuid($token);
     }
 }

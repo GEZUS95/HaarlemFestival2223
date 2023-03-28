@@ -23,9 +23,9 @@ class UserService
         $this->redirectHelper = new RedirectHelper();
     }
 
-    public function getAll(): false|array|null
+    public function getAll(int $limit, int $offset, string $search = null, string $filter = null, string $sort = null)
     {
-        return $this->repository->getAll();
+        return $this->repository->getAll($limit, $offset, $search, $filter, $sort);
     }
 
     public function updateOne(User $user): void
@@ -258,8 +258,7 @@ class UserService
         $user = $this->getOneByEmail($email);
         if ($this->passwordResetService->checkIfAlreadyExist($user->getId())) {
             $this->redirectHelper->redirect(
-                '/resetpassword?error=there is already an request,
-                 please try again or check your email'
+                '/resetpassword?error=there is already an request, please try again or check your email'
             );
         }
         $this->passwordResetService->newRequest($user->getEmail(), $user->getId());

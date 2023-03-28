@@ -8,10 +8,38 @@ use PDOException;
 
 class UserRepository extends Repository
 {
-    public function getAll()
+
+    public function getAll(int $limit, int $offset, $search = '', $filter = '', $sort = '')
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM user");
+            $query = "SELECT * FROM user";
+            $params = array();
+
+            if (!empty($search)) {
+                $query .= " WHERE name LIKE :search OR email LIKE :search";
+                $params[':search'] = "%$search%";
+            }
+
+            if (!empty($filter)) {
+                $query .= " AND role_id = :filter";
+                $params[':filter'] = $filter;
+            }
+
+            if (!empty($sort)) {
+                $query .= " ORDER BY $sort";
+            }
+
+            $query .= " LIMIT :limit OFFSET :offset";
+            $params[':limit'] = $limit;
+            $params[':offset'] = $offset;
+
+            $stmt = $this->connection->prepare($query);
+
+            foreach ($params as $param => $value) {
+                $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                $stmt->bindValue($param, $value, $type);
+            }
+
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
@@ -21,6 +49,7 @@ class UserRepository extends Repository
             echo $e;
         }
     }
+
 
     public function insertOne(int $role, string $name, string $email, string $password)
     {

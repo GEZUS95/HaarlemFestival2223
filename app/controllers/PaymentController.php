@@ -2,15 +2,24 @@
 
 namespace controllers;
 
+use Mollie\Api\MollieApiClient;
 use services\OrderService;
 
 class PaymentController
 {
-    public function Pay($value, $orderID)
+    private OrderService $orderService;
+    private MollieApiClient $mollie;
+
+    public function __construct()
     {
-        $mollie = new \Mollie\Api\MollieApiClient();
-        $mollie->setApiKey("test_Ds3fz4U9vNKxzCfVvVHJT2sgW5ECD8");
-        $payment = $mollie->payments->create([
+        $this->orderService = new OrderService();
+        $this->mollie = new MollieApiClient();
+    }
+
+    public function pay($value, $orderID)
+    {
+        $this->mollie->setApiKey("test_Ds3fz4U9vNKxzCfVvVHJT2sgW5ECD8");
+        $payment = $this->mollie->payments->create([
             "amount" => [
                 "currency" => "EUR",
                 "value" => "$value",
@@ -27,21 +36,18 @@ class PaymentController
     }
 
 
-    public function changePaymentStatus(){
-        $mollie = new \Mollie\Api\MollieApiClient();
-        $mollie->setApiKey("test_Ds3fz4U9vNKxzCfVvVHJT2sgW5ECD8");
-        $orderService = new OrderService();
+    public function changePaymentStatus()
+    {
+        $this->mollie->setApiKey("test_Ds3fz4U9vNKxzCfVvVHJT2sgW5ECD8");
 
-        $payment = $mollie->payments->get($_SESSION['payment_id']);
+        $payment = $this->mollie->payments->get($_SESSION['payment_id']);
 
-        if($payment->isPaid()){
+        if ($payment->isPaid()) {
             $id = $_GET['order_id'];
-            $orderService->updateOrderStatus($id, 'paid');
+            $this->orderService->updateOrderStatus($id, 'paid');
             header('Location: /');
         } else {
             echo "payment error";
         }
-
-
     }
 }

@@ -2,6 +2,7 @@
 
 namespace controllers\admin;
 
+use helpers\PDFHelper;
 use helpers\RedirectHelper;
 use services\OrderService;
 use services\UserService;
@@ -29,14 +30,15 @@ class OrderController
 
     public function showAllOrders()
     {
-        $orders = $this->orderService->getAllOrders();
+        $page = $_GET['p'] ?? 0;
+        $orders = $this->orderService->getAllOrders($_GET['l'] ?? 15, $page * ($_GET['l'] ?? 15));
         require_once __DIR__ . '/../../views/admin/orders/index.php';
     }
 
     public function showOrder(int $id)
     {
         $order = $this->orderService->getOneOrderFromId($id);
-        $orderItems = $this->orderService->getAllOrderLinesFromOrderId($id);
+        $orderItems = $this->orderService->getOrderItemsNiceNamed($order);
 
         require_once __DIR__ . '/../../views/admin/orders/order.php';
     }
@@ -46,9 +48,9 @@ class OrderController
         $this->orderService->updateStatus($id);
     }
 
-    public function getInvoice(int $id)
+    public function getInvoice(int $orderId)
     {
-        //todo: implement this function with floris
+        $this->orderService->createInvoice($orderId);
     }
 
 }

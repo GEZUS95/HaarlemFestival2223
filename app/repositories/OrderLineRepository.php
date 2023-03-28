@@ -19,17 +19,18 @@ class OrderLineRepository extends Repository
         }
     }
 
-    public function insertOne(int $orderId, string $table, int $itemId, int $quantity)
+    public function insertOne(int $orderId, string $table, int $itemId, int $quantity, bool $child)
     {
         try {
             $stmt = $this->connection->prepare("
-                    INSERT INTO `orderline` (order_id, `table`, item_id, quantity)
-                    VALUES (:orderid, :table, :itemid, :quantity)
+                    INSERT INTO `orderline` (order_id, `table`, item_id, quantity, child)
+                    VALUES (:orderid, :table, :itemid, :quantity, :child)
                     ");
             $stmt->bindParam(':orderid', $orderId);
             $stmt->bindParam(':table', $table);
             $stmt->bindParam(':itemid', $itemId);
             $stmt->bindParam(':quantity', $quantity);
+            $stmt->bindParam(':child', $child);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo $e;

@@ -9,6 +9,23 @@ class OrderLine
     private string $table;
     private int $item_id;
     private int $quantity;
+    private bool $child;
+
+    /**
+     * @return bool
+     */
+    public function isChild(): bool
+    {
+        return $this->child;
+    }
+
+    /**
+     * @param bool $child
+     */
+    public function setChild(bool $child): void
+    {
+        $this->child = $child;
+    }
 
     /**
      * @return int

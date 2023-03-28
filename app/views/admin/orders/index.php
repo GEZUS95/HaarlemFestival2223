@@ -10,7 +10,7 @@ include_once __DIR__ . '/../admin-header.php';
         <th scope="col">Userid</th>
         <th scope="col">Share Id</th>
         <th scope="col">Status</th>
-        <th scope="col"><a href="/admin/orders/create" class="btn btn-success disabled" role="button">Create Order</a></th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -35,3 +35,14 @@ include_once __DIR__ . '/../admin-header.php';
     ?>
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item <?= !isset($_GET['p']) || $_GET['p'] == 0 ? 'disabled' : '' ?>">
+            <a class="page-link" href="/admin/orders?p=<?= isset($_GET['p']) ? ($_GET['p'] - 1) : 0 ?>">Previous</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="/admin/orders?p=<?= isset($_GET['p']) ? ($_GET['p'] + 1) : 1 ?>">Next</a>
+        </li>
+    </ul>
+</nav>

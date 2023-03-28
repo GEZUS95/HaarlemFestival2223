@@ -29,7 +29,8 @@ class ApiController
 
     public function showApiKeys()
     {
-        $model = $this->apiService->getAll();
+        $page = $_GET['p'] ?? 0;
+        $model = $this->apiService->getAll($_GET['l'] ?? 15, $page * ($_GET['l'] ?? 15));
         require_once __DIR__ . '/../../views/admin/api/index.php';
     }
 
