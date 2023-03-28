@@ -10,16 +10,9 @@ class SessionRepository extends Repository {
             $stmt = $this->connection->prepare('SELECT * FROM session WHERE restaurant_id = ?');
             $stmt->bindParam(1, $restaurantId);
             $stmt->execute();
-            $result = $stmt->fetchAll();
-            $sessions = [];
-            foreach ($result as $row) {
-                $session = new Session($row['start_time'], $row['end_time']);
-                $session->setId($row['id']);
-                $session->setRestaurantId($row['restaurant_id']);
-                $sessions[] = $session;
-            }
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
+            $sessions = $stmt->fetchAll();
             return $sessions;
-            return $stmt->fetchAll();
         } catch (PDOException $e) {
             echo $e;
         }
@@ -29,60 +22,65 @@ class SessionRepository extends Repository {
         try {
             $stmt = $this->connection->prepare('SELECT * FROM session');
             $stmt->execute();
-            $result = $stmt->fetchAll();
-            $sessions = [];
-            foreach ($result as $row) {
-                $session = new Session($row['start_time'], $row['end_time']);
-                $session->setId($row['id']);
-                $session->setRestaurantId($row['restaurant_id']);
-                $sessions[] = $session;
-            }
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
+            $sessions = $stmt->fetchAll();
             return $sessions;
         } catch (PDOException $e) {
             echo $e;
         }
     }
 
-
     public function getOneById(int $id) {
         try {
-            $stmt = $this->connection->prepare('SELECT * FROM session WHERE id = ? LIMIT 1');
+            $stmt = $this->connection->prepare('SELECT * FROM session WHERE id = ?');
             $stmt->bindParam(1, $id);
             $stmt->execute();
-            $result = $stmt->fetch();
-            $session = new Session($result['start_time'], $result['end_time']);
-            $session->setId($result['id']);
-            $session->setRestaurantId($result['restaurant_id']);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
+            $session = $stmt->fetch();
             return $session;
         } catch (PDOException $e) {
             echo $e;
         }
     }
 
-    public function insertOne(int $restaurantId, \DateTime $startTime, \DateTime $endTime) {
+    public function getAllFutureSessionsForRestaurant(int $restaurantId) {
         try {
-            $stmt = $this->connection->prepare('INSERT INTO session (restaurant_id, start_time, end_time) VALUES (?, ?, ?)');
-            $startTimeString = $startTime->format('Y-m-d H:i:s');
-            $endTimeString = $endTime->format('Y-m-d H:i:s');
+            $stmt = $this->connection->prepare('SELECT * FROM session WHERE restaurant_id = ? AND start_time > NOW()');
             $stmt->bindParam(1, $restaurantId);
-            $stmt->bindParam(2, $startTimeString);
-            $stmt->bindParam(3, $endTimeString);
             $stmt->execute();
-            return $this->connection->lastInsertId();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
+            $sessions = $stmt->fetchAll();
+            return $sessions;
         } catch (PDOException $e) {
             echo $e;
         }
     }
 
-    public function updateOne(int $id, int $restaurantId, \DateTime $startTime, \DateTime $endTime) {
+    public function insertOne(int $restaurantId, \DateTime $startTime, \DateTime $endTime, int $seatsLeft) {
         try {
-            $stmt = $this->connection->prepare('UPDATE session SET restaurant_id = ?, start_time = ?, end_time = ? WHERE id = ?');
+            $stmt = $this->connection->prepare('INSERT INTO session (restaurant_id, start_time, end_time, seats_left) VALUES (?, ?, ?, ?)');
             $startTimeString = $startTime->format('Y-m-d H:i:s');
             $endTimeString = $endTime->format('Y-m-d H:i:s');
             $stmt->bindParam(1, $restaurantId);
             $stmt->bindParam(2, $startTimeString);
             $stmt->bindParam(3, $endTimeString);
-            $stmt->bindParam(4, $id);
+            $stmt->bindParam(4, $seatsLeft);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    public function updateOne(int $id, int $restaurantId, \DateTime $startTime, \DateTime $endTime, int $seatsLeft) {
+        try {
+            $stmt = $this->connection->prepare('UPDATE session SET restaurant_id = ?, start_time = ?, end_time = ?, seats_left = ? WHERE id = ?');
+            $startTimeString = $startTime->format('Y-m-d H:i:s');
+            $endTimeString = $endTime->format('Y-m-d H:i:s');
+            $stmt->bindParam(1, $restaurantId);
+            $stmt->bindParam(2, $startTimeString);
+            $stmt->bindParam(3, $endTimeString);
+            $stmt->bindParam(4, $seatsLeft);
+            $stmt->bindParam(5, $id);
             $stmt->execute();
         } catch (PDOException $e) {
             echo $e;

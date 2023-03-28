@@ -5,15 +5,11 @@ use DateTime;
 use Exception;
 
 class Session {
-    public int $id;
-    public int $restaurant_id;
-    public \DateTime $start_time;
-    public \DateTime $end_time;
-
-    public function __construct(string $startTimeStr, string $endTimeStr) {
-        $this->start_time = new \DateTime($startTimeStr);
-        $this->end_time = new \DateTime($endTimeStr);
-    }
+    private int $id;
+    private int $restaurant_id;
+    private string $start_time;
+    private string $end_time;
+    private int $seats_left;
 
     /**
      * @return int
@@ -48,34 +44,52 @@ class Session {
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getStartTime(): DateTime
+    public function getStartTime(): string
     {
         return $this->start_time;
     }
 
     /**
-     * @param DateTime $start_time
+     * @param string $start_time
      */
-    public function setStartTime(DateTime $start_time): void
+    public function setStartTime(string $start_time): void
     {
         $this->start_time = $start_time;
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getEndTime(): DateTime
+    public function getEndTime(): string
     {
         return $this->end_time;
     }
 
     /**
-     * @param DateTime $end_time
+     * @param string $end_time
      */
-    public function setEndTime(DateTime $end_time): void
+    public function setEndTime(string $end_time): void
     {
         $this->end_time = $end_time;
     }
+
+    /**
+     * @return int
+     */
+    public function getSeatsLeft(): int
+    {
+        return $this->seats_left;
+    }
+
+    /**
+     * @param int $seats_left
+     */
+    public function setSeatsLeft(int $seats_left): void
+    {
+        $this->seats_left = $seats_left;
+    }
+
+
 }

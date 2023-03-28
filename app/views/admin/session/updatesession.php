@@ -41,6 +41,15 @@ include_once __DIR__ . '/../admin-header.php';
                        required="" value="<?php echo $session->getEndTime()->format('Y-m-d\TH:i') ?>">
             </div>
         </div>
+
+        <!-- Input for seats left -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="seats_left">Seats Left</label>
+            <div class="col-md-4">
+                <input id="seats_left" name="seats_left" type="number" class="form-control input-md" required="" value="<?php echo $session->getSeatsLeft(); ?>">
+            </div>
+        </div>
+
         <!-- Button -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="submit"></label>

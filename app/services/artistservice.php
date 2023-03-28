@@ -35,4 +35,11 @@ class ArtistService {
     public function deleteOne(int $id){
         return $this->artistRepository->deleteOne($id);
     }
+
+    public function postArtist(){
+        $artist = new Artist();
+        $artist->setName($_POST["name"]);
+        $artist->setDescription($_POST["description"]);
+        return $artist;
+    }
 }

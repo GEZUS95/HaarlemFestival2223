@@ -90,20 +90,18 @@ INSERT INTO `content` (`id`, `title`, `body`, `image_path`) VALUES
 --
 
 CREATE TABLE `event` (
-  `id` int(11) NOT NULL,
-  `session_id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `price` varchar(255) NOT NULL,
-  `description` text NOT NULL
+`id` int(11) NOT NULL,
+`title` varchar(255) NOT NULL,
+`description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `event`
 --
 
-INSERT INTO `event` (`id`, `session_id`, `title`, `price`, `description`) VALUES
-(3, 1, 'Ratatouille food tasting', '20', 'Taste the best food from Ratatouille.'),
-(4, 2, 'See what Ronald McDoland has made for you', '2500', 'The finest burgers made for you.');
+INSERT INTO `event` (`id`, `title`, `description`) VALUES
+(3, 'Ratatouille food tasting', 'Taste the best food from Ratatouille.'),
+(4, 'See what Ronald McDoland has made for you', 'The finest burgers made for you.');
 
 -- --------------------------------------------------------
 
@@ -151,6 +149,7 @@ INSERT INTO `orderline` (`id`, `order_id`, `table`, `item_id`, `quantity`, `chil
 (1, 1, 'restaurant', 1, 3, 0),
 (2, 1, 'restaurant', 2, 2, 1);
 
+
 -- --------------------------------------------------------
 
 --
@@ -158,10 +157,10 @@ INSERT INTO `orderline` (`id`, `order_id`, `table`, `item_id`, `quantity`, `chil
 --
 
 CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `share_uuid` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL
+                          `id` int(11) NOT NULL,
+                          `user_id` int(11) NOT NULL,
+                          `share_uuid` varchar(255) NOT NULL,
+                          `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -170,9 +169,236 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `user_id`, `share_uuid`, `status`) VALUES
 (1, 1, '82336383-1950-47c2-874e-9a9191cf2e4d', 'paid'),
-(2, 1, 'a44aa6b2-c8b9-11ed-afa1-0242ac120002', 'open');
+(2, 1, 'a44aa6b2-c8b9-11ed-afa1-0242ac120002', 'paid');
 
 -- --------------------------------------------------------
+
+--
+-- Table structure for table `passwordreset`
+--
+
+CREATE TABLE `passwordreset` (
+                                 `uuid` varchar(255) NOT NULL,
+                                 `user_id` int(11) NOT NULL,
+                                 `expires_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `passwordreset`
+--
+
+INSERT INTO `passwordreset` (`uuid`, `user_id`, `expires_at`) VALUES
+                                                                  ('05b7e252-c8ba-11ed-afa1-0242ac120002', 1, '2023-03-22 14:01:17'),
+                                                                  ('0d07ad6c-c8ba-11ed-afa1-0242ac120002', 1, '2023-03-23 15:01:28');
+
+-- --------------------------------------------------------
+
+--
+-- Dumping data for table `orders`
+--
+
+
+CREATE TABLE `program` (
+                           `id` int(11) NOT NULL,
+                           `event_id` int(11) NOT NULL,
+                           `title` varchar(255) NOT NULL,
+                           `price` double NOT NULL,
+                           `start_time` datetime NOT NULL,
+                           `end_time` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `program`
+--
+
+INSERT INTO `program` (`id`, `event_id`, `title`, `price`, `start_time`, `end_time`) VALUES
+    (1, 3, 'Ratatouille combo', 20, '2023-03-22 14:02:41', '2023-03-22 18:02:41');
+
+INSERT INTO `orders` (`id`, `user_id`, `share_uuid`, `status`) VALUES
+(1, 1, '82336383-1950-47c2-874e-9a9191cf2e4d', 'paid'),
+(2, 1, 'a44aa6b2-c8b9-11ed-afa1-0242ac120002', 'open');
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `programitem`
+--
+
+CREATE TABLE `programitem` (
+                               `id` int(11) NOT NULL,
+                               `program_id` int(11) NOT NULL,
+                               `location_id` int(11) NOT NULL,
+                               `artist_id` int(11) NOT NULL,
+                               `special_guest_id` int(11) DEFAULT NULL,
+                               `title` varchar(255) NOT NULL,
+                               `start_time` datetime NOT NULL,
+                               `end_time` datetime NOT NULL,
+                               `price` double NOT NULL,
+                               `seats_left` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `programitem`
+--
+
+INSERT INTO `programitem` (`id`, `program_id`, `location_id`, `artist_id`, `special_guest_id`, `title`, `start_time`, `end_time`, `price`, `seats_left`) VALUES
+                                                                                                                                               (1, 1, 1, 1, 2, 'Combo deal #1', '2023-03-22 14:03:10', '2023-03-22 22:03:10', 100, 50),
+                                                                                                                                               (2, 1, 2, 1, 2, 'Combo deal #2', '2023-03-23 14:04:31', '2023-03-23 12:04:31', 150, 50);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reservation`
+--
+
+CREATE TABLE `reservation` (
+                               `id` int(11) NOT NULL,
+                               `user_id` int(11) NOT NULL,
+                               `session_id` int(11) NOT NULL,
+                               `remarks` varchar(255) DEFAULT NULL,
+                               `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reservation`
+--
+
+INSERT INTO `reservation` (`id`, `user_id`, `session_id`, `remarks`, `status`) VALUES
+                                                                        (1, 1, 1, 'none', 'active'),
+                                                                        (2, 1, 2, 'Can we get a chair for my 3 year old', 'inactive');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `restaurant`
+--
+
+CREATE TABLE `restaurant` (
+                              `id` int(11) NOT NULL,
+                              `location_id` int(11) NOT NULL,
+                              `name` varchar(255) NOT NULL,
+                              `description` text NOT NULL,
+                              `stars` int(11) NOT NULL,
+                              `seats` int(11) NOT NULL,
+                              `price` double NOT NULL,
+                              `price_child` double NOT NULL,
+                              `accessibility` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `restaurant`
+--
+
+INSERT INTO `restaurant` (`id`, `location_id`, `name`, `description`, `stars`, `seats`, `price`, `price_child`, `accessibility`) VALUES
+                                                                                                                                     (1, 1, 'Ratatouille', 'Ratatouille has a lot of food.', 5, 100, 20, 10, 'none'),
+                                                                                                                                     (2, 2, 'McDonalds', 'McDonalds is known for their high culinary standards. ', 5, 500, 5000, 3000, 'Wheelchair Accessible');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `restauranttype`
+--
+
+CREATE TABLE `restauranttype` (
+                                  `id` int(11) NOT NULL,
+                                  `cuisine_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `restauranttype`
+--
+
+INSERT INTO `restauranttype` (`id`, `cuisine_name`) VALUES
+                                                        (1, 'French'),
+                                                        (2, 'Mexican'),
+                                                        (3, 'Argentinian'),
+                                                        (4, 'Dutch'),
+                                                        (5, 'Modern French'),
+                                                        (6, 'German'),
+                                                        (7, 'Chinese'),
+                                                        (8, 'Indonesian'),
+                                                        (9, 'Indian'),
+                                                        (10, 'American');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `restauranttypelink`
+--
+
+CREATE TABLE `restauranttypelink` (
+                                      `id` int(11) NOT NULL,
+                                      `restaurant_id` int(11) NOT NULL,
+                                      `restaurant_type_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `restauranttypelink`
+--
+
+INSERT INTO `restauranttypelink` (`id`, `restaurant_id`, `restaurant_type_id`) VALUES
+                                                                                   (1, 2, 10),
+                                                                                   (2, 1, 1),
+                                                                                   (3, 1, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role`
+--
+
+CREATE TABLE `role` (
+                        `id` int(11) NOT NULL,
+                        `name` varchar(255) NOT NULL,
+                        `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`id`, `name`, `description`) VALUES
+                                                     (1, 'user', 'Simple user account'),
+                                                     (2, 'admin', 'Administrator account'),
+                                                     (3, 'super-admin', 'Super-administrator account');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `session`
+--
+
+CREATE TABLE `session` (
+                           `id` int(11) NOT NULL,
+                           `restaurant_id` int(11) NOT NULL,
+                           `start_time` datetime NOT NULL,
+                           `end_time` datetime NOT NULL,
+                           `seats_left` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `session`
+--
+
+INSERT INTO `session` (`id`, `restaurant_id`, `start_time`, `end_time`, `seats_left`) VALUES
+                                                                            (1, 1, '2023-03-31 14:12:22', '2023-03-31 18:12:22', 10),
+                                                                            (2, 2, '2023-04-29 14:13:13', '2023-04-29 19:13:13', 50);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+                        `id` int(11) NOT NULL,
+                        `role_id` int(11) NOT NULL,
+                        `name` varchar(255) NOT NULL,
+                        `email` varchar(255) NOT NULL,
+                        `passwordhash` varchar(255) NOT NULL,
+                        `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Table structure for table `passwordreset`
@@ -424,6 +650,12 @@ ALTER TABLE `content`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `content`
+--
+ALTER TABLE `content`
+    ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `event`
 --
 ALTER TABLE `event`
@@ -620,40 +852,34 @@ ALTER TABLE `user`
 --
 
 --
--- Constraints for table `event`
---
-ALTER TABLE `event`
-  ADD CONSTRAINT `event_ibfk_1` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `orderline`
 --
 ALTER TABLE `orderline`
-  ADD CONSTRAINT `orderline_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `orderline_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `passwordreset`
 --
 ALTER TABLE `passwordreset`
-  ADD CONSTRAINT `passwordreset_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `passwordreset_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `program`
 --
 ALTER TABLE `program`
-  ADD CONSTRAINT `program_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `program_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `programitem`
 --
 ALTER TABLE `programitem`
-  ADD CONSTRAINT `programitem_ibfk_1` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `programitem_ibfk_1` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `programitem_ibfk_2` FOREIGN KEY (`location_id`) REFERENCES `location` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `programitem_ibfk_3` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `programitem_ibfk_4` FOREIGN KEY (`special_guest_id`) REFERENCES `artist` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -662,20 +888,25 @@ ALTER TABLE `programitem`
 -- Constraints for table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  ADD CONSTRAINT `restaurant_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `restaurant_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `restauranttypelink`
 --
 ALTER TABLE `restauranttypelink`
-  ADD CONSTRAINT `restauranttypelink_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `restauranttypelink_ibfk_2` FOREIGN KEY (`restaurant_type_id`) REFERENCES `restauranttype` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `restauranttypelink_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+
+-- Constraints for table `event`
+--
+ALTER TABLE `event`
+  ADD CONSTRAINT `event_ibfk_1` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user`

@@ -16,6 +16,7 @@ include_once __DIR__ . '../../admin-header.php';
                         <th>Restaurant Name</th>
                         <th>Start Time</th>
                         <th>End Time</th>
+                        <th>Seats Left</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -31,13 +32,14 @@ include_once __DIR__ . '../../admin-header.php';
                                 }
                                 ?></td>
                             <td><?=
-                                // set datetime to string
-                                $session->getStartTime()->format('Y-m-d H:i:s')
+                                // create DateTime object from string
+                                (new DateTime($session->getStartTime()))->format('Y-m-d H:i:s')
                                 ?></td>
                             <td><?=
-                                // set datetime to string
-                                $session->getEndTime()->format('Y-m-d H:i:s')
+                                // create DateTime object from string
+                                (new DateTime($session->getEndTime()))->format('Y-m-d H:i:s')
                                 ?></td>
+                            <td><?=$session->getSeatsLeft()?></td>
                             <td><a href="/admin/sessions/update/<?= $session->getId() ?>" class="btn btn-warning">Update</a></td>
                             <td><a href="/admin/sessions/delete/<?= $session->getId() ?>" class="btn btn-danger">Delete</a></td>
                         </tr>

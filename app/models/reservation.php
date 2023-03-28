@@ -4,6 +4,7 @@ namespace models;
 
 class Reservation {
     private int $id;
+    private int $user_id;
     private int $session_id;
     private string $remarks;
     private string $status;
@@ -22,6 +23,22 @@ class Reservation {
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * @param int $user_id
+     */
+    public function setUserId(int $user_id): void
+    {
+        $this->user_id = $user_id;
     }
 
     /**

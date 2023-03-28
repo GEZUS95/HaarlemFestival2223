@@ -27,6 +27,10 @@ class SessionService {
         return $this->sessionRepository->getOneById($id);
     }
 
+    public function getAllFutureSessionsForRestaurant(int $restaurantId) {
+        return $this->sessionRepository->getAllFutureSessionsForRestaurant($restaurantId);
+    }
+
     public function insertOne(int $restaurantId, \DateTime $startTime, \DateTime $endTime)
     {
         $this->sessionRepository->insertOne($restaurantId, $startTime, $endTime);
@@ -40,5 +44,15 @@ class SessionService {
     public function deleteOne(int $id)
     {
         $this->sessionRepository->deleteOne($id);
+    }
+
+    public function postSession()
+    {
+        $session = new Session();
+        $session->setRestaurantId($_POST["restaurant_id"]);
+        $session->setStartTime(new \DateTime($_POST["start_time"]));
+        $session->setEndTime(new \DateTime($_POST["end_time"]));
+        $session->setSeatsLeft($_POST["seats_left"]);
+        return $session;
     }
 }

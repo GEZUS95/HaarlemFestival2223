@@ -35,7 +35,7 @@ class ReservationRepository extends Repository {
 
     public function getAllByRestaurantId(int $id) {
         try {
-            $stmt = $this->connection->prepare('SELECT reservation.id, reservation.session_id, reservation.remarks, reservation.status FROM reservation INNER JOIN session ON reservation.session_id = session.id WHERE session.restaurant_id = ?');
+            $stmt = $this->connection->prepare('SELECT reservation.id,, reservation.user_id, reservation.session_id, reservation.remarks, reservation.status FROM reservation INNER JOIN session ON reservation.session_id = session.id WHERE session.restaurant_id = ?');
             $stmt->bindParam(1, $id);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Reservation::class);
@@ -61,13 +61,15 @@ class ReservationRepository extends Repository {
 
     public function insertOne (Reservation $reservation) {
         try {
-            $stmt = $this->connection->prepare('INSERT INTO reservation (session_id, remarks, status) VALUES (?, ?, ?)');
+            $stmt = $this->connection->prepare('INSERT INTO reservation (user_id, session_id, remarks, status) VALUES (?, ?, ?)');
+            $user_id = $reservation->getUserId();
             $session_id = $reservation->getSessionId();
             $remarks = $reservation->getRemarks();
             $status = $reservation->getStatus();
-            $stmt->bindParam(1, $session_id);
-            $stmt->bindParam(2, $remarks);
-            $stmt->bindParam(3, $status);
+            $stmt->bindParam(1, $user_id);
+            $stmt->bindParam(2, $session_id);
+            $stmt->bindParam(3, $remarks);
+            $stmt->bindParam(4, $status);
             $stmt->execute();
             return $this->connection->lastInsertId();
         } catch (PDOException $e)
@@ -78,15 +80,17 @@ class ReservationRepository extends Repository {
 
     public function updateOne (Reservation $reservation) {
         try {
-            $stmt = $this->connection->prepare('UPDATE reservation SET session_id = ?, remarks = ?, status = ? WHERE id = ?');
+            $stmt = $this->connection->prepare('UPDATE reservation SET user_id = ?, session_id = ?, remarks = ?, status = ? WHERE id = ?');
+            $user_id = $reservation->getUserId();
             $session_id = $reservation->getSessionId();
             $remarks = $reservation->getRemarks();
             $status = $reservation->getStatus();
             $id = $reservation->getId();
-            $stmt->bindParam(1, $session_id);
-            $stmt->bindParam(2, $remarks);
-            $stmt->bindParam(3, $status);
-            $stmt->bindParam(4, $id);
+            $stmt->bindParam(1, $user_id);
+            $stmt->bindParam(2, $session_id);
+            $stmt->bindParam(3, $remarks);
+            $stmt->bindParam(4, $status);
+            $stmt->bindParam(5, $id);
             $stmt->execute();
             return $reservation->getId();
         } catch (PDOException $e)

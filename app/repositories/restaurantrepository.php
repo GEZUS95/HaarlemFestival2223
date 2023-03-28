@@ -65,22 +65,13 @@ class RestaurantRepository extends Repository
         }
     }
 
-    public function updateOne(Restaurant $restaurant)
+    public function updateOne(string $title, int $location_id, string $description, int $stars, int $seats, float $price, float $price_child, string $accessibility, int $id)
     {
         try {
             $stmt = $this->connection->prepare("
-                UPDATE restaurant SET name = :name, location_id = :location_id, description = :description, stars = :stars, seats = :seats, price = :price, price_child = :price_child, accessibility = :accessibility WHERE id = :id");
-            $name = $restaurant->getName();
-            $location_id = $restaurant->getLocationId();
-            $description = $restaurant->getDescription();
-            $stars = $restaurant->getStars();
-            $seats = $restaurant->getSeats();
-            $price = $restaurant->getPrice();
-            $price_child = $restaurant->getPriceChild();
-            $accessibility = $restaurant->getAccessibility();
-            $id = $restaurant->getId();
+                UPDATE restaurant SET title = :title, location_id = :location_id, description = :description, stars = :stars, seats = :seats, price = :price, price_child = :price_child, accessibility = :accessibility WHERE id = :id");
 
-            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':title', $title);
             $stmt->bindParam(':location_id', $location_id);
             $stmt->bindParam(':description', $description);
             $stmt->bindParam(':stars', $stars);
@@ -95,22 +86,14 @@ class RestaurantRepository extends Repository
         }
     }
 
-    public function insertOne(Restaurant $restaurant)
+    public function insertOne(string $title, int $location_id, string $description, int $stars, int $seats, float $price, float $price_child, string $accessibility)
     {
         try {
             $stmt = $this->connection->prepare("
-                INSERT INTO restaurant (name, location_id, description, stars, seats, price, price_child, accessibility)
-                VALUES (:name, :location_id, :description, :stars, :seats, :price, :price_child, :accessibility)");
-            $name = $restaurant->getName();
-            $location_id = $restaurant->getLocationId();
-            $description = $restaurant->getDescription();
-            $stars = $restaurant->getStars();
-            $seats = $restaurant->getSeats();
-            $price = $restaurant->getPrice();
-            $price_child = $restaurant->getPriceChild();
-            $accessibility = $restaurant->getAccessibility();
+                INSERT INTO restaurant (title, location_id, description, stars, seats, price, price_child, accessibility)
+                VALUES (:title, :location_id, :description, :stars, :seats, :price, :price_child, :accessibility)");
 
-            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':title', $title);
             $stmt->bindParam(':location_id', $location_id);
             $stmt->bindParam(':description', $description);
             $stmt->bindParam(':stars', $stars);

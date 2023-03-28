@@ -35,4 +35,21 @@ class ReservationService {
     public function updateOne(Reservation $reservation){
         $this->repository->updateOne($reservation);
     }
+
+    public function postReservation(){
+        $reservation = new Reservation();
+        $reservation->setUserId($_POST["user_id"]);
+        $reservation->setSessionId($_POST["session_id"]);
+        $reservation->setRemarks($_POST["remarks"]);
+        $reservation->setStatus("active");
+        return $reservation;
+    }
+
+    public function getOptionLabel()
+    {
+        $restaurantName = $this->restaurantService->getOneById($this->restaurantId)->getName();
+        $startTime = $this->startTime->format('Y-m-d H:i:s'); // format datetime as string
+        $endTime = $this->endTime->format('Y-m-d H:i:s'); // format datetime as string
+        return sprintf('%s - %s - %s', $restaurantName, $startTime, $endTime);
+    }
 }
