@@ -62,6 +62,10 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
         ),
+        'M' => 
+        array (
+            'Mollie\\Api\\' => 11,
+        ),
         'E' => 
         array (
             'Egulias\\EmailValidator\\' => 23,
@@ -69,6 +73,10 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
         'D' => 
         array (
             'Doctrine\\Common\\Lexer\\' => 22,
+        ),
+        'C' => 
+        array (
+            'Composer\\CaBundle\\' => 18,
         ),
         'B' => 
         array (
@@ -169,6 +177,10 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
+        'Mollie\\Api\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mollie/mollie-api-php/src',
+        ),
         'Egulias\\EmailValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/src',
@@ -176,6 +188,10 @@ class ComposerStaticInit41999df94869ab04a9ccdd5bf3aeb94c
         'Doctrine\\Common\\Lexer\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/lexer/src',
+        ),
+        'Composer\\CaBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/ca-bundle/src',
         ),
         'Brick\\Math\\' => 
         array (

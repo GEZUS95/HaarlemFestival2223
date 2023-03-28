@@ -77,6 +77,8 @@ include_once __DIR__ . '/../header.php';
                 </div>
             </div>
 
+            <div class="g-recaptcha" data-sitekey="6LeibwMlAAAAAMPjepfBuOkxpJoTxkuulIZxsmun"></div>
+
             <!-- Button -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="submit"></label>
@@ -87,6 +89,7 @@ include_once __DIR__ . '/../header.php';
         </fieldset>
     </form>
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <?php
 include_once __DIR__ . '/../footer.php';
 ?>

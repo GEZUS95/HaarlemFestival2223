@@ -4,6 +4,44 @@ include_once __DIR__ . '/../admin-header.php';
 
 <h1 id="description">Welcome to the users panel</h1>
 
+<!-- HTML form -->
+<form method="GET" action="/admin/users" class="form-">
+    <div class="row">
+        <div class="col">
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search" class="form-control form-text">
+        </div>
+
+        <div class="col">
+            <label for="filter">Filter:</label>
+            <select id="filter" name="filter" class="form-control form-select">
+                <option value="">-- Select Role --</option>
+                <option value="3">Super-Admin</option>
+                <option value="2">Admin</option>
+                <option value="1">User</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <label for="sort">Sort:</label>
+            <select id="sort" name="sort" class="form-control form-select">
+                <option value="">-- Select Column --</option>
+                <option value="name ASC">Name (A-Z)</option>
+                <option value="name DESC">Name (Z-A)</option>
+                <option value="email ASC">Email (A-Z)</option>
+                <option value="email DESC">Email (Z-A)</option>
+                <option value="created_at ASC">Created (A-Z)</option>
+                <option value="created_at DESC">Created (Z-A)</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+
+
 <table class="table table-striped" aria-describedby="description">
     <thead>
     <tr>
@@ -37,3 +75,14 @@ include_once __DIR__ . '/../admin-header.php';
     ?>
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item <?= !isset($_GET['p']) || $_GET['p'] == 0 ? 'disabled' : '' ?>">
+            <a class="page-link" href="/admin/users?p=<?= isset($_GET['p']) ? ($_GET['p'] - 1) : 0 ?>">Previous</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="/admin/users?p=<?= isset($_GET['p']) ? ($_GET['p'] + 1) : 1 ?>">Next</a>
+        </li>
+    </ul>
+</nav>

@@ -4,20 +4,43 @@ namespace controllers;
 use helpers\EmailHelper;
 use helpers\PDFHelper;
 use helpers\UuidHelper;
+use models\Attachment;
 
 class TestController
 {
+    public function testPayment(){
+        $paymentHelper = new PaymentController();
+        $paymentHelper->pay('20.00', 1);
+    }
     public function testTicket()
     {
-        $email = new EmailHelper();
-        $customerName = 'John Doe';
-        $eventName = 'Ratatouille';
-        $eventDate = '07-03-2023';
-        $ticketAmount = '4';
-        $ticketuuid = (new UuidHelper)->generateUUID();
-        $pdf = (new PDFHelper)->generateTicket($customerName, $eventName, $eventDate, $ticketAmount, $ticketuuid);
-        $email->sendEmailWithAttachment('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your Ticket(s)','Ticket(s) just arrived!',$pdf,'HaarlemFestival_Ticket(s).pdf');
 
+        $email = new EmailHelper();
+
+        //make pdfs
+        $customerName1 = 'John Doe';
+        $eventName1 = 'Ratatouille';
+        $eventDate1 = '07-03-2023';
+        $ticketAmount1 = '4';
+        $ticketuuid1 = (new UuidHelper)->generateUUID();
+        $pdf1 = (new PDFHelper)->generateTicket($customerName1, $eventName1, $eventDate1, $ticketAmount1, $ticketuuid1);
+
+        $customerName2 = 'John Doe';
+        $eventName2 = 'Ratatouille';
+        $eventDate2 = '07-03-2023';
+        $ticketAmount2 = '4';
+        $ticketuuid2 = (new UuidHelper)->generateUUID();
+        $pdf2 = (new PDFHelper)->generateTicket($customerName2, $eventName2, $eventDate2, $ticketAmount2, $ticketuuid2);
+
+        //convert to attachments
+        $attachment1 = new Attachment($pdf1, "pdf1");
+        $attachment2 = new Attachment($pdf2, "pdf2");
+
+        //put them in array
+        $attachments = Array($attachment1, $attachment2);
+
+        //send email
+        $email->sendEmailWithAttachments('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your Ticket(s)','Ticket(s) just arrived!',$attachments,'HaarlemFestival_Ticket(s).pdf');
     }
 
     public function testInvoice(){
@@ -64,6 +87,20 @@ class TestController
             )
         );
         $pdf = (new PDFHelper)->generateInvoice($customerName, $orderNumber, $orderDate, $items);
-        $email->sendEmailWithAttachment('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your Invoice','Invoice has arrived!',$pdf,'HaarlemFestival_Invoice.pdf');
+        $email->sendEmailWithAttachments('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your Invoice','Invoice has arrived!',array(new Attachment($pdf, "pdf1")),'HaarlemFestival_Invoice.pdf');
+    }
+
+    public function testHTMLEmail(){
+        $email = new EmailHelper();
+
+        //this is the name that will be seen in the email
+        $name = 'Hendrik';
+
+        //Read the PHP template file and render its contents as HTML, passing in the variables
+        ob_start(); // This will Start output buffering
+        include __DIR__ . '/../views/templates/emailtemplates/example.php'; // This will load the template (in this case example.php)
+        $html = ob_get_clean(); // This will get the contents of the output buffer and clear it
+
+        $email->sendHTMLEmail('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your HTML email',$html);
     }
 }

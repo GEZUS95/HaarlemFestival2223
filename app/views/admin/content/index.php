@@ -31,3 +31,13 @@ include_once __DIR__ . '/../admin-header.php';
     ?>
     </tbody>
 </table>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item <?= !isset($_GET['p']) || $_GET['p'] == 0 ? 'disabled' : '' ?>">
+            <a class="page-link" href="/admin/content?p=<?= isset($_GET['p']) ? ($_GET['p'] - 1) : 0 ?>">Previous</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="/admin/content?p=<?= isset($_GET['p']) ? ($_GET['p'] + 1) : 1 ?>">Next</a>
+        </li>
+    </ul>
+</nav>
