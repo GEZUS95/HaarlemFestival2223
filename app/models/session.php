@@ -7,14 +7,9 @@ use Exception;
 class Session {
     private int $id;
     private int $restaurant_id;
-    private \DateTime $start_time;
-    private \DateTime $end_time;
+    private string $start_time;
+    private string $end_time;
     private int $seats_left;
-
-    public function __construct(string $startTimeStr, string $endTimeStr) {
-        $this->start_time = new \DateTime($startTimeStr);
-        $this->end_time = new \DateTime($endTimeStr);
-    }
 
     /**
      * @return int
@@ -49,35 +44,35 @@ class Session {
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getStartTime(): DateTime
+    public function getStartTime(): string
     {
         return $this->start_time;
     }
 
     /**
-     * @param DateTime $start_time
+     * @param string $start_time
      */
     public function setStartTime(string $start_time): void
     {
-        $this->start_time = new DateTime($start_time);
+        $this->start_time = $start_time;
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getEndTime(): DateTime
+    public function getEndTime(): string
     {
         return $this->end_time;
     }
 
     /**
-     * @param DateTime $end_time
+     * @param string $end_time
      */
     public function setEndTime(string $end_time): void
     {
-        $this->end_time = new DateTime($end_time);
+        $this->end_time = $end_time;
     }
 
     /**
@@ -95,4 +90,6 @@ class Session {
     {
         $this->seats_left = $seats_left;
     }
+
+
 }

@@ -11,7 +11,7 @@ class SessionRepository extends Repository {
             $stmt->bindParam(1, $restaurantId);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
-            $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $sessions = $stmt->fetchAll();
             return $sessions;
         } catch (PDOException $e) {
             echo $e;
@@ -23,7 +23,7 @@ class SessionRepository extends Repository {
             $stmt = $this->connection->prepare('SELECT * FROM session');
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
-            $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $sessions = $stmt->fetchAll();
             return $sessions;
         } catch (PDOException $e) {
             echo $e;
@@ -36,7 +36,7 @@ class SessionRepository extends Repository {
             $stmt->bindParam(1, $id);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
-            $session = $stmt->fetch(PDO::FETCH_ASSOC);
+            $session = $stmt->fetch();
             return $session;
         } catch (PDOException $e) {
             echo $e;
@@ -49,7 +49,7 @@ class SessionRepository extends Repository {
             $stmt->bindParam(1, $restaurantId);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
-            $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $sessions = $stmt->fetchAll();
             return $sessions;
         } catch (PDOException $e) {
             echo $e;
