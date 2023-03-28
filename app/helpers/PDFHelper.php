@@ -9,10 +9,9 @@ use const PDF_CREATOR;
 
 class PDFHelper
 {
-    public function generateTicket($customerName, $eventName, $eventDate, $ticketAmount, $ticketuuid)
+    public function generateTicket($customerName, $eventName, $ticketAmount, $uuid)
     {
         // Define variables with all necessary data
-        $uuid = $ticketuuid->toString();
         $style = array(
             'border' => true,
             'vpadding' => 'auto',

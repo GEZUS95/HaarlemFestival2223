@@ -2,7 +2,12 @@
 
 namespace controllers;
 
+use helpers\EmailHelper;
+use models\Attachment;
+use models\Order;
 use Mollie\Api\MollieApiClient;
+use repositories\OrderRepository;
+use repositories\UserRepository;
 use services\OrderService;
 
 class PaymentController
@@ -14,39 +19,46 @@ class PaymentController
     {
         $this->orderService = new OrderService();
         $this->mollie = new MollieApiClient();
+        $this->mollie->setApiKey("test_Ds3fz4U9vNKxzCfVvVHJT2sgW5ECD8");
     }
 
     public function pay($value, $orderID)
     {
-        $this->mollie->setApiKey("test_Ds3fz4U9vNKxzCfVvVHJT2sgW5ECD8");
-        $payment = $this->mollie->payments->create([
-            "amount" => [
-                "currency" => "EUR",
-                "value" => "$value",
-            ],
-            "description" => "Order #{$orderID}",
-            "redirectUrl" => "https://01cc-145-81-192-114.eu.ngrok.io/payments/changePaymentStatus?order_id=$orderID",
-            "metadata" => [
-                "order_id" => $orderID,
-            ],
-        ]);
-        $_SESSION['payment_id'] = $payment->id;
+        try {
+            $payment = $this->mollie->payments->create([
+                "amount" => [
+                    "currency" => "EUR",
+                    "value" => "$value",
+                ],
+                "description" => "Order #{$orderID}",
+                "redirectUrl" => "https://7cc1-145-81-192-114.eu.ngrok.io/payments/changePaymentStatus?order_id=$orderID",
+                "metadata" => [
+                    "order_id" => $orderID,
+                ],
+            ]);
+            $_SESSION['payment_id'] = $payment->id;
 
-        header("Location: " . $payment->getCheckoutUrl(), true, 303);
+            header("Location: " . $payment->getCheckoutUrl(), true, 303);
+        }
+        catch (\Mollie\Api\Exceptions\ApiException $e) {
+            echo "API call failed: " . htmlspecialchars($e->getMessage());
+        }
     }
 
 
     public function changePaymentStatus()
     {
-        $this->mollie->setApiKey("test_Ds3fz4U9vNKxzCfVvVHJT2sgW5ECD8");
-
         $payment = $this->mollie->payments->get($_SESSION['payment_id']);
 
         if ($payment->isPaid()) {
             $id = $_GET['order_id'];
             $this->orderService->updateOrderStatus($id, 'paid');
+            $this->orderService->sendInvoice($id);
+            $this->orderService->sendTickets($id);
+
             header('Location: /');
-        } else {
+        }
+        else {
             echo "payment error";
         }
     }

@@ -50,7 +50,7 @@ class OrderController
 
     public function getInvoice(int $orderId)
     {
-        $this->orderService->createInvoice($orderId);
+        $this->orderService->downloadInvoice($orderId);
     }
 
 }

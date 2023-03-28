@@ -2,12 +2,15 @@
 
 namespace services;
 
+use helpers\EmailHelper;
 use helpers\PDFHelper;
 use helpers\RedirectHelper;
 use helpers\UuidHelper;
+use models\Attachment;
 use models\Order;
 use repositories\OrderLineRepository;
 use repositories\OrderRepository;
+use repositories\UserRepository;
 
 class OrderService
 {
@@ -17,6 +20,8 @@ class OrderService
     private RedirectHelper $redirectHelper;
     private PDFHelper $PDFHelper;
     private UserService $userService;
+    private UserRepository $userRepository;
+    private EmailHelper $email;
 
     public function __construct()
     {
@@ -26,6 +31,8 @@ class OrderService
         $this->redirectHelper = new RedirectHelper();
         $this->PDFHelper = new PDFHelper();
         $this->userService = new UserService();
+        $this->userRepository = new UserRepository();
+        $this->email = new EmailHelper();
     }
 
     public function getAllOrders(int $limit, int $offset)
@@ -112,7 +119,7 @@ class OrderService
         }
     }
 
-    public function createInvoice(int $orderId)
+    public function downloadInvoice(int $orderId)
     {
         $order = $this->getOneOrderFromId($orderId);
         $user = $this->userService->getOneById($order->getUserId());
@@ -123,6 +130,42 @@ class OrderService
 
         $this->PDFHelper->generateInvoiceDownload($user->getName(), $order->getShareUuid(), $date->format('d-m-Y'), $items);
         $this->redirectHelper->redirect('/admin/orders?success=PDF generated!');
+    }
+
+    public function sendInvoice(int $orderId)
+    {
+        $order = $this->getOneOrderFromId($orderId);
+        $user = $this->userService->getOneById($order->getUserId());
+        $items = $this->getOrderItemsNiceNamed($order);
+        $userEmail = $user->getEmail();
+        $date = new \DateTime();
+
+        //create invoice and convert to attachment
+        $attachment1 = new Attachment($this->PDFHelper->generateInvoice($user->getName(), $order->getId(), $date->format('d-m-Y'), $items), "Invoice_Of_Order#" . $orderId);
+
+        //put in array for the sendEmailWithAttachments function
+        $attachments = array($attachment1);
+
+        //send email
+        $this->email->sendEmailWithAttachments('no-reply@haarlemfestival.com', 'ceesgribnau@hotmail.com', 'Your Invoice of order#' . $orderId, "Dear customer,\r\nAttached you will find the invoice of the order you just placed.\r\nRegards, The Haarlem Festival Team", $attachments);
+    }
+
+    public function sendTickets(int $orderId)
+    {
+        $order = $this->getOneOrderFromId($orderId);
+        $user = $this->userService->getOneById($order->getUserId());
+        $items = $this->getOrderItemsNiceNamed($order);
+        $userEmail = $user->getEmail();
+        $attachments = array();
+
+        //create tickets, convert to attachments and add them to an array
+        foreach($items as $item){
+            $attachment1 = new Attachment($this->PDFHelper->generateTicket($user->getName(), $item['name'], $item['quantity'], $order->getShareUuid()), "Your ticket for " . $item['name']);
+            $attachments[] = $attachment1;
+        }
+
+        //send email
+        $this->email->sendEmailWithAttachments('no-reply@haarlemfestival.com', 'ceesgribnau@hotmail.com', 'Your Tickets for order#' . $orderId, "Dear customer,\r\nAttached you will find the tickets for the order you just placed.\r\nRegards, The Haarlem Festival Team", $attachments);
     }
 
     public function getOrderItemsNiceNamed(Order $order) :array
