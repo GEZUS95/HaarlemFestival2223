@@ -64,10 +64,11 @@ class OrderService
         $this->orderRepository->insertOne($userid, $uuid, 'open');
     }
 
-    public function addOrderline(int $orderId, string $table, int $itemId, int $quantity)
+    public function addOrderline(int $orderId, string $table, int $itemId, int $quantity, bool $child)
     {
         $this->ticketsAvailable($orderId, $quantity);
-        $this->orderLineRepository->insertOne($orderId, $table, $itemId, $quantity);
+        $this->orderLineRepository->insertOne($orderId, $table, $itemId, $quantity, $child);
+        $this->redirectHelper->redirect('/cart?success=Item added to cart');
     }
 
     public function updateOrderStatus(int $id, string $status)
