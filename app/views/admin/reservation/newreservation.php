@@ -24,12 +24,11 @@ include_once __DIR__ . '/../admin-header.php';
                 <select id="session_id" name="session_id" class="form-control" required>
                     <?php foreach ($sessions as $session): ?>
                         <option value="<?php echo $session->getId(); ?>">
-                            <?php
-                            echo $this->restaurantService->getOneById($session->getRestaurantId())->getName() . ' - ' . $session->getStartTime()->format('Y-m-d H:i:s') . ' - ' . $session->getEndTime()->format('Y-m-d H:i:s')
-                            ?>
+                            <?php echo $session->getOptionLabel(); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
+
             </div>
         </div>
 

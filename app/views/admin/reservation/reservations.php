@@ -34,12 +34,12 @@ include_once __DIR__ . '../../admin-header.php';
                                 }
                                 ?></td>
                             <td><?=
-                                // set datetime to string
-                                $session->getStartTime()->format('Y-m-d H:i:s')
+                                // create DateTime object from string
+                                (new DateTime($session->getStartTime()))->format('Y-m-d H:i:s')
                                 ?></td>
                             <td><?=
-                                // set datetime to string
-                                $session->getEndTime()->format('Y-m-d H:i:s')
+                                // create DateTime object from string
+                                (new DateTime($session->getEndTime()))->format('Y-m-d H:i:s')
                                 ?></td>
                             <td><?= $reservation->getRemarks() ?></td>
                             <td>

@@ -61,4 +61,8 @@ class ReservationController {
         $this->reservationService->updateOne($reservation);
         $this->redirectHelper->redirect("/admin/reservations");
     }
+
+    public function getOptionLabel() { // todo: dont work
+        $this->reservationService->getOptionLabel();
+    }
 }
