@@ -31,7 +31,8 @@ class PaymentController
                     "value" => "$value",
                 ],
                 "description" => "Order #{$orderID}",
-                "redirectUrl" => "https://7cc1-145-81-192-114.eu.ngrok.io/payments/changePaymentStatus?order_id=$orderID",
+                "redirectUrl" => "https://407a-145-81-192-114.eu.ngrok.io/",
+                "webhookUrl" => "https://407a-145-81-192-114.eu.ngrok.io/payments/webhook",
                 "metadata" => [
                     "order_id" => $orderID,
                 ],
@@ -44,19 +45,17 @@ class PaymentController
         }
     }
 
-
-    public function changePaymentStatus()
+    public function webhook()
     {
-        $payment = $this->mollie->payments->get($_SESSION['payment_id']);
+        $payment = $this->mollie->payments->get($_POST['id']);
 
         if ($payment->isPaid()) {
-            $id = $_GET['order_id'];
-            $dateTime = new \DateTime();
-            $this->orderService->updateOrderStatus($id, 'paid', $dateTime->format('Y-m-d H:i:s'));
+            $id = $payment->metadata->order_id;
+            $this->orderService->updateOrderStatus($id, 'paid');
             $this->orderService->sendInvoice($id);
             $this->orderService->sendTickets($id);
 
-            header('Location: /');
+            http_response_code(200);
         } else {
             echo "payment error";
         }

@@ -20,6 +20,7 @@ class OrderService
     private RedirectHelper $redirectHelper;
     private PDFHelper $PDFHelper;
     private UserService $userService;
+    private UserRepository $userRepository;
     private EmailHelper $email;
 
     public function __construct()
@@ -30,6 +31,7 @@ class OrderService
         $this->redirectHelper = new RedirectHelper();
         $this->PDFHelper = new PDFHelper();
         $this->userService = new UserService();
+        $this->userRepository = new UserRepository();
         $this->email = new EmailHelper();
     }
 
@@ -158,15 +160,7 @@ class OrderService
         $attachments = array($attachment1);
 
         //send email
-        $this->email->sendEmailWithAttachments(
-            'no-reply@haarlemfestival.com',
-            'ceesgribnau@hotmail.com',
-            'Your Invoice of order#' . $orderId,
-            "Dear customer,\r\n
-            Attached you will find the invoice of the order you just placed.\r\n
-            Regards, The Haarlem Festival Team",
-            $attachments
-        );
+        $this->email->sendEmailWithAttachments('no-reply@haarlemfestival.com', $userEmail, 'Your Invoice of order#' . $orderId, "Dear customer,\r\nAttached you will find the invoice of the order you just placed.\r\nRegards, The Haarlem Festival Team", $attachments);
     }
 
     public function sendTickets(int $orderId)
@@ -192,15 +186,7 @@ class OrderService
         }
 
         //send email
-        $this->email->sendEmailWithAttachments(
-            'no-reply@haarlemfestival.com',
-            'ceesgribnau@hotmail.com',
-            'Your Tickets for order#' . $orderId,
-            "Dear customer,\r\n
-            Attached you will find the tickets for the order you just placed.\r\n
-            Regards, The Haarlem Festival Team",
-            $attachments
-        );
+        $this->email->sendEmailWithAttachments('no-reply@haarlemfestival.com', $userEmail, 'Your Tickets for order#' . $orderId, "Dear customer,\r\nAttached you will find the tickets for the order you just placed.\r\nRegards, The Haarlem Festival Team", $attachments);
     }
 
     public function getOrderItemsNiceNamed(Order $order) :array

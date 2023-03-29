@@ -4,4 +4,4 @@ namespace routers;
 $router->setNamespace('controllers');
 
 //Payment Routes
-$router->get('/payments/changePaymentStatus', 'PaymentController@changePaymentStatus');
+$router->post('/payments/webhook', 'PaymentController@webhook');
