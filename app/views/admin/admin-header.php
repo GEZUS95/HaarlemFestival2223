@@ -46,17 +46,23 @@
                     </div>
                 </li>
 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       id="navbarDropdownMenuLink"
+                       data-bs-toggle="dropdown"
+                       role="button"
+                       aria-expanded="false">
+                        Food
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/admin/restaurants">Restaurants</a>
+                        <a class="dropdown-item" href="/admin/sessions">Sessions</a>
+                        <a class="dropdown-item" href="/admin/reservations">Reservations</a>
+                    </div>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/content">Content Pages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/restaurants">Restaurants</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/sessions">Sessions</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/reservations">Reservations</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/orders">Orders</a>
