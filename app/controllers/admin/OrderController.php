@@ -45,7 +45,7 @@ class OrderController
 
     public function orderStatusUpdate(int $id)
     {
-        $this->orderService->updateStatus($id);
+        $this->orderService->updateStatusAdmin($id);
     }
 
     public function getInvoice(int $orderId)

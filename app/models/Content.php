@@ -8,6 +8,7 @@ class Content {
     private string $title;
     private string $body;
     private string $image_path;
+    private bool $deletable;
 
     /**
      * @return int
@@ -71,5 +72,21 @@ class Content {
     public function setImagePath(string $image_path): void
     {
         $this->image_path = $image_path;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeletable(): bool
+    {
+        return $this->deletable;
+    }
+
+    /**
+     * @param bool $deletable
+     */
+    public function setDeletable(bool $deletable): void
+    {
+        $this->deletable = $deletable;
     }
 }

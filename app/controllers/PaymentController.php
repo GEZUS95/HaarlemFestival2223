@@ -39,8 +39,7 @@ class PaymentController
             $_SESSION['payment_id'] = $payment->id;
 
             header("Location: " . $payment->getCheckoutUrl(), true, 303);
-        }
-        catch (\Mollie\Api\Exceptions\ApiException $e) {
+        } catch (\Mollie\Api\Exceptions\ApiException $e) {
             echo "API call failed: " . htmlspecialchars($e->getMessage());
         }
     }
@@ -52,13 +51,13 @@ class PaymentController
 
         if ($payment->isPaid()) {
             $id = $_GET['order_id'];
-            $this->orderService->updateOrderStatus($id, 'paid');
+            $dateTime = new \DateTime();
+            $this->orderService->updateOrderStatus($id, 'paid', $dateTime->format('Y-m-d H:i:s'));
             $this->orderService->sendInvoice($id);
             $this->orderService->sendTickets($id);
 
             header('Location: /');
-        }
-        else {
+        } else {
             echo "payment error";
         }
     }

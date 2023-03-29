@@ -79,14 +79,15 @@ class OrderRepository extends Repository
         }
     }
 
-    public function updateStatus(int $id, string $status)
+    public function updateStatus(int $id, string $status, string $payedAt)
     {
         try {
             $stmt = $this->connection->prepare("
         UPDATE orders
-        SET status = :status
+        SET status = :status, payed_at = :payedAt
         WHERE id = :id");
             $stmt->bindParam(':status', $status);
+            $stmt->bindParam(':payedAt', $payedAt);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 
