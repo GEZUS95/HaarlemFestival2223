@@ -92,7 +92,7 @@ class PDFHelper
 
         // Read the PHP template file and render its contents as HTML, passing in the variables
         ob_start(); // Start output buffering
-        include __DIR__ . '/../views/pdftemplates/invoice.php';
+        include __DIR__ . '/../views/templates/pdftemplates/invoice.php';
         $html = ob_get_clean(); // Get the contents of the output buffer and clear it
 
         // Write the HTML to the PDF
