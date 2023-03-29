@@ -53,6 +53,7 @@ class PaymentController
             $id = $payment->metadata->order_id;
             $this->orderService->updateOrderStatus($id, 'paid');
             $this->orderService->sendInvoice($id);
+            //todo: generate tickets
             $this->orderService->sendTickets($id);
 
             http_response_code(200);
