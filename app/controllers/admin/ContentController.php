@@ -59,6 +59,9 @@ class ContentController
 
     public function deletePage($id)
     {
+        if (!$this->contentService->getOneFromId($id)->isDeletable()) {
+            $this->redirectHelper->redirect('/admin/content?error=This page is not deletable');
+        }
         $this->contentService->deleteOne($id);
         $this->redirectHelper->redirect('/admin/content?success=Page successfully deleted');
     }
