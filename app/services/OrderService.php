@@ -189,7 +189,7 @@ class OrderService
         $this->email->sendEmailWithAttachments('no-reply@haarlemfestival.com', $userEmail, 'Your Tickets for order#' . $orderId, "Dear customer,\r\nAttached you will find the tickets for the order you just placed.\r\nRegards, The Haarlem Festival Team", $attachments);
     }
 
-    public function getOrderItemsNiceNamed(Order $order) :array
+    public function getOrderItemsNiceNamed(Order $order): array
     {
         $items = $this->getAllOrderLinesFromOrderId($order->getId());
 
@@ -198,14 +198,14 @@ class OrderService
         foreach ($items as $item) {
             $object = $this->orderRepository->getItemFromDB($item->getTable(), $item->getItemId());
             if ($item->isChild()) {
-            $newItems[] = array(
-                "id" => $item->getId(),
-                "name" => $object['title'],
-                "quantity" => $item->getQuantity(),
-                "isChild" => 'yes',
-                "price" => $object['price_child'],
-                "taxRate" => 0.21
-            );
+                $newItems[] = array(
+                    "id" => $item->getId(),
+                    "name" => $object['title'],
+                    "quantity" => $item->getQuantity(),
+                    "isChild" => 'yes',
+                    "price" => $object['price_child'],
+                    "taxRate" => 0.21
+                );
             } else {
                 $newItems[] = array(
                     "id" => $item->getId(),
@@ -221,8 +221,24 @@ class OrderService
         return $newItems;
     }
 
+    public function getFullOrder(int $orderId)
+    {
+        $orderlines = $this->orderLineRepository->getAllFromOrderId($orderId);
+        $temp = array();
+
+        foreach ($orderlines as $orderline) {
+            if ($orderline->getTable() === 'reservation') {
+                $temp[] = $this->orderLineRepository->getAllOrderlinesFood($orderId);
+            } else {
+                $temp[] = $this->orderLineRepository->getAllOrderlinesNonFood($orderId);
+            }
+        }
+        return $temp;
+    }
+
     private function ticketsAvailable(int $id, int $quantity)
     {
+        //todo: tickets only go down
         $order = $this->orderLineRepository->getOneFromId($id);
         $item = $this->orderRepository->getItemFromDB($order->getTable(), $order->getItemId());
         $ticketsAvailable = $item['seats_left'];
