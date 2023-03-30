@@ -1,7 +1,4 @@
 <?php
-
-$router->setNamespace('controllers');
-
 $router->get('/login', 'LoginController@login');
 $router->post('/login', 'LoginController@loginPost');
 $router->get('/logout', 'LoginController@logout');

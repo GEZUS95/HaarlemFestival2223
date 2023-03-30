@@ -1,6 +1,4 @@
 <?php
-$router->setNamespace('controllers');
-
 $router->get('/api', 'ApiController@index');
 $router->get('/api/orders', 'ApiController@getAllOrders');
 $router->get('/api/reservations', 'ApiController@getAllReservations');

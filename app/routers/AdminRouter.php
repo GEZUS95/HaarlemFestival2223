@@ -1,7 +1,4 @@
 <?php
-
-$router->setNamespace('controllers');
-
 $router->get('/admin', 'AdminController@index');
 
 
