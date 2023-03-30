@@ -57,19 +57,16 @@ class UploadController
           // Accept upload if there was no origin, or if it is an accepted origin
           $filetowrite = $imageFolder . '/' . $temp['name'];
 
-
-
-
             if (move_uploaded_file($temp['tmp_name'], $filetowrite)) {
                 // Determine the base URL
                 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? "https://" : "http://";
-                $baseurl = $protocol . $_SERVER["HTTP_HOST"] . rtrim(dirname($_SERVER['REQUEST_URI']), "/") . "/";
-                $target_dir ="/app/public/images/pages/";
+                $baseurl = $protocol . $_SERVER["HTTP_HOST"] . rtrim(dirname($_SERVER['REQUEST_URI']), "/");
+                $target_dir ="/images/pages/";
                 $target_file = $target_dir . basename($temp["name"]);
 
                 // Respond to the successful upload with JSON.
                 // Use a location key to specify the path to the saved image resource.
-                $jsonLocation = json_encode(array('location' => $baseurl . $filetowrite));
+                $jsonLocation = json_encode(array('location' => $baseurl . $target_file));
                 file_put_contents('php://STDERR', $jsonLocation);
                 echo $jsonLocation;
             } else {

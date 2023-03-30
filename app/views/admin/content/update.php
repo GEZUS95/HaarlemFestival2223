@@ -42,6 +42,6 @@ include_once __DIR__ . '/../admin-header.php';
         plugins: 'image',
         menubar: 'insert',
         image_uploadtab: 'upload',
-        images_upload_url: '/upload/uploadImage',
+        images_upload_url: '/uploadImage',
     });
 </script>

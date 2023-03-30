@@ -4,4 +4,4 @@ namespace routers;
 $router->setNamespace('controllers');
 
 //Upload Routes
-$router->post('/upload/uploadImage', 'UploadController@uploadImage');
+$router->post('/uploadImage', 'UploadController@uploadImage');
