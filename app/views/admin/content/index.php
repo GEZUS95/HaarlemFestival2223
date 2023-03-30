@@ -22,7 +22,9 @@ include_once __DIR__ . '/../admin-header.php';
             <td><?php echo $page->getTitle() ?></td>
             <td>
                 <a href="/admin/content/update/<?php echo $page->getId() ?>" class="btn btn-warning">Update Page</a>
-                <a href="/admin/content/delete/<?php echo $page->getId() ?>" class="btn btn-danger">Delete Page</a>
+                <?php if ($page->isDeletable()) { ?>
+                    <a href="/admin/content/delete/<?php echo $page->getId() ?>" class="btn btn-danger">Delete Page</a>
+                <?php } ?>
             </td>
         </tr>
 

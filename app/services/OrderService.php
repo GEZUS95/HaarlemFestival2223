@@ -78,9 +78,9 @@ class OrderService
         $this->redirectHelper->redirect('/cart?success=Item added to cart');
     }
 
-    public function updateOrderStatus(int $id, string $status)
+    public function updateOrderStatus(int $id, string $status, string $payedAt = null)
     {
-        $this->orderRepository->updateStatus($id, $status);
+        $this->orderRepository->updateStatus($id, $status, $payedAt);
     }
 
     public function deleteOrder(int $id)
@@ -105,7 +105,7 @@ class OrderService
         $this->redirectHelper->redirect('/cart?success=Quantity updated');
     }
 
-    public function updateStatus(int $id)
+    public function updateStatusAdmin(int $id)
     {
         $order = $this->orderRepository->getOneFromId($id);
         if ($order->getStatus() === 'open') {
@@ -128,7 +128,12 @@ class OrderService
 
         $date = new \DateTime();
 
-        $this->PDFHelper->generateInvoiceDownload($user->getName(), $order->getShareUuid(), $date->format('d-m-Y'), $items);
+        $this->PDFHelper->generateInvoiceDownload(
+            $user->getName(),
+            $order->getShareUuid(),
+            $date->format('d-m-Y'),
+            $items
+        );
         $this->redirectHelper->redirect('/admin/orders?success=PDF generated!');
     }
 
@@ -141,7 +146,15 @@ class OrderService
         $date = new \DateTime();
 
         //create invoice and convert to attachment
-        $attachment1 = new Attachment($this->PDFHelper->generateInvoice($user->getName(), $order->getId(), $date->format('d-m-Y'), $items), "Invoice_Of_Order#" . $orderId);
+        $attachment1 = new Attachment(
+            $this->PDFHelper->generateInvoice(
+                $user->getName(),
+                $order->getId(),
+                $date->format('d-m-Y'),
+                $items
+            ),
+            "Invoice_Of_Order#" . $orderId
+        );
 
         //put in array for the sendEmailWithAttachments function
         $attachments = array($attachment1);
@@ -159,8 +172,16 @@ class OrderService
         $attachments = array();
 
         //create tickets, convert to attachments and add them to an array
-        foreach($items as $item){
-            $attachment1 = new Attachment($this->PDFHelper->generateTicket($user->getName(), $item['name'], $item['quantity'], $order->getShareUuid()), "Your ticket for " . $item['name']);
+        foreach ($items as $item) {
+            $attachment1 = new Attachment(
+                $this->PDFHelper->generateTicket(
+                    $user->getName(),
+                    $item['name'],
+                    $item['quantity'],
+                    $order->getShareUuid()
+                ),
+                "Your ticket for " . $item['name']
+            );
             $attachments[] = $attachment1;
         }
 

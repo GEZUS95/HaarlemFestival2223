@@ -20,8 +20,13 @@ class UserRepository extends Repository
                 $params[':search'] = "%$search%";
             }
 
-            if (!empty($filter)) {
+            if (!empty($filter) && !empty($search)) {
                 $query .= " AND role_id = :filter";
+                $params[':filter'] = $filter;
+            }
+
+            if (empty($search) && !empty($filter)) {
+                $query .= " WHERE role_id = :filter";
                 $params[':filter'] = $filter;
             }
 

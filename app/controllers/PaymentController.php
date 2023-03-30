@@ -40,8 +40,7 @@ class PaymentController
             $_SESSION['payment_id'] = $payment->id;
 
             header("Location: " . $payment->getCheckoutUrl(), true, 303);
-        }
-        catch (\Mollie\Api\Exceptions\ApiException $e) {
+        } catch (\Mollie\Api\Exceptions\ApiException $e) {
             echo "API call failed: " . htmlspecialchars($e->getMessage());
         }
     }
@@ -54,11 +53,11 @@ class PaymentController
             $id = $payment->metadata->order_id;
             $this->orderService->updateOrderStatus($id, 'paid');
             $this->orderService->sendInvoice($id);
+            //todo: generate tickets
             $this->orderService->sendTickets($id);
 
             http_response_code(200);
-        }
-        else {
+        } else {
             echo "payment error";
         }
     }

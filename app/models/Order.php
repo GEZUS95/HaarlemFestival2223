@@ -8,6 +8,7 @@ class Order
     private int $user_id;
     private string $share_uuid;
     private string $status;
+    private string $payed_at;
 
     /**
      * @return int
@@ -71,5 +72,21 @@ class Order
     public function setStatus(string $status): void
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPayedAt(): string
+    {
+        return $this->payed_at;
+    }
+
+    /**
+     * @param string $payed_at
+     */
+    public function setPayedAt(string $payed_at): void
+    {
+        $this->payed_at = $payed_at;
     }
 }
