@@ -41,6 +41,6 @@ include_once __DIR__ . '/../admin-header.php';
         plugins: 'image',
         menubar: 'insert',
         image_uploadtab: 'upload',
-        images_upload_url: 'https://01cc-145-81-192-114.eu.ngrok.io/upload/uploadImage',
+        images_upload_url: '/uploadImage',
     });
 </script>

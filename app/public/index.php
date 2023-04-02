@@ -4,6 +4,7 @@ session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $router = new \Bramus\Router\Router();
+require_once __DIR__ . '/../routers/RouterSetup.php';
 require_once __DIR__ . '/../routers/HomeRouter.php';
 require_once __DIR__ . '/../routers/AdminRouter.php';
 require_once __DIR__ . '/../routers/CartRouter.php';
