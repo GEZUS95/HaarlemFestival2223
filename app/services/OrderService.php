@@ -20,7 +20,6 @@ class OrderService
     private RedirectHelper $redirectHelper;
     private PDFHelper $PDFHelper;
     private UserService $userService;
-    private UserRepository $userRepository;
     private EmailHelper $email;
 
     public function __construct()
@@ -31,7 +30,6 @@ class OrderService
         $this->redirectHelper = new RedirectHelper();
         $this->PDFHelper = new PDFHelper();
         $this->userService = new UserService();
-        $this->userRepository = new UserRepository();
         $this->email = new EmailHelper();
     }
 
@@ -124,7 +122,7 @@ class OrderService
         $order = $this->getOneOrderFromId($orderId);
         $user = $this->userService->getOneById($order->getUserId());
 
-        $items = $this->getOrderItemsNiceNamed($order);
+        $items = $this->getFullOrder($order->getId());
 
         $date = new \DateTime();
 
@@ -141,7 +139,7 @@ class OrderService
     {
         $order = $this->getOneOrderFromId($orderId);
         $user = $this->userService->getOneById($order->getUserId());
-        $items = $this->getOrderItemsNiceNamed($order);
+        $items = $this->getFullOrder($order->getId());
         $userEmail = $user->getEmail();
         $date = new \DateTime();
 
@@ -165,9 +163,10 @@ class OrderService
 
     public function sendTickets(int $orderId)
     {
+        //todo: get the tickets from db and send them to the user
         $order = $this->getOneOrderFromId($orderId);
         $user = $this->userService->getOneById($order->getUserId());
-        $items = $this->getOrderItemsNiceNamed($order);
+        $items = $this->getFullOrder($order);
         $userEmail = $user->getEmail();
         $attachments = array();
 
@@ -189,37 +188,37 @@ class OrderService
         $this->email->sendEmailWithAttachments('no-reply@haarlemfestival.com', $userEmail, 'Your Tickets for order#' . $orderId, "Dear customer,\r\nAttached you will find the tickets for the order you just placed.\r\nRegards, The Haarlem Festival Team", $attachments);
     }
 
-    public function getOrderItemsNiceNamed(Order $order): array
-    {
-        $items = $this->getAllOrderLinesFromOrderId($order->getId());
-
-        $newItems = array();
-
-        foreach ($items as $item) {
-            $object = $this->orderRepository->getItemFromDB($item->getTable(), $item->getItemId());
-            if ($item->isChild()) {
-                $newItems[] = array(
-                    "id" => $item->getId(),
-                    "name" => $object['name'],
-                    "quantity" => $item->getQuantity(),
-                    "isChild" => 'yes',
-                    "price" => $object['price_child'],
-                    "taxRate" => 0.21
-                );
-            } else {
-                $newItems[] = array(
-                    "id" => $item->getId(),
-                    "name" => $object['title'],
-                    "quantity" => $item->getQuantity(),
-                    "isChild" => 'no',
-                    "price" => $object['price'],
-                    "taxRate" => 0.21
-                );
-            }
-        }
-
-        return $newItems;
-    }
+//    public function getOrderItemsNiceNamed(Order $order): array
+//    {
+//        $items = $this->getAllOrderLinesFromOrderId($order->getId());
+//
+//        $newItems = array();
+//
+//        foreach ($items as $item) {
+//            $object = $this->orderRepository->getItemFromDB($item->getTable(), $item->getItemId());
+//            if ($item->isChild()) {
+//                $newItems[] = array(
+//                    "id" => $item->getId(),
+//                    "name" => $object['name'],
+//                    "quantity" => $item->getQuantity(),
+//                    "isChild" => 'yes',
+//                    "price" => $object['price_child'],
+//                    "taxRate" => 0.21
+//                );
+//            } else {
+//                $newItems[] = array(
+//                    "id" => $item->getId(),
+//                    "name" => $object['title'],
+//                    "quantity" => $item->getQuantity(),
+//                    "isChild" => 'no',
+//                    "price" => $object['price'],
+//                    "taxRate" => 0.21
+//                );
+//            }
+//        }
+//
+//        return $newItems;
+//    }
 
     public function getFullOrder(int $orderId)
     {

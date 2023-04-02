@@ -36,7 +36,7 @@
         $name = $item['name'];
         $quantity = $item['quantity'];
         $price = $item['price'];
-        $taxRate = $item['taxRate'];
+        $taxRate = 0.21;
 
         $priceExclTax = $price;
         $taxAmount = $price * $taxRate;
