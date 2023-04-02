@@ -18,7 +18,7 @@ class CartController
     public function index()
     {
         $order = $this->orderService->getOneOrderFromUserId($_SESSION['user']['id']);
-        $orderItems = $this->orderService->getOrderItemsNiceNamed($order);
+        $orderItems = $this->orderService->getFullOrder($order->getId());
         require __DIR__ . '/../views/cart/index.php';
     }
 
@@ -35,11 +35,11 @@ class CartController
     public function payOrder(int $id)
     {
         $order = $this->orderService->getOneOrderFromId($id);
-        $orderItems = $this->orderService->getOrderItemsNiceNamed($order);
+        $orderItems = $this->orderService->getFullOrder($order->getId());
         $total = 0;
         foreach ($orderItems as $item) {
             $subtotal = $item['price'] * $item['quantity'];
-            $subtotal += $subtotal * $item['taxRate'];
+            $subtotal += $subtotal * 0.21;
             $total += $subtotal;
         }
         $total = number_format($total, 2, '.', '');

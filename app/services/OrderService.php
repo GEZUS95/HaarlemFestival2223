@@ -228,7 +228,11 @@ class OrderService
 
         foreach ($orderlines as $orderline) {
             if ($orderline->getTable() === 'reservation') {
-                $temp[] = $this->orderLineRepository->getOrderlineFood($orderline->getId());
+                $item = $this->orderLineRepository->getOrderlineFood($orderline->getId());
+                if ($orderline->isChild()) {
+                    $item['price'] = $item['price_child'];
+                }
+                $temp[] = $item;
             } else {
                 $temp[] = $this->orderLineRepository->getOrderlineNonFood($orderline->getId());
             }
