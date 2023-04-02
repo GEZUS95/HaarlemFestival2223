@@ -93,41 +93,41 @@ class OrderLineRepository extends Repository
         }
     }
 
-    public function getAllOrderlinesFood(int $orderId)
+    public function getOrderlineFood(int $orderId)
     {
         try {
             $stmt = $this->connection->prepare("
-                SELECT orderline.id, orderline.quantity, orderline.child,
-                reservations.id, reservations.session_id, reservations.remarks, reservations.status,
-                sessions.id, sessions.restaurant, sessions.start_time, sessions.end_time, sessions.seats_left,
-                restaurant.id, restaurant.name, restaurant.price, restaurant.price_child
+                SELECT orderline.quantity, orderline.child,
+                reservation.session_id, reservation.remarks, reservation.status,
+                session.start_time, session.end_time, session.seats_left,
+                restaurant.name, restaurant.price, restaurant.price_child
                 FROM orderline
-                INNER JOIN reservations ON orderline.item_id = reservations.id
-                INNER JOIN sessions ON reservations.session_id = sessions.id
-                INNER JOIN restaurant ON sessions.restaurant = restaurant.id
-                WHERE orderline.order_id = :id
+                INNER JOIN reservation ON orderline.item_id = reservation.id
+                INNER JOIN session ON reservation.session_id = session.id
+                INNER JOIN restaurant ON session.restaurant_id = restaurant.id
+                WHERE orderline.id = :id
                 ");
             $stmt->bindParam(':id', $orderId);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             echo $e;
         }
     }
 
-    public function getAllOrderlinesNonFood(int $orderId)
+    public function getOrderlineNonFood(int $orderId)
     {
         try {
             $stmt = $this->connection->prepare("
                 SELECT 
-                orderline.id, orderline.quantity,
-                event.id, event.title, event.description,
-                program.id, program.title, program.price,
-                programitem.id, programitem.artist_id, programitem.special_guest_id, programitem.title,
+                orderline.quantity,
+                event.title, event.description,
+                program.title, program.price,
+                programitem.artist_id, programitem.special_guest_id, programitem.title,
                 programitem.price, programitem.start_time, programitem.end_time, programitem.seats_left,
-                location.id, location.name, location.stage,
-                artist.id, artist.name, artist.description,
-                specialguest.id, specialguest.name, specialguest.description
+                location.name, location.stage,
+                artist.name, artist.description,
+                specialguest.name, specialguest.description
                 FROM orderline
                 INNER JOIN event ON program.event_id = event.id
                 INNER JOIN program ON programitem.program_id = program.id
@@ -139,7 +139,7 @@ class OrderLineRepository extends Repository
                 ");
             $stmt->bindParam(':id', $orderId);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             echo $e;
         }

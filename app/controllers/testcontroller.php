@@ -107,4 +107,11 @@ class TestController
 
         $email->sendHTMLEmail('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your HTML email',$html);
     }
+
+    public function testOrder()
+    {
+        $service = new OrderService();
+        $orders = $service->getFullOrder(1);
+        print_r($orders);
+    }
 }

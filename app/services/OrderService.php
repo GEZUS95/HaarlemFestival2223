@@ -78,7 +78,7 @@ class OrderService
         $this->redirectHelper->redirect('/cart?success=Item added to cart');
     }
 
-    public function updateOrderStatus(int $id, string $status, string $payedAt = null)
+    public function updateOrderStatus(int $id, string $status, string $payedAt = '0000-00-00 00:00:00')
     {
         $this->orderRepository->updateStatus($id, $status, $payedAt);
     }
@@ -228,9 +228,9 @@ class OrderService
 
         foreach ($orderlines as $orderline) {
             if ($orderline->getTable() === 'reservation') {
-                $temp[] = $this->orderLineRepository->getAllOrderlinesFood($orderId);
+                $temp[] = $this->orderLineRepository->getOrderlineFood($orderline->getId());
             } else {
-                $temp[] = $this->orderLineRepository->getAllOrderlinesNonFood($orderId);
+                $temp[] = $this->orderLineRepository->getOrderlineNonFood($orderline->getId());
             }
         }
         return $temp;
