@@ -10,6 +10,8 @@ include __DIR__ . '/../header.php';
     <thead>
     <tr>
         <th scope="col">Item</th>
+        <th scope="col">Start</th>
+        <th scope="col">End</th>
         <th scope="col">quantity</th>
         <th scope="col">child ticket</th>
         <th scope="col">price (excl. VAT)</th>
@@ -25,6 +27,8 @@ include __DIR__ . '/../header.php';
 
         <tr>
             <th scope="row"><?= $item['name'] ?></th>
+            <td><?= $item['start_time'] ?></td>
+            <td><?= $item['end_time'] ?></td>
             <td>
                 <form method="post" action="/cart/update/<?= $item['id'] ?>" class="form-inline">
                     <div class="form-row">
