@@ -51,7 +51,8 @@ class PaymentController
 
         if ($payment->isPaid()) {
             $id = $payment->metadata->order_id;
-            $this->orderService->updateOrderStatus($id, 'paid');
+            $date = new \DateTime();
+            $this->orderService->updateOrderStatus($id, 'paid', $date->format('d-m-Y H:i:s'));
             $this->orderService->sendInvoice($id);
             //todo: generate tickets
             $this->orderService->sendTickets($id);

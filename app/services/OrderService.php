@@ -76,7 +76,7 @@ class OrderService
         $this->redirectHelper->redirect('/cart?success=Item added to cart');
     }
 
-    public function updateOrderStatus(int $id, string $status, string $payedAt = '0000-00-00 00:00:00')
+    public function updateOrderStatus(int $id, string $status, string $payedAt = '00-00-0000 00:00:00')
     {
         $this->orderRepository->updateStatus($id, $status, $payedAt);
     }
@@ -129,7 +129,7 @@ class OrderService
         $this->PDFHelper->generateInvoiceDownload(
             $user->getName(),
             $order->getShareUuid(),
-            $date->format('d-m-Y'),
+            $order->getPayedAt(),
             $items
         );
         $this->redirectHelper->redirect('/admin/orders?success=PDF generated!');
@@ -148,7 +148,7 @@ class OrderService
             $this->PDFHelper->generateInvoice(
                 $user->getName(),
                 $order->getId(),
-                $date->format('d-m-Y'),
+                $order->getPayedAt(),
                 $items
             ),
             "Invoice_Of_Order#" . $orderId
