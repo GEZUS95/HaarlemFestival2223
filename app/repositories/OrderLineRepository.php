@@ -97,7 +97,7 @@ class OrderLineRepository extends Repository
     {
         try {
             $stmt = $this->connection->prepare("
-                SELECT orderline.quantity, orderline.child,
+                SELECT orderline.id, orderline.quantity, orderline.child,
                 reservation.session_id, reservation.remarks, reservation.status,
                 session.start_time, session.end_time, session.seats_left,
                 restaurant.name, restaurant.price, restaurant.price_child
@@ -120,7 +120,7 @@ class OrderLineRepository extends Repository
         try {
             $stmt = $this->connection->prepare("
                 SELECT 
-                orderline.quantity,
+                orderline.id, orderline.quantity,
                 event.title, event.description,
                 program.title, program.price,
                 programitem.artist_id, programitem.special_guest_id, programitem.title,

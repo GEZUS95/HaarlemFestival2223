@@ -200,7 +200,7 @@ class OrderService
             if ($item->isChild()) {
                 $newItems[] = array(
                     "id" => $item->getId(),
-                    "name" => $object['title'],
+                    "name" => $object['name'],
                     "quantity" => $item->getQuantity(),
                     "isChild" => 'yes',
                     "price" => $object['price_child'],
