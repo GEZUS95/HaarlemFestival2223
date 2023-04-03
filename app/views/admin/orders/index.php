@@ -10,7 +10,7 @@ include_once __DIR__ . '/../admin-header.php';
         <th scope="col">Userid</th>
         <th scope="col">Share Id</th>
         <th scope="col">Status</th>
-        <th scope="col"></th>
+        <th scope="col"><a href="/admin/orders/csv" class="btn btn-primary">Download Orders</a></th>
     </tr>
     </thead>
     <tbody>

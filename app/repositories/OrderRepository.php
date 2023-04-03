@@ -124,4 +124,38 @@ class OrderRepository extends Repository
             echo $e;
         }
     }
+
+    public function getAllOrdersCSV(bool $id = true, bool $user_id = true , bool $share_uuid = true , bool $status = true, bool $payed_at = true)
+    {
+        try {
+            $query = "SELECT";
+
+            if ($id) {
+                $query .= " id";
+            }
+            if ($user_id) {
+                if ($id) {$query .= ",";}
+                $query .= " user_id";
+            }
+            if ($share_uuid) {
+                if ($user_id) {$query .= ",";}
+                $query .= " share_uuid";
+            }
+            if ($status) {
+                if ($share_uuid) {$query .= ",";}
+                $query .= " status";
+            }
+            if ($payed_at) {
+                if ($status) {$query .= ",";}
+                $query .= " payed_at";
+            }
+
+            $stmt = $this->connection->prepare($query . " FROM orders");
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
 }

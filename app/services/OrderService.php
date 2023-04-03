@@ -2,15 +2,14 @@
 
 namespace services;
 
+use helpers\CSVHelper;
 use helpers\EmailHelper;
 use helpers\PDFHelper;
 use helpers\RedirectHelper;
 use helpers\UuidHelper;
 use models\Attachment;
-use models\Order;
 use repositories\OrderLineRepository;
 use repositories\OrderRepository;
-use repositories\UserRepository;
 
 class OrderService
 {
@@ -21,6 +20,7 @@ class OrderService
     private PDFHelper $PDFHelper;
     private UserService $userService;
     private EmailHelper $email;
+    private CSVHelper $CSVHelper;
 
     public function __construct()
     {
@@ -31,6 +31,7 @@ class OrderService
         $this->PDFHelper = new PDFHelper();
         $this->userService = new UserService();
         $this->email = new EmailHelper();
+        $this->CSVHelper = new CSVHelper();
     }
 
     public function getAllOrders(int $limit, int $offset)
@@ -141,7 +142,6 @@ class OrderService
         $user = $this->userService->getOneById($order->getUserId());
         $items = $this->getFullOrder($order->getId());
         $userEmail = $user->getEmail();
-        $date = new \DateTime();
 
         //create invoice and convert to attachment
         $attachment1 = new Attachment(
@@ -188,38 +188,6 @@ class OrderService
         $this->email->sendEmailWithAttachments('no-reply@haarlemfestival.com', $userEmail, 'Your Tickets for order#' . $orderId, "Dear customer,\r\nAttached you will find the tickets for the order you just placed.\r\nRegards, The Haarlem Festival Team", $attachments);
     }
 
-//    public function getOrderItemsNiceNamed(Order $order): array
-//    {
-//        $items = $this->getAllOrderLinesFromOrderId($order->getId());
-//
-//        $newItems = array();
-//
-//        foreach ($items as $item) {
-//            $object = $this->orderRepository->getItemFromDB($item->getTable(), $item->getItemId());
-//            if ($item->isChild()) {
-//                $newItems[] = array(
-//                    "id" => $item->getId(),
-//                    "name" => $object['name'],
-//                    "quantity" => $item->getQuantity(),
-//                    "isChild" => 'yes',
-//                    "price" => $object['price_child'],
-//                    "taxRate" => 0.21
-//                );
-//            } else {
-//                $newItems[] = array(
-//                    "id" => $item->getId(),
-//                    "name" => $object['title'],
-//                    "quantity" => $item->getQuantity(),
-//                    "isChild" => 'no',
-//                    "price" => $object['price'],
-//                    "taxRate" => 0.21
-//                );
-//            }
-//        }
-//
-//        return $newItems;
-//    }
-
     public function getFullOrder(int $orderId)
     {
         $orderlines = $this->orderLineRepository->getAllFromOrderId($orderId);
@@ -252,5 +220,53 @@ class OrderService
         } else {
             $this->redirectHelper->redirect('/cart?error=Not enough tickets available');
         }
+    }
+
+    public function downloadCSV(bool $id = true, bool $user_id = true, bool $share_uuid = true, bool $status = true, bool $payed_at = true, bool $total = true)
+    {
+        if ($id === false && $user_id === false && $share_uuid === false && $status === false && $payed_at === false && $total === false) {
+            $this->redirectHelper->redirect(
+                '/admin/orders/csv?error=You need to select at least one column to download'
+            );
+        }
+
+        $header = $this->generateHeader($id, $user_id, $share_uuid, $status, $payed_at, $total);
+
+        $orders = $this->orderRepository->getAllOrdersCSV($id, $user_id, $share_uuid, $status, $payed_at);
+        if ($total === true) {
+            for ($i = 1; $i < count($orders) + 1; $i++) {
+                $total_price = 0;
+                $order = $this->getFullOrder($i);
+                foreach ($order as $item) {
+                    $total_price += $item['price'] * $item['quantity'] * 1.09;
+                }
+                $orders[$i - 1][] = $total_price;
+            }
+        }
+        $this->CSVHelper->generateCSV($header, $orders);
+    }
+
+    public function generateHeader(bool $id, bool $user_id, bool $share_uuid, bool $status, bool $payed_at, bool $total)
+    {
+        $header = array();
+        if ($id === true) {
+            $header[] = 'ID';
+        }
+        if ($user_id === true) {
+            $header[] = 'User ID';
+        }
+        if ($share_uuid === true) {
+            $header[] = 'Share UUID';
+        }
+        if ($status === true) {
+            $header[] = 'Status';
+        }
+        if ($payed_at === true) {
+            $header[] = 'Payed at';
+        }
+        if ($total === true) {
+            $header[] = 'Total price';
+        }
+        return $header;
     }
 }
