@@ -10,6 +10,7 @@ use helpers\UuidHelper;
 use models\Attachment;
 use repositories\OrderLineRepository;
 use repositories\OrderRepository;
+use repositories\TicketRepository;
 
 class OrderService
 {
@@ -21,6 +22,7 @@ class OrderService
     private UserService $userService;
     private EmailHelper $email;
     private CSVHelper $CSVHelper;
+    private TicketRepository $ticketRepository;
 
     public function __construct()
     {
@@ -32,6 +34,7 @@ class OrderService
         $this->userService = new UserService();
         $this->email = new EmailHelper();
         $this->CSVHelper = new CSVHelper();
+        $this->ticketRepository = new TicketRepository();
     }
 
     public function getAllOrders(int $limit, int $offset)
@@ -57,11 +60,6 @@ class OrderService
             $order = $this->orderRepository->getOneFromUserId($id);
         }
         return $order;
-    }
-
-    public function getAllOrderLinesFromOrderId(int $id)
-    {
-        return $this->orderLineRepository->getAllFromOrderId($id);
     }
 
     public function createOrder(int $userid)
@@ -163,25 +161,30 @@ class OrderService
 
     public function sendTickets(int $orderId)
     {
-        //todo: get the tickets from db and send them to the user
         $order = $this->getOneOrderFromId($orderId);
         $user = $this->userService->getOneById($order->getUserId());
         $items = $this->getFullOrder($order);
         $userEmail = $user->getEmail();
         $attachments = array();
 
+
         //create tickets, convert to attachments and add them to an array
         foreach ($items as $item) {
-            $attachment1 = new Attachment(
-                $this->PDFHelper->generateTicket(
-                    $user->getName(),
-                    $item['name'],
-                    $item['quantity'],
-                    $order->getShareUuid()
-                ),
-                "Your ticket for " . $item['name']
-            );
-            $attachments[] = $attachment1;
+            $tickets = $this->getAllTickets($item['id']);
+            $i = 1;
+            foreach ($tickets as $ticket) {
+                $attachment = new Attachment(
+                    $this->PDFHelper->generateTicket(
+                        $user->getName(),
+                        $item['name'],
+                        $ticket->getUuid(),
+                        $item['start_time']
+                    ),
+                    "Ticket #$i for " . $item['name']
+                );
+                $attachments[] = $attachment;
+                $i++;
+            }
         }
 
         //send email
@@ -268,5 +271,22 @@ class OrderService
             $header[] = 'Total price';
         }
         return $header;
+    }
+
+    public function generateTickets($orderId)
+    {
+        $orderlines = $this->orderLineRepository->getAllFromOrderId($orderId);
+
+        foreach ($orderlines as $item) {
+            for ($i = 0; $i < $item->getQuantity(); $i++) {
+                $uuid = $this->uuidHelper->generateUUID();
+                $this->ticketRepository->createTicket($item->getId(), $uuid);
+            }
+        }
+    }
+
+    private function getAllTickets(mixed $id)
+    {
+        return $this->ticketRepository->getAllFromOrderlineId($id);
     }
 }

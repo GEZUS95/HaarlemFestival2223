@@ -54,7 +54,7 @@ class PaymentController
             $date = new \DateTime();
             $this->orderService->updateOrderStatus($id, 'paid', $date->format('d-m-Y H:i:s'));
             $this->orderService->sendInvoice($id);
-            //todo: generate tickets
+            $this->orderService->generateTickets($id);
             $this->orderService->sendTickets($id);
 
             http_response_code(200);

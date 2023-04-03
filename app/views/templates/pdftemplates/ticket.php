@@ -44,8 +44,7 @@ error_reporting(E_ALL); ini_set('display_errors', 1);
 <div class="ticket">
     <h1><?php echo $eventName?></h1>
     <p>Customer Name: <?php echo $customerName?></p>
-    <!--<p>Event Date: <?php //echo $eventDate?></p>-->
-    <p>Amount of Tickets: <?php echo $ticketAmount?></p>
+    <p>Event Date: <?php echo $eventDate?></p>
 </div>
 </body>
 </html>

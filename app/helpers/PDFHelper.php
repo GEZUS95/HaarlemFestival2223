@@ -9,7 +9,7 @@ use const PDF_CREATOR;
 
 class PDFHelper
 {
-    public function generateTicket($customerName, $eventName, $ticketAmount, $uuid)
+    public function generateTicket($customerName, $eventName, $uuid, $eventDate)
     {
         // Define variables with all necessary data
         $style = array(
