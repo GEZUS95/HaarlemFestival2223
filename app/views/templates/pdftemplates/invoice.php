@@ -36,10 +36,9 @@
         $name = $item['name'];
         $quantity = $item['quantity'];
         $price = $item['price'];
-        $taxRate = 0.21;
 
         $priceExclTax = $price;
-        $taxAmount = $price * $taxRate;
+        $taxAmount = $price * $_ENV['VAT'];
         $priceInclTax = $priceExclTax + $taxAmount;
 
         $totalExclTax += $priceExclTax * $quantity;
@@ -49,7 +48,7 @@
             <td><?php echo $name; ?></td>
             <td><?php echo $quantity; ?></td>
             <td>&euro;<?php echo number_format($priceExclTax, 2); ?></td>
-            <td><?php echo number_format($taxRate * 100) . '%'; ?></td>
+            <td><?php echo number_format($_ENV['VAT'] * 100) . '%'; ?></td>
             <td>&euro;<?php echo number_format($taxAmount, 2); ?></td>
             <td>&euro;<?php echo number_format($priceInclTax, 2); ?></td>
         </tr>

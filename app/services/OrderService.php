@@ -238,7 +238,7 @@ class OrderService
                 $total_price = 0;
                 $order = $this->getFullOrder($i);
                 foreach ($order as $item) {
-                    $total_price += $item['price'] * $item['quantity'] * 1.09;
+                    $total_price += $item['price'] * $item['quantity'] * $_ENV['VAT_MULTIPLY'];
                 }
                 $orders[$i - 1][] = $total_price;
             }
