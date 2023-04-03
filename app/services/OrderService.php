@@ -225,7 +225,7 @@ class OrderService
         }
     }
 
-    public function downloadCSV(bool $id = true, bool $user_id = true, bool $share_uuid = true, bool $status = true, bool $payed_at = true, bool $total = true)
+    public function downloadCSV(bool $id, bool $user_id, bool $share_uuid, bool $status, bool $payed_at, bool $total)
     {
         if ($id === false && $user_id === false && $share_uuid === false && $status === false && $payed_at === false && $total === false) {
             $this->redirectHelper->redirect(
