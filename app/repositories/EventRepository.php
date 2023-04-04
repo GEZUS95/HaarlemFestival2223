@@ -93,12 +93,11 @@ class EventRepository extends Repository
         }
     }
 
-    public function deleteOne(Event $event)
+    public function deleteOne(int $eventId)
     {
         try {
             $stmt = $this->connection->prepare('DELETE FROM event WHERE id = ?');
-            $id = $event->getId();
-            $stmt->bindParam(1, $id);
+            $stmt->bindParam(1, $eventId);
             $stmt->execute();
         } catch (PDOException $e)
         {

@@ -7,7 +7,6 @@ use models\ProgramItem;
 class Program {
     private int $id;
     private int $event_id;
-    private int $content_id;
     private array $program_items;
     private string $title;
     private float $price;
@@ -44,22 +43,6 @@ class Program {
     public function setEventId(int $event_id): void
     {
         $this->event_id = $event_id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getContentId(): int
-    {
-        return $this->content_id;
-    }
-
-    /**
-     * @param int $content_id
-     */
-    public function setContentId(int $content_id): void
-    {
-        $this->content_id = $content_id;
     }
 
     /**

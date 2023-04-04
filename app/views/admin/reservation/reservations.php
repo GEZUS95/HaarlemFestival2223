@@ -13,6 +13,7 @@ include_once __DIR__ . '../../admin-header.php';
                 <table class="table table-striped table-sm">
                     <thead class="usr-tab-head">
                     <tr class="text-dark">
+                        <th>Customer Name</th>
                         <th>Restaurant Name</th>
                         <th>Start Time</th>
                         <th>End Time</th>
@@ -25,6 +26,7 @@ include_once __DIR__ . '../../admin-header.php';
                     <tbody class="usr-tab-bod">
                     <?php foreach ($model as $reservation) { ?>
                         <tr>
+                            <td></td>
                             <td><?php
                                 foreach ($restaurants as $restaurant) {
                                     $session = $this->sessionService->getOneById($reservation->getSessionId());

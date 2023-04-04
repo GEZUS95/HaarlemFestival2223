@@ -34,6 +34,25 @@ class ProgramRepository extends Repository
         }
     }
 
+    public function getAllByEventId(int $eventId)
+    {
+        try {
+            $stmt = $this->connection->prepare('SELECT * FROM program WHERE event_id = ?');
+            $stmt->bindParam(1, $eventId);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Program::class);
+            $programs = $stmt->fetchAll();
+            foreach ($programs as $program)
+            {
+                $program->setProgramItems($this->programItemRepository->getAllByProgramId($program->getId()));
+            }
+            return $programs;
+        } catch (PDOException $e)
+        {
+            echo $e;
+        }
+    }
+
     public function getOneById(int $id)
     {
         try {
@@ -98,16 +117,17 @@ class ProgramRepository extends Repository
         }
     }
 
-    public function insertOne(int $event_id, int $content_id, string $title, float $total_price_program, \DateTime $start_time, \DateTime $end_time)
+    public function insertOne(int $event_id,string $title, float $price, \DateTime $start_time, \DateTime $end_time)
     {
         try {
-            $stmt = $this->connection->prepare('INSERT INTO program (event_id, content_id, title, total_price_program, start_time, end_time) VALUES (?, ?, ?, ?, ?, ?)');
+            $stmt = $this->connection->prepare('INSERT INTO program (event_id, title, price, start_time, end_time) VALUES (?, ?, ?, ?, ?)');
+            $start_time = $start_time->format('Y-m-d H:i:s');
+            $end_time = $end_time->format('Y-m-d H:i:s');
             $stmt->bindParam(1, $event_id);
-            $stmt->bindParam(2, $content_id);
-            $stmt->bindParam(3, $title);
-            $stmt->bindParam(4, $total_price_program);
-            $stmt->bindParam(5, $start_time->format('Y-m-d H:i:s'));
-            $stmt->bindParam(6, $end_time->format('Y-m-d H:i:s'));
+            $stmt->bindParam(2, $title);
+            $stmt->bindParam(3, $price);
+            $stmt->bindParam(4, $start_time);
+            $stmt->bindParam(5, $end_time);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Program::class);
             $program = $stmt->fetch();
@@ -117,18 +137,18 @@ class ProgramRepository extends Repository
             echo $e;
         }
     }
-
-    public function updateOne(int $id, int $event_id, int $content_id, string $title, float $total_price_program, \DateTime $start_time, \DateTime $end_time)
+    public function updateOne(int $id, int $event_id, string $title, float $price, \DateTime $start_time, \DateTime $end_time)
     {
         try {
-            $stmt = $this->connection->prepare('UPDATE program SET event_id = ?, content_id = ?, title = ?, total_price_program = ?, start_time = ?, end_time = ? WHERE id = ?');
+            $stmt = $this->connection->prepare('UPDATE program SET event_id = ?, title = ?, price = ?, start_time = ?, end_time = ? WHERE id = ?');
+            $start_time = $start_time->format('Y-m-d H:i:s');
+            $end_time = $end_time->format('Y-m-d H:i:s');
             $stmt->bindParam(1, $event_id);
-            $stmt->bindParam(2, $content_id);
-            $stmt->bindParam(3, $title);
-            $stmt->bindParam(4, $total_price_program);
-            $stmt->bindParam(5, $start_time->format('Y-m-d H:i:s'));
-            $stmt->bindParam(6, $end_time->format('Y-m-d H:i:s'));
-            $stmt->bindParam(7, $id);
+            $stmt->bindParam(2, $title);
+            $stmt->bindParam(3, $price);
+            $stmt->bindParam(4, $start_time);
+            $stmt->bindParam(5, $end_time);
+            $stmt->bindParam(6, $id);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Program::class);
             $program = $stmt->fetch();

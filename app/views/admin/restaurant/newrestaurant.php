@@ -115,7 +115,3 @@ include_once __DIR__ . '/../admin-header.php';
         </div>
     </fieldset>
 </form>
-
-
-
-

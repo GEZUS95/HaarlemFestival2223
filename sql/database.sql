@@ -168,10 +168,12 @@ CREATE TABLE `session`
 (
     `id`            int(11)  NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `restaurant_id` int(11)  NOT NULL,
+    `program_id`    int(11)  NOT NULL,
     `start_time`    datetime NOT NULL,
     `end_time`      datetime NOT NULL,
     `seats_left`    int(11)  NOT NULL,
-    CONSTRAINT FK_session_restaurant FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT FK_session_restaurant FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FK_session_program FOREIGN KEY (`program_id`) REFERENCES `program` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 --
@@ -302,9 +304,9 @@ VALUES (1, 2, 10),
        (2, 1, 1),
        (3, 1, 5);
 
-INSERT INTO `session` (`id`, `restaurant_id`, `start_time`, `end_time`, `seats_left`)
-VALUES (1, 1, '2023-03-31 14:12:22', '2023-03-31 18:12:22', 10),
-       (2, 2, '2023-04-29 14:13:13', '2023-04-29 19:13:13', 50);
+INSERT INTO `session` (`id`, `restaurant_id`, `program_id`, `start_time`, `end_time`, `seats_left`)
+VALUES (1, 1, 1, '2023-03-31 14:12:22', '2023-03-31 18:12:22', 10),
+       (2, 2, 1, '2023-04-29 14:13:13', '2023-04-29 19:13:13', 50);
 
 INSERT INTO `reservation` (`id`, `user_id`, `session_id`, `remarks`, `status`)
 VALUES (1, 1, 1, 'none', 'active'),
