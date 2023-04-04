@@ -6,7 +6,8 @@
         "tecnickcom/tcpdf": "^6.6",
         "ext-pdo": "*",
         "setasign/fpdi-tcpdf": "^2.3",
-        "mollie/mollie-api-php": "^2.51"
+        "mollie/mollie-api-php": "^2.51",
+        "vlucas/phpdotenv": "^5.5"
     },
     "autoload": {
         "psr-4": {

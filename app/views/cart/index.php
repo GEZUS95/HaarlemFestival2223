@@ -51,7 +51,7 @@ include __DIR__ . '/../header.php';
             </td>
             <td><?= $item['child'] ? 'yes' : 'no' ?></td>
             <td><?= $item['price'] * $item['quantity'] ?></td>
-            <td><?= ($item['price'] * $item['quantity']) * 0.21 ?></td>
+            <td><?= ($item['price'] * $item['quantity']) * $_ENV['VAT'] ?></td>
             <td><a href="/cart/delete/<?= $item['id'] ?>" class="btn btn-danger">Remove from cart</a></td>
         </tr>
 

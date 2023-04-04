@@ -53,4 +53,20 @@ class OrderController
         $this->orderService->downloadInvoice($orderId);
     }
 
+    public function getCSV()
+    {
+        $id = isset($_POST['id']);
+        $user_id = isset($_POST['user_id']);
+        $share_uuid = isset($_POST['share_uuid']);
+        $status = isset($_POST['status']);
+        $payed_at = isset($_POST['payed_at']);
+        $total = isset($_POST['total']);
+
+        $this->orderService->downloadCSV($id, $user_id, $share_uuid, $status, $payed_at, $total);
+    }
+
+    public function showGetCSV()
+    {
+        require_once __DIR__ . '/../../views/admin/orders/csv.php';
+    }
 }

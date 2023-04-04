@@ -2,15 +2,15 @@
 
 namespace services;
 
+use helpers\CSVHelper;
 use helpers\EmailHelper;
 use helpers\PDFHelper;
 use helpers\RedirectHelper;
 use helpers\UuidHelper;
 use models\Attachment;
-use models\Order;
 use repositories\OrderLineRepository;
 use repositories\OrderRepository;
-use repositories\UserRepository;
+use repositories\TicketRepository;
 
 class OrderService
 {
@@ -21,6 +21,8 @@ class OrderService
     private PDFHelper $PDFHelper;
     private UserService $userService;
     private EmailHelper $email;
+    private CSVHelper $CSVHelper;
+    private TicketRepository $ticketRepository;
 
     public function __construct()
     {
@@ -31,6 +33,8 @@ class OrderService
         $this->PDFHelper = new PDFHelper();
         $this->userService = new UserService();
         $this->email = new EmailHelper();
+        $this->CSVHelper = new CSVHelper();
+        $this->ticketRepository = new TicketRepository();
     }
 
     public function getAllOrders(int $limit, int $offset)
@@ -56,11 +60,6 @@ class OrderService
             $order = $this->orderRepository->getOneFromUserId($id);
         }
         return $order;
-    }
-
-    public function getAllOrderLinesFromOrderId(int $id)
-    {
-        return $this->orderLineRepository->getAllFromOrderId($id);
     }
 
     public function createOrder(int $userid)
@@ -141,7 +140,6 @@ class OrderService
         $user = $this->userService->getOneById($order->getUserId());
         $items = $this->getFullOrder($order->getId());
         $userEmail = $user->getEmail();
-        $date = new \DateTime();
 
         //create invoice and convert to attachment
         $attachment1 = new Attachment(
@@ -163,62 +161,35 @@ class OrderService
 
     public function sendTickets(int $orderId)
     {
-        //todo: get the tickets from db and send them to the user
         $order = $this->getOneOrderFromId($orderId);
         $user = $this->userService->getOneById($order->getUserId());
         $items = $this->getFullOrder($order);
         $userEmail = $user->getEmail();
         $attachments = array();
 
+
         //create tickets, convert to attachments and add them to an array
         foreach ($items as $item) {
-            $attachment1 = new Attachment(
-                $this->PDFHelper->generateTicket(
-                    $user->getName(),
-                    $item['name'],
-                    $item['quantity'],
-                    $order->getShareUuid()
-                ),
-                "Your ticket for " . $item['name']
-            );
-            $attachments[] = $attachment1;
+            $tickets = $this->getAllTickets($item['id']);
+            $i = 1;
+            foreach ($tickets as $ticket) {
+                $attachment = new Attachment(
+                    $this->PDFHelper->generateTicket(
+                        $user->getName(),
+                        $item['name'],
+                        $ticket->getUuid(),
+                        $item['start_time']
+                    ),
+                    "Ticket #$i for " . $item['name']
+                );
+                $attachments[] = $attachment;
+                $i++;
+            }
         }
 
         //send email
         $this->email->sendEmailWithAttachments('no-reply@haarlemfestival.com', $userEmail, 'Your Tickets for order#' . $orderId, "Dear customer,\r\nAttached you will find the tickets for the order you just placed.\r\nRegards, The Haarlem Festival Team", $attachments);
     }
-
-//    public function getOrderItemsNiceNamed(Order $order): array
-//    {
-//        $items = $this->getAllOrderLinesFromOrderId($order->getId());
-//
-//        $newItems = array();
-//
-//        foreach ($items as $item) {
-//            $object = $this->orderRepository->getItemFromDB($item->getTable(), $item->getItemId());
-//            if ($item->isChild()) {
-//                $newItems[] = array(
-//                    "id" => $item->getId(),
-//                    "name" => $object['name'],
-//                    "quantity" => $item->getQuantity(),
-//                    "isChild" => 'yes',
-//                    "price" => $object['price_child'],
-//                    "taxRate" => 0.21
-//                );
-//            } else {
-//                $newItems[] = array(
-//                    "id" => $item->getId(),
-//                    "name" => $object['title'],
-//                    "quantity" => $item->getQuantity(),
-//                    "isChild" => 'no',
-//                    "price" => $object['price'],
-//                    "taxRate" => 0.21
-//                );
-//            }
-//        }
-//
-//        return $newItems;
-//    }
 
     public function getFullOrder(int $orderId)
     {
@@ -252,5 +223,70 @@ class OrderService
         } else {
             $this->redirectHelper->redirect('/cart?error=Not enough tickets available');
         }
+    }
+
+    public function downloadCSV(bool $id, bool $user_id, bool $share_uuid, bool $status, bool $payed_at, bool $total)
+    {
+        if ($id === false && $user_id === false && $share_uuid === false && $status === false && $payed_at === false && $total === false) {
+            $this->redirectHelper->redirect(
+                '/admin/orders/csv?error=You need to select at least one column to download'
+            );
+        }
+
+        $header = $this->generateHeader($id, $user_id, $share_uuid, $status, $payed_at, $total);
+
+        $orders = $this->orderRepository->getAllOrdersCSV($id, $user_id, $share_uuid, $status, $payed_at);
+        if ($total === true) {
+            for ($i = 1; $i < count($orders) + 1; $i++) {
+                $total_price = 0;
+                $order = $this->getFullOrder($i);
+                foreach ($order as $item) {
+                    $total_price += $item['price'] * $item['quantity'] * $_ENV['VAT_MULTIPLY'];
+                }
+                $orders[$i - 1][] = $total_price;
+            }
+        }
+        $this->CSVHelper->generateCSV($header, $orders);
+    }
+
+    public function generateHeader(bool $id, bool $user_id, bool $share_uuid, bool $status, bool $payed_at, bool $total)
+    {
+        $header = array();
+        if ($id === true) {
+            $header[] = 'ID';
+        }
+        if ($user_id === true) {
+            $header[] = 'User ID';
+        }
+        if ($share_uuid === true) {
+            $header[] = 'Share UUID';
+        }
+        if ($status === true) {
+            $header[] = 'Status';
+        }
+        if ($payed_at === true) {
+            $header[] = 'Payed at';
+        }
+        if ($total === true) {
+            $header[] = 'Total price';
+        }
+        return $header;
+    }
+
+    public function generateTickets($orderId)
+    {
+        $orderlines = $this->orderLineRepository->getAllFromOrderId($orderId);
+
+        foreach ($orderlines as $item) {
+            for ($i = 0; $i < $item->getQuantity(); $i++) {
+                $uuid = $this->uuidHelper->generateUUID();
+                $this->ticketRepository->createTicket($item->getId(), $uuid);
+            }
+        }
+    }
+
+    private function getAllTickets(mixed $id)
+    {
+        return $this->ticketRepository->getAllFromOrderlineId($id);
     }
 }
