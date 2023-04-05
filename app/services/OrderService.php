@@ -10,7 +10,6 @@ use helpers\UuidHelper;
 use models\Attachment;
 use repositories\OrderLineRepository;
 use repositories\OrderRepository;
-use repositories\TicketRepository;
 
 class OrderService
 {
@@ -154,7 +153,15 @@ class OrderService
         $attachments = array($attachment1);
 
         //send email
-        $this->email->sendEmailWithAttachments('no-reply@haarlemfestival.com', $userEmail, 'Your Invoice of order#' . $orderId, "Dear customer,\r\nAttached you will find the invoice of the order you just placed.\r\nRegards, The Haarlem Festival Team", $attachments);
+        $this->email->sendEmailWithAttachments(
+            'no-reply@haarlemfestival.com',
+            $userEmail,
+            'Your Invoice of order#' . $orderId,
+            "Dear customer,\r\n
+            Attached you will find the invoice of the order you just placed.\r\n
+            Regards, The Haarlem Festival Team",
+            $attachments
+        );
     }
 
     public function sendTickets(int $orderId)
@@ -186,7 +193,15 @@ class OrderService
         }
 
         //send email
-        $this->email->sendEmailWithAttachments('no-reply@haarlemfestival.com', $userEmail, 'Your Tickets for order#' . $orderId, "Dear customer,\r\nAttached you will find the tickets for the order you just placed.\r\nRegards, The Haarlem Festival Team", $attachments);
+        $this->email->sendEmailWithAttachments(
+            'no-reply@haarlemfestival.com',
+            $userEmail,
+            'Your Tickets for order#' . $orderId,
+            "Dear customer,\r\n
+            Attached you will find the tickets for the order you just placed.\r\n
+            Regards, The Haarlem Festival Team",
+            $attachments
+        );
     }
 
     public function getFullOrder(int $orderId)
@@ -210,7 +225,13 @@ class OrderService
 
     public function downloadCSV(bool $id, bool $user_id, bool $share_uuid, bool $status, bool $payed_at, bool $total)
     {
-        if ($id === false && $user_id === false && $share_uuid === false && $status === false && $payed_at === false && $total === false) {
+        if ($id === false
+            && $user_id === false
+            && $share_uuid === false
+            && $status === false
+            && $payed_at === false
+            && $total === false
+        ) {
             $this->redirectHelper->redirect(
                 '/admin/orders/csv?error=You need to select at least one column to download'
             );
