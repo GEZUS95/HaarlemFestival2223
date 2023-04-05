@@ -4,6 +4,7 @@ namespace controllers\admin;
 
 use helpers\RedirectHelper;
 use models\Session;
+use services\ProgramService;
 use services\SessionService;
 use services\RestaurantService;
 use services\UserService;
@@ -14,6 +15,7 @@ class SessionController {
     private SessionService $sessionService;
     private RestaurantService $restaurantService;
     private UserService $userService;
+    private ProgramService $programService;
 
     public function __construct()
     {
@@ -21,6 +23,7 @@ class SessionController {
         $this->sessionService = new SessionService();
         $this->restaurantService = new RestaurantService();
         $this->userService = new UserService();
+        $this->programService = new ProgramService();
 
         if (
             (!$this->userService->checkPermissions("admin"))
@@ -34,6 +37,7 @@ class SessionController {
     public function showSessions(){
         $model = $this->sessionService->getAll();
         $restaurants = $this->restaurantService->getAll();
+        $programs = $this->programService->getAll();
         require_once __DIR__ . '/../../views/admin/session/sessions.php';
     }
 
