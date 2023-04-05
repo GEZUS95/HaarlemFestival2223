@@ -22,7 +22,7 @@ class AdminController
         }
     }
 
-    public function index()
+    public function index(): void
     {
         require_once __DIR__ . '/../views/admin/index.php';
     }

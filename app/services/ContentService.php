@@ -43,4 +43,14 @@ class ContentService
     {
         $this->repository->deleteOne($id);
     }
+
+    public function getAllHighlightsNonFood(int $eventId)
+    {
+        return $this->repository->getAllHighlightsNonFood($eventId);
+    }
+
+    public function getAllHighlightsFood()
+    {
+        return $this->repository->getAllHighlightsFood();
+    }
 }

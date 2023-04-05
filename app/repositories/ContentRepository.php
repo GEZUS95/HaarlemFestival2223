@@ -3,6 +3,8 @@
 namespace repositories;
 
 use models\Content;
+use models\ProgramItem;
+use models\Restaurant;
 use PDO;
 use PDOException;
 
@@ -96,6 +98,49 @@ class ContentRepository extends Repository
             $stmt = $this->connection->prepare("DELETE FROM content WHERE id = :id ");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    public function getAllHighlightsNonFood(int $eventId)
+    {
+        try {
+            $stmt = $this->connection->prepare("
+                    SELECT
+                        programitem.title,
+                        programitem.start_time,
+                        artist.name,
+                        artist.description,
+                        specialguest.name AS special_guest_name,
+                        specialguest.description AS special_guest_description
+                    FROM programitem
+                    INNER JOIN program ON programitem.program_id = program.id
+                    INNER JOIN artist ON programitem.artist_id = artist.id
+                    LEFT JOIN artist AS specialguest ON programitem.special_guest_id = specialguest.id
+                    WHERE highlight = 1 AND program.event_id = :event LIMIT 5
+                    ");
+            $stmt->bindParam(':event', $eventId);
+            $stmt->execute();
+
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll();
+
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    public function getAllHighlightsFood()
+    {
+        try {
+            $stmt = $this->connection->prepare("
+                    SELECT * FROM restaurant WHERE highlight = 1 LIMIT 5");
+            $stmt->execute();
+
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Restaurant::class);
+            return $stmt->fetchAll();
+
         } catch (PDOException $e) {
             echo $e;
         }
