@@ -14,6 +14,7 @@ include_once __DIR__ . '../../admin-header.php';
                     <thead class="usr-tab-head">
                     <tr class="text-dark">
                         <th>Restaurant Name</th>
+                        <th></th>
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th>Seats Left</th>

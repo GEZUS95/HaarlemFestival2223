@@ -9,6 +9,12 @@ $router->get('/admin/newrestaurant', 'admin\RestaurantController@newRestaurant')
 $router->post('/admin/newrestaurant', 'admin\RestaurantController@newRestaurantPost');
 $router->get('/admin/restaurants/delete/{id}', 'admin\RestaurantController@deleteRestaurant');
 
+$router->get('/admin/cuisines', 'admin\CuisineController@showCuisines');
+$router->get('/admin/newcuisine', 'admin\CuisineController@newCuisine');
+$router->post('/admin/newcuisine', 'admin\CuisineController@newCuisinePost');
+$router->get('/admin/updatecuisine/{id}', 'admin\CuisineController@updateCuisine');
+$router->post('/admin/updatecuisine/{id}', 'admin\CuisineController@updateCuisinePost');
+
 $router->get('/admin/sessions', 'admin\SessionController@showSessions');
 $router->get('/admin/newsession', 'admin\SessionController@newSession');
 $router->post('/admin/newsession', 'admin\SessionController@newSessionPost');

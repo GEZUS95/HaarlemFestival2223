@@ -32,7 +32,7 @@ class CuisineRepository extends Repository {
     public function getOneById(int $id) {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM restauranttype WHERE id = ? LIMIT 1");
-            $stmt->bindParam('i', $id);
+            $stmt->bindParam(1, $id);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Cuisine::class);
             return $stmt->fetch();
@@ -43,8 +43,8 @@ class CuisineRepository extends Repository {
 
     public function getOneByName(string $cuisine_name)  {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM restauranttype WHERE name = ? LIMIT 1");
-            $stmt->bindParam('s', $cuisine_name);
+            $stmt = $this->connection->prepare("SELECT * FROM restauranttype WHERE cuisine_name = ? LIMIT 1");
+            $stmt->bindParam(1, $cuisine_name);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, Cuisine::class);
             return $stmt->fetch();
@@ -53,20 +53,21 @@ class CuisineRepository extends Repository {
         }
     }
 
-    public function insertOne(Cuisine $cuisine) {
+    public function insertOne(string $cuisineName) {
         try {
-            $stmt = $this->connection->prepare("INSERT INTO restauranttype (name) VALUES (?)");
-            $stmt->bindParam('s', $cuisine->getName());
+            $stmt = $this->connection->prepare("INSERT INTO restauranttype (cuisine_name) VALUES (?)");
+            $stmt->bindParam(1, $cuisineName);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo $e;
         }
     }
 
-    public function updateOne(Cuisine $cuisine) {
+    public function updateOne(int $id, string $cuisineName) {
         try {
-            $stmt = $this->connection->prepare("UPDATE restauranttype SET name = ? WHERE id = ?");
-            $stmt->bindParam('si', $cuisine->getName(), $cuisine->getId());
+            $stmt = $this->connection->prepare("UPDATE restauranttype SET cuisine_name = ? WHERE id = ?");
+            $stmt->bindParam(1, $cuisineName);
+            $stmt->bindParam(2, $id);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo $e;
@@ -90,10 +91,10 @@ class CuisineRepository extends Repository {
         }
     }
 
-    public function deleteOne(Cuisine $cuisine) {
+    public function deleteOne(int $id) {
         try {
             $stmt = $this->connection->prepare("DELETE FROM restauranttype WHERE id = ?");
-            $stmt->bindParam('i', $cuisine->getId());
+            $stmt->bindParam(1, $id);
             return $stmt->execute();
         } catch (PDOException $e) {
             echo $e;

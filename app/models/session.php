@@ -7,6 +7,7 @@ use Exception;
 class Session {
     private int $id;
     private int $restaurant_id;
+    private int $program_id;
     private string $start_time;
     private string $end_time;
     private int $seats_left;
@@ -41,6 +42,22 @@ class Session {
     public function setRestaurantId(int $restaurant_id): void
     {
         $this->restaurant_id = $restaurant_id;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getProgramId(): int
+    {
+        return $this->program_id;
+    }
+
+    /**
+     * @param int $program_id
+     */
+    public function setProgramId(int $program_id): void
+    {
+        $this->program_id = $program_id;
     }
 
     /**
