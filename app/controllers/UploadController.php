@@ -60,7 +60,7 @@ class UploadController
             if (move_uploaded_file($temp['tmp_name'], $filetowrite)) {
                 // Determine the base URL
                 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? "https://" : "http://";
-                $baseurl = $protocol . $_SERVER["HTTP_HOST"] . rtrim(dirname($_SERVER['REQUEST_URI']), "/");
+                $baseurl = $_ENV['BASE_URL'];
                 $target_dir ="/images/pages/";
                 $target_file = $target_dir . basename($temp["name"]);
 
