@@ -22,7 +22,7 @@ class OrderService
     private UserService $userService;
     private EmailHelper $email;
     private CSVHelper $CSVHelper;
-    private TicketRepository $ticketRepository;
+    private TicketService $ticketService;
 
     public function __construct()
     {
@@ -34,7 +34,7 @@ class OrderService
         $this->userService = new UserService();
         $this->email = new EmailHelper();
         $this->CSVHelper = new CSVHelper();
-        $this->ticketRepository = new TicketRepository();
+        $this->ticketService = new TicketService();
     }
 
     public function getAllOrders(int $limit, int $offset)
@@ -70,7 +70,7 @@ class OrderService
 
     public function addOrderline(int $orderId, string $table, int $itemId, int $quantity, bool $child)
     {
-        $this->ticketsAvailable($orderId, $quantity);
+        $this->ticketService->ticketsAvailable($table, $itemId, $quantity);
         $this->orderLineRepository->insertOne($orderId, $table, $itemId, $quantity, $child);
         $this->redirectHelper->redirect('/cart?success=Item added to cart');
     }
@@ -97,8 +97,9 @@ class OrderService
 
     public function updateOrderLineQuantity(int $id, int $quantity)
     {
-        $this->ticketsAvailable($id, $quantity);
-        $this->orderLineRepository->updateOne($id, $quantity);
+        $orderline = $this->orderLineRepository->getOneFromId($id);
+        $this->ticketService->ticketsAvailable($orderline->getTable(), $orderline->getItemId(), $quantity);
+        $this->orderLineRepository->updateOne($orderline->getId(), $quantity);
         $this->redirectHelper->redirect('/cart?success=Quantity updated');
     }
 
@@ -120,10 +121,7 @@ class OrderService
     {
         $order = $this->getOneOrderFromId($orderId);
         $user = $this->userService->getOneById($order->getUserId());
-
         $items = $this->getFullOrder($order->getId());
-
-        $date = new \DateTime();
 
         $this->PDFHelper->generateInvoiceDownload(
             $user->getName(),
@@ -170,7 +168,7 @@ class OrderService
 
         //create tickets, convert to attachments and add them to an array
         foreach ($items as $item) {
-            $tickets = $this->getAllTickets($item['id']);
+            $tickets = $this->ticketService->getAllTickets($item['id']);
             $i = 1;
             foreach ($tickets as $ticket) {
                 $attachment = new Attachment(
@@ -210,21 +208,6 @@ class OrderService
         return $temp;
     }
 
-    private function ticketsAvailable(int $id, int $quantity)
-    {
-        //todo: tickets only go down
-        $order = $this->orderLineRepository->getOneFromId($id);
-        $item = $this->orderRepository->getItemFromDB($order->getTable(), $order->getItemId());
-        $ticketsAvailable = $item['seats_left'];
-        if ($ticketsAvailable >= $quantity) {
-            $ticketsAvailable = $ticketsAvailable - $quantity;
-
-            $this->orderRepository->updateTicketsAvailable($order->getTable(), $order->getItemId(), $ticketsAvailable);
-        } else {
-            $this->redirectHelper->redirect('/cart?error=Not enough tickets available');
-        }
-    }
-
     public function downloadCSV(bool $id, bool $user_id, bool $share_uuid, bool $status, bool $payed_at, bool $total)
     {
         if ($id === false && $user_id === false && $share_uuid === false && $status === false && $payed_at === false && $total === false) {
@@ -233,7 +216,7 @@ class OrderService
             );
         }
 
-        $header = $this->generateHeader($id, $user_id, $share_uuid, $status, $payed_at, $total);
+        $header = $this->CSVHelper->generateHeader($id, $user_id, $share_uuid, $status, $payed_at, $total);
 
         $orders = $this->orderRepository->getAllOrdersCSV($id, $user_id, $share_uuid, $status, $payed_at);
         if ($total === true) {
@@ -247,46 +230,5 @@ class OrderService
             }
         }
         $this->CSVHelper->generateCSV($header, $orders);
-    }
-
-    public function generateHeader(bool $id, bool $user_id, bool $share_uuid, bool $status, bool $payed_at, bool $total)
-    {
-        $header = array();
-        if ($id === true) {
-            $header[] = 'ID';
-        }
-        if ($user_id === true) {
-            $header[] = 'User ID';
-        }
-        if ($share_uuid === true) {
-            $header[] = 'Share UUID';
-        }
-        if ($status === true) {
-            $header[] = 'Status';
-        }
-        if ($payed_at === true) {
-            $header[] = 'Payed at';
-        }
-        if ($total === true) {
-            $header[] = 'Total price';
-        }
-        return $header;
-    }
-
-    public function generateTickets($orderId)
-    {
-        $orderlines = $this->orderLineRepository->getAllFromOrderId($orderId);
-
-        foreach ($orderlines as $item) {
-            for ($i = 0; $i < $item->getQuantity(); $i++) {
-                $uuid = $this->uuidHelper->generateUUID();
-                $this->ticketRepository->createTicket($item->getId(), $uuid);
-            }
-        }
-    }
-
-    private function getAllTickets(mixed $id)
-    {
-        return $this->ticketRepository->getAllFromOrderlineId($id);
     }
 }
