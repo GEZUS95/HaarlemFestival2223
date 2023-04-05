@@ -1,10 +1,6 @@
 <?php
 include_once __DIR__ . '/../header.php';
 ?>
-
-<h1><?= $page->getTitle() ?></h1>
-
-
 <?= $page->getBody() ?>
 
 <!--todo: add links to the cards-->

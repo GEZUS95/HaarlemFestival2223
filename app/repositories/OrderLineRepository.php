@@ -120,21 +120,22 @@ class OrderLineRepository extends Repository
         try {
             $stmt = $this->connection->prepare("
                 SELECT 
-                orderline.id, orderline.quantity,
-                event.title, event.description,
-                program.title, program.price,
-                programitem.artist_id, programitem.special_guest_id, programitem.title,
-                programitem.price, programitem.start_time, programitem.end_time, programitem.seats_left,
-                location.name, location.stage,
-                artist.name, artist.description,
-                specialguest.name, specialguest.description
+                    orderline.id, orderline.quantity,
+                    event.title AS event_name, event.description AS event_description,
+                    program.title AS program_name, program.price AS program_price,
+                    programitem.artist_id, programitem.special_guest_id, programitem.title AS name,
+                    programitem.price AS price, programitem.start_time, programitem.end_time,
+                    programitem.seats_left,
+                    location.name AS location_name, location.stage,
+                    artist.name AS artist_name, artist.description AS artist_description,
+                    specialguest.name AS special_guest_name, specialguest.description AS special_guest_description
                 FROM orderline
-                INNER JOIN event ON program.event_id = event.id
-                INNER JOIN program ON programitem.program_id = program.id
                 INNER JOIN programitem ON orderline.item_id = programitem.id
-                INNER JOIN location ON programitem.location_id = location.id
+                INNER JOIN program ON programitem.program_id = program.id
+                INNER JOIN event ON program.event_id = event.id
+                LEFT JOIN location ON programitem.location_id = location.id
                 INNER JOIN artist ON programitem.artist_id = artist.id
-                INNER JOIN specialguest ON programitem.special_guest_id = artist.id
+                LEFT JOIN artist AS specialguest ON programitem.special_guest_id = specialguest.id
                 WHERE orderline.order_id = :id
                 ");
             $stmt->bindParam(':id', $orderId);

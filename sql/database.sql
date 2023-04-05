@@ -238,11 +238,16 @@ VALUES ('cb4ecf3a-c8a6-11ed-afa1-0242ac120002', 'Inholland B.V.', '2023-03-22 11
        ('d7a1ddd6-c8a6-11ed-afa1-0242ac120002', 'Monsters Inc.', '2023-03-22 11:43:59');
 
 INSERT INTO `content` (`id`, `title`, `body`, `image_path`, `deletable`)
-VALUES (1, 'home',
+VALUES (1, 'Home',
         '&#60;p&#62;this is an test for the homepage&#60;/p&#62;&#13;&#10;&#60;p&#62;&#38;nbsp;&#60;/p&#62;&#13;&#10;&#60;p&#62;it is working now!&#60;/p&#62;',
         '', 0),
-       (2, 'Venues', 'We partnered with a lot of venues to give you the best experience at Haarlem Festival.', '', 1),
-       (3, 'Haarlem Information', 'Haarlem is a beautiful city with lots to see and discover.', '', 1);
+       (2, 'Venues', 'We partnered with a lot of venues to give you the best experience at Haarlem Festival.', '', 0),
+       (3, 'Jazz', 'We partnered with a lot of venues to give you the best experience at Haarlem Festival.', '', 0),
+       (4, 'Dance', 'We partnered with a lot of venues to give you the best experience at Haarlem Festival.', '', 0),
+       (5, 'Food', 'We partnered with a lot of venues to give you the best experience at Haarlem Festival.', '', 0),
+       (6, 'Haarlem Information', 'Haarlem is a beautiful city with lots to see and discover.', '', 0),
+       (7, 'Locations', 'Haarlem is a beautiful city with lots to see and discover.', '', 0),
+       (8, 'Artist', 'Haarlem is a beautiful city with lots to see and discover.', '', 0);
 
 INSERT INTO `role` (`id`, `name`, `description`)
 VALUES (1, 'user', 'Simple user account'),
@@ -321,6 +326,6 @@ VALUES (1, 1, '82336383-1950-47c2-874e-9a9191cf2e4d', 'open', NULL),
        (2, 1, 'a44aa6b2-c8b9-11ed-afa1-0242ac120002', 'paid', '2023-03-22 14:01:17');
 
 INSERT INTO `orderline` (`id`, `order_id`, `table`, `item_id`, `quantity`, `child`)
-VALUES (1, 1, 'restaurant', 1, 3, 0),
-       (2, 1, 'restaurant', 2, 2, 1);
+VALUES (1, 1, 'reservation', 1, 3, 0),
+       (2, 1, 'reservation', 2, 2, 1);
 
