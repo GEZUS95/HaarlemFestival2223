@@ -145,4 +145,18 @@ class ContentRepository extends Repository
             echo $e;
         }
     }
+
+    public function getAllPagesNonDeletable()
+    {
+        try {
+            $stmt = $this->connection->prepare("SELECT * FROM content WHERE deletable = 1");
+            $stmt->execute();
+
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Content::class);
+            return $stmt->fetchAll();
+
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
 }

@@ -1,3 +1,8 @@
+<?php
+$pages = (new services\ContentService)->getAllPagesNonDeletable();
+$events = (new services\EventService)->getAll();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,9 +38,9 @@
                         Events
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/event/dance">Dance</a>
-                        <a class="dropdown-item" href="/event/jazz">Jazz</a>
-                        <a class="dropdown-item" href="/event/food">Food</a>
+                        <?php foreach ($events as $event) : ?>
+                            <a class="dropdown-item" href="/event/<?=$event->getTitle()?>"><?=$event->getTitle()?></a>
+                        <?php endforeach; ?>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -47,8 +52,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/artist">Artists</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about-haarlem">About Haarlem</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       id="navbarDropdownMenuLink"
+                       data-bs-toggle="dropdown"
+                       role="button"
+                       aria-expanded="false">
+                        Information
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/about-haarlem">About haarlem</a>
+                        <?php foreach ($pages as $page) : ?>
+                            <a class="dropdown-item" href="/<?= $page->getTitle(); ?>"><?= $page->getTitle(); ?></a>
+                        <?php endforeach; ?>
+                    </div>
                 </li>
                 <?php
                 if ((isset($_SESSION['user']))

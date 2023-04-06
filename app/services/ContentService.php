@@ -14,6 +14,11 @@ class ContentService
         $this->repository = new ContentRepository();
     }
 
+    public function getAllPagesNonDeletable()
+    {
+        return $this->repository->getAllPagesNonDeletable();
+    }
+
     public function getAll(int $limit, int $offset)
     {
         return $this->repository->getAll($limit, $offset);
