@@ -24,4 +24,28 @@ class CSVHelper
         // Close file stream
         fclose($output);
     }
+
+    public function generateHeader(bool $id, bool $user_id, bool $share_uuid, bool $status, bool $payed_at, bool $total)
+    {
+        $header = array();
+        if ($id === true) {
+            $header[] = 'ID';
+        }
+        if ($user_id === true) {
+            $header[] = 'User ID';
+        }
+        if ($share_uuid === true) {
+            $header[] = 'Share UUID';
+        }
+        if ($status === true) {
+            $header[] = 'Status';
+        }
+        if ($payed_at === true) {
+            $header[] = 'Payed at';
+        }
+        if ($total === true) {
+            $header[] = 'Total price';
+        }
+        return $header;
+    }
 }

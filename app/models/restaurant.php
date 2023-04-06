@@ -13,6 +13,7 @@ class Restaurant {
     private float $price;
     private float $price_child;
     private string $accessibility;
+    private bool $highlight;
 
     /**
      * @return int
@@ -173,4 +174,21 @@ class Restaurant {
     {
         $this->accessibility = $accessibility;
     }
+
+    /**
+     * @return bool
+     */
+    public function isHighlight(): bool
+    {
+        return $this->highlight;
+    }
+
+    /**
+     * @param bool $highlight
+     */
+    public function setHighlight(bool $highlight): void
+    {
+        $this->highlight = $highlight;
+    }
+
 }

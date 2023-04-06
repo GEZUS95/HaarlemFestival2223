@@ -17,6 +17,9 @@ class HomeController
     public function index()
     {
         $page = $this->contentService->getOneFromTitle('home');
+        $danceHighlights = $this->contentService->getAllHighlightsNonFood(2);
+        $jazzHighlights = $this->contentService->getAllHighlightsNonFood(3);
+        $foodHighlights = $this->contentService->getAllHighlightsFood();
         require_once __DIR__ . '/../views/home/index.php';
     }
 

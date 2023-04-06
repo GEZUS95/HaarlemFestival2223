@@ -14,6 +14,11 @@ class ContentService
         $this->repository = new ContentRepository();
     }
 
+    public function getAllPagesNonDeletable()
+    {
+        return $this->repository->getAllPagesNonDeletable();
+    }
+
     public function getAll(int $limit, int $offset)
     {
         return $this->repository->getAll($limit, $offset);
@@ -42,5 +47,15 @@ class ContentService
     public function deleteOne($id)
     {
         $this->repository->deleteOne($id);
+    }
+
+    public function getAllHighlightsNonFood(int $eventId)
+    {
+        return $this->repository->getAllHighlightsNonFood($eventId);
+    }
+
+    public function getAllHighlightsFood()
+    {
+        return $this->repository->getAllHighlightsFood();
     }
 }
