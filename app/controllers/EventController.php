@@ -33,6 +33,11 @@ class EventController {
     }
 
     public function addProgramItemToCart(int $programItemId) {
-
+        $programItem = $this->programItemService->getOneById($programItemId);
+        $program = $this->programService->getOneById($programItem->getProgramId());
+        $event = $this->eventService->getOneById($program->getEventId());
+        $order = $this->orderService->getOneOrderFromUserId($_SESSION['user']['id']);
+        $this->orderService->addOrderLine($order->getId(), "programitem", $programItemId, 1, false);
+        $this->redirectHelper->redirect('/cart');
     }
 }
