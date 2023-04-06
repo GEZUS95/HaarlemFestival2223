@@ -1,11 +1,15 @@
 <?php
+
 namespace repositories;
+
 use models\Session;
 use PDO;
 use PDOException;
 
-class SessionRepository extends Repository {
-    public function getAllFromRestaurant(int $restaurantId) {
+class SessionRepository extends Repository
+{
+    public function getAllFromRestaurant(int $restaurantId)
+    {
         try {
             $stmt = $this->connection->prepare('SELECT * FROM session WHERE restaurant_id = ?');
             $stmt->bindParam(1, $restaurantId);
@@ -18,7 +22,8 @@ class SessionRepository extends Repository {
         }
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         try {
             $stmt = $this->connection->prepare('SELECT * FROM session');
             $stmt->execute();
@@ -30,7 +35,8 @@ class SessionRepository extends Repository {
         }
     }
 
-    public function getOneById(int $id) {
+    public function getOneById(int $id)
+    {
         try {
             $stmt = $this->connection->prepare('SELECT * FROM session WHERE id = ?');
             $stmt->bindParam(1, $id);
@@ -43,7 +49,8 @@ class SessionRepository extends Repository {
         }
     }
 
-    public function getAllFutureSessionsForRestaurant(int $restaurantId) {
+    public function getAllFutureSessionsForRestaurant(int $restaurantId)
+    {
         try {
             $stmt = $this->connection->prepare('SELECT * FROM session WHERE restaurant_id = ? AND start_time > NOW()');
             $stmt->bindParam(1, $restaurantId);
@@ -56,7 +63,8 @@ class SessionRepository extends Repository {
         }
     }
 
-    public function insertOne(int $restaurantId, \DateTime $startTime, \DateTime $endTime, int $seatsLeft) {
+    public function insertOne(int $restaurantId, \DateTime $startTime, \DateTime $endTime, int $seatsLeft)
+    {
         try {
             $stmt = $this->connection->prepare('INSERT INTO session (restaurant_id, start_time, end_time, seats_left) VALUES (?, ?, ?, ?)');
             $startTimeString = $startTime->format('Y-m-d H:i:s');
@@ -71,7 +79,8 @@ class SessionRepository extends Repository {
         }
     }
 
-    public function updateOne(int $id, int $restaurantId, \DateTime $startTime, \DateTime $endTime, int $seatsLeft) {
+    public function updateOne(int $id, int $restaurantId, \DateTime $startTime, \DateTime $endTime, int $seatsLeft)
+    {
         try {
             $stmt = $this->connection->prepare('UPDATE session SET restaurant_id = ?, start_time = ?, end_time = ?, seats_left = ? WHERE id = ?');
             $startTimeString = $startTime->format('Y-m-d H:i:s');
@@ -87,11 +96,28 @@ class SessionRepository extends Repository {
         }
     }
 
-    public function deleteOne(int $id) {
+    public function deleteOne(int $id)
+    {
         try {
             $stmt = $this->connection->prepare('DELETE FROM session WHERE id = ?');
             $stmt->bindParam(1, $id);
             $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    public function getAllWithRestaurant()
+    {
+        try {
+            $stmt = $this->connection->prepare('
+                SELECT session.*, restaurant.name AS restaurant_name
+                FROM session
+                INNER JOIN restaurant ON session.restaurant_id = restaurant.id
+                ');
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll();
         } catch (PDOException $e) {
             echo $e;
         }

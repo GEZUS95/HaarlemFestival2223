@@ -14,6 +14,7 @@ include_once __DIR__ . '/../header.php';
                     <p class="card-text"><?php echo $artist->getDescription(); ?></p>
                 </div>
             </div>
+        <br>
         <?php endforeach; ?>
     </div>
 

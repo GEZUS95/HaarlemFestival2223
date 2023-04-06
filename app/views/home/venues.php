@@ -18,6 +18,7 @@ include_once __DIR__ . '/../header.php';
 
                 </div>
             </div>
+        <br>
         <?php endforeach; ?>
     </div>
 

@@ -56,4 +56,9 @@ class SessionService {
         $session->setSeatsLeft($_POST["seats_left"]);
         return $session;
     }
+
+    public function getAllWithRestaurant()
+    {
+        return $this->sessionRepository->getAllWithRestaurant();
+    }
 }
