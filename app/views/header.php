@@ -25,10 +25,7 @@ $events = (new services\EventService)->getAll();
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">s
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle"
                        id="navbarDropdownMenuLink"
@@ -45,9 +42,6 @@ $events = (new services\EventService)->getAll();
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/venues">Venues</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/locations">Locations</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/artist">Artists</a>
