@@ -39,7 +39,7 @@ $events = (new services\EventService)->getAll();
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <?php foreach ($events as $event) : ?>
-                            <a class="dropdown-item" href="/event/<?=$event->getTitle()?>"><?=$event->getTitle()?></a>
+                            <a class="dropdown-item" href="/event/<?=$event->getId()?>"><?=$event->getTitle()?></a>
                         <?php endforeach; ?>
                     </div>
                 </li>

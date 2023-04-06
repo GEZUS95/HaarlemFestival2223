@@ -28,7 +28,7 @@ class EventController {
 
     public function showEvent(int $eventId){
         $event = $this->eventService->getOneById($eventId);
-        $program = $this->programService->getOneByEventId($eventId);
+        $programs = $this->programService->getAllByEventId($eventId);
         require_once __DIR__ . '/../views/event/eventpage.php';
     }
 

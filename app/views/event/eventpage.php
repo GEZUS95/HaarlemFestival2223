@@ -16,9 +16,9 @@ include_once __DIR__ . '/../header.php';
                 <h5 class="card-title"><?php   ?></h5>
             </div>
             <div class="card-body">
-                <?php foreach ($program->getProgramItems() as $programItem): ?>
+                <?php foreach ($programs as $programItem): ?>
+                    <p class="card-header"><?= $programItem->getTitle()?></p>
                     <p class="card-text"><strong>Time:</strong> <?php echo date('H:i', strtotime($programItem->getStartTime())); ?>-<?php echo date('H:i', strtotime($programItem->getEndTime())); ?></p>
-                    <p class="card-text"><strong>Seats Left:</strong> <?php echo $programItem->getSeatsLeft(); ?></p>
                     <a href="/programitem/<?php echo $programItem->getId(); ?>" class="btn btn-primary">Put in cart</a>
                 <?php endforeach; ?>
             </div>
