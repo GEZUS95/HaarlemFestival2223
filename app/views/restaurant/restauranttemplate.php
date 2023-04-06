@@ -32,32 +32,33 @@ include_once __DIR__ . '/../header.php';
         <h1>Sessions</h1>
         <!-- if no sessions make message no session -->
         <?php if (empty($sessions)): ?>
-            <p>There are no sessions currently for this restaurant</p>
-        <?php endif; ?>
-        <?php foreach ($sessions as $session): ?>
-        <div class="container">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title"><?php echo date('l F jS'); ?></h5>
-                </div>
-                <div class="card-body">
-                        <p class="card-text"><strong>Time:</strong> <?php echo date('H:i', strtotime($session->getStartTime())); ?>
-                            - <?php echo date('H:i', strtotime($session->getEndTime())); ?></p>
-                        <p class="card-text"><strong>Seats left:</strong> <?php echo $session->getSeatsLeft(); ?></p>
-                        <!-- Button that looks if user is logged in and if so, it will redirect to the cart page and if seats 0 button grayed out-->
-                        <?php if (isset($_SESSION['user'])): ?>
-                            <?php if ($session->getSeatsLeft() > 0): ?>
-                                <a href="/reservation/<?php echo $session->getId(); ?>" class="btn btn-primary">Put in cart</a>
+            <p>There are currently no sessions for this restaurant</p>
+        <?php else: ?>
+            <?php foreach ($sessions as $session): ?>
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title"><?php echo date('l F jS'); ?></h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"><strong>Time:</strong> <?php echo date('H:i', strtotime($session->getStartTime())); ?>
+                                - <?php echo date('H:i', strtotime($session->getEndTime())); ?></p>
+                            <p class="card-text"><strong>Seats left:</strong> <?php echo $session->getSeatsLeft(); ?></p>
+                            <!-- Button that looks if user is logged in and if so, it will redirect to the cart page and if seats 0 button grayed out-->
+                            <?php if (isset($_SESSION['user'])): ?>
+                                <?php if ($session->getSeatsLeft() > 0): ?>
+                                    <a href="/reservation/<?php echo $session->getId(); ?>" class="btn btn-primary">Put in cart</a>
+                                <?php else: ?>
+                                    <button class="btn btn-primary" disabled>No seats left</button>
+                                <?php endif; ?>
                             <?php else: ?>
-                                <button class="btn btn-primary" disabled>No seats left</button>
+                                <a href="/login" class="btn btn-primary">Login to put in cart</a>
                             <?php endif; ?>
-                        <?php else: ?>
-                            <a href="/login" class="btn btn-primary">Login to put in cart</a>
-                        <?php endif; ?>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
     <div class="col-3"></div>
 </div>
