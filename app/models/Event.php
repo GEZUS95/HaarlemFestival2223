@@ -44,7 +44,7 @@ class Event {
      */
     public function getDescription(): string
     {
-        return $this->description;
+        return html_entity_decode($this->description);
     }
 
     /**
@@ -52,6 +52,6 @@ class Event {
      */
     public function setDescription(string $description): void
     {
-        $this->description = $description;
+        $this->description = html_entity_decode($description);
     }
 }

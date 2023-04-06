@@ -117,6 +117,7 @@ CREATE TABLE `programitem`
     `end_time`         datetime     NOT NULL,
     `price`            double       NOT NULL,
     `seats_left`       int(11)      NOT NULL,
+    `highlight`        boolean      NOT NULL DEFAULT FALSE,
     CONSTRAINT FK_item_program FOREIGN KEY (`program_id`) REFERENCES `program` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FK_item_location FOREIGN KEY (`location_id`) REFERENCES `location` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FK_item_artist FOREIGN KEY (`artist_id`) REFERENCES `artist` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -137,6 +138,7 @@ CREATE TABLE `restaurant`
     `price`         double       NOT NULL,
     `price_child`   double       NOT NULL,
     `accessibility` varchar(255) NOT NULL,
+    `highlight`     boolean      NOT NULL DEFAULT FALSE,
     CONSTRAINT FK_restaurant_location FOREIGN KEY (`location_id`) REFERENCES `location` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -168,10 +170,12 @@ CREATE TABLE `session`
 (
     `id`            int(11)  NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `restaurant_id` int(11)  NOT NULL,
+    `program_id`    int(11)  NOT NULL,
     `start_time`    datetime NOT NULL,
     `end_time`      datetime NOT NULL,
     `seats_left`    int(11)  NOT NULL,
-    CONSTRAINT FK_session_restaurant FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT FK_session_restaurant FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FK_session_program FOREIGN KEY (`program_id`) REFERENCES `program` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 --
@@ -234,11 +238,16 @@ VALUES ('cb4ecf3a-c8a6-11ed-afa1-0242ac120002', 'Inholland B.V.', '2023-03-22 11
        ('d7a1ddd6-c8a6-11ed-afa1-0242ac120002', 'Monsters Inc.', '2023-03-22 11:43:59');
 
 INSERT INTO `content` (`id`, `title`, `body`, `image_path`, `deletable`)
-VALUES (1, 'home',
+VALUES (1, 'Home',
         '&#60;p&#62;this is an test for the homepage&#60;/p&#62;&#13;&#10;&#60;p&#62;&#38;nbsp;&#60;/p&#62;&#13;&#10;&#60;p&#62;it is working now!&#60;/p&#62;',
         '', 0),
-       (2, 'Venues', 'We partnered with a lot of venues to give you the best experience at Haarlem Festival.', '', 1),
-       (3, 'Haarlem Information', 'Haarlem is a beautiful city with lots to see and discover.', '', 1);
+       (2, 'Venues', 'We partnered with a lot of venues to give you the best experience at Haarlem Festival.', '', 0),
+       (3, 'Jazz', 'We partnered with a lot of venues to give you the best experience at Haarlem Festival.', '', 0),
+       (4, 'Dance', 'We partnered with a lot of venues to give you the best experience at Haarlem Festival.', '', 0),
+       (5, 'Food', 'We partnered with a lot of venues to give you the best experience at Haarlem Festival.', '', 0),
+       (6, 'Haarlem Information', 'Haarlem is a beautiful city with lots to see and discover.', '', 0),
+       (7, 'Locations', 'Haarlem is a beautiful city with lots to see and discover.', '', 0),
+       (8, 'Artist', 'Haarlem is a beautiful city with lots to see and discover.', '', 0);
 
 INSERT INTO `role` (`id`, `name`, `description`)
 VALUES (1, 'user', 'Simple user account'),
@@ -268,22 +277,24 @@ VALUES (1, 'De graanfabriek', 'Haarlem', 'laanlaan 538', 'test', 100),
        (2, 'De Molen', 'Haarlem', 'groenstraat 857738', 'test', 500);
 
 INSERT INTO `event` (`id`, `title`, `description`)
-VALUES (3, 'Ratatouille food tasting', 'Taste the best food from Ratatouille.'),
-       (4, 'See what Ronald McDoland has made for you', 'The finest burgers made for you.');
+VALUES (1, 'Food', 'Taste the best food from Haarlem.'),
+       (2, 'Dance', 'The finest dance music made for you.'),
+       (3, 'Jazz', 'The finest jazz music made for you.');
 
 INSERT INTO `program` (`id`, `event_id`, `title`, `price`, `start_time`, `end_time`)
-VALUES (1, 3, 'Ratatouille combo', 20, '2023-03-22 14:02:41', '2023-03-22 18:02:41');
+VALUES (1, 2, 'Friday', 200, '2023-03-24 14:02:41', '2023-03-24 23:59:59'),
+       (2, 2, 'Saturday', 400, '2023-03-25 14:02:41', '2023-03-25 23:59:59');
 
 INSERT INTO `programitem` (`id`, `program_id`, `location_id`, `artist_id`, `special_guest_id`, `title`, `start_time`,
-                           `end_time`, `price`, `seats_left`)
-VALUES (1, 1, 1, 1, 2, 'Combo deal #1', '2023-03-22 14:03:10', '2023-03-22 22:03:10', 100, 50),
-       (2, 1, 2, 1, 2, 'Combo deal #2', '2023-03-23 14:04:31', '2023-03-23 12:04:31', 150, 50);
+                           `end_time`, `price`, `seats_left`, highlight)
+VALUES (1, 1, 1, 1, 2, 'John Doe at his finest', '2023-03-24 14:03:10', '2023-03-24 22:03:10', 100, 50 , 1),
+       (2, 2, 2, 1, 2, 'John Doe at his best', '2023-03-25 14:04:31', '2023-03-25 12:04:31', 150, 50, 1);
 
 INSERT INTO `restaurant` (`id`, `location_id`, `name`, `description`, `stars`, `seats`, `price`, `price_child`,
-                          `accessibility`)
-VALUES (1, 1, 'Ratatouille', 'Ratatouille has a lot of food.', 5, 100, 20, 10, 'none'),
+                          `accessibility`, highlight)
+VALUES (1, 1, 'Ratatouille', 'Ratatouille has a lot of food.', 5, 100, 20, 10, 'none', 1),
        (2, 2, 'McDonalds', 'McDonalds is known for their high culinary standards. ', 5, 500, 5000, 3000,
-        'Wheelchair Accessible');
+        'Wheelchair Accessible' , 1);
 
 INSERT INTO `restauranttype` (`id`, `cuisine_name`)
 VALUES (1, 'French'),
@@ -302,9 +313,9 @@ VALUES (1, 2, 10),
        (2, 1, 1),
        (3, 1, 5);
 
-INSERT INTO `session` (`id`, `restaurant_id`, `start_time`, `end_time`, `seats_left`)
-VALUES (1, 1, '2023-03-31 14:12:22', '2023-03-31 18:12:22', 10),
-       (2, 2, '2023-04-29 14:13:13', '2023-04-29 19:13:13', 50);
+INSERT INTO `session` (`id`, `restaurant_id`, `program_id`, `start_time`, `end_time`, `seats_left`)
+VALUES (1, 1, 1, '2023-03-31 14:12:22', '2023-03-31 18:12:22', 10),
+       (2, 2, 1, '2023-04-29 14:13:13', '2023-04-29 19:13:13', 50);
 
 INSERT INTO `reservation` (`id`, `user_id`, `session_id`, `remarks`, `status`)
 VALUES (1, 1, 1, 'none', 'active'),
@@ -315,6 +326,6 @@ VALUES (1, 1, '82336383-1950-47c2-874e-9a9191cf2e4d', 'open', NULL),
        (2, 1, 'a44aa6b2-c8b9-11ed-afa1-0242ac120002', 'paid', '2023-03-22 14:01:17');
 
 INSERT INTO `orderline` (`id`, `order_id`, `table`, `item_id`, `quantity`, `child`)
-VALUES (1, 1, 'restaurant', 1, 3, 0),
-       (2, 1, 'restaurant', 2, 2, 1);
+VALUES (1, 1, 'reservation', 1, 3, 0),
+       (2, 1, 'reservation', 2, 2, 1);
 

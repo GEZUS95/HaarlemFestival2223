@@ -27,20 +27,20 @@ class CuisineService {
             return $this->repository->getOneByName($name);
         }
 
-        public function insertOne(Cuisine $cuisine){
-            $this->repository->insertOne($cuisine);
+        public function insertOne(string $cuisineName){
+            $this->repository->insertOne($cuisineName);
         }
 
-        public function updateOne(Cuisine $cuisine){
-            $this->repository->updateOne($cuisine);
+        public function updateOne(int $id, string $cuisineName){
+            $this->repository->updateOne($id, $cuisineName);
         }
 
         public function updateAllForRestaurant(int $restaurantId, array $cuisines) {
             $this->repository->updateAllForRestaurant($restaurantId, $cuisines);
         }
 
-        public function deleteOne(Cuisine $cuisine){
-            $this->repository->deleteOne($cuisine);
+        public function deleteOne(int $id){
+            $this->repository->deleteOne($id);
         }
 
         public function postCuisines(){

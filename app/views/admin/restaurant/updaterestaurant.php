@@ -90,7 +90,7 @@ include_once __DIR__ . '/../admin-header.php';
             <label class="col-md-4 control-label" for="cuisines">Cuisines</label>
             <div class="col-md-4">
                 <select id="cuisines" name="cuisines[]" class="form-control" multiple required>
-                    <?php var_dump($cuisines); foreach ($cuisines as $cuisine): ?>
+                    <?php foreach ($cuisines as $cuisine): ?>
                         <option value="<?php echo $cuisine->getId(); ?>"
                             <?php foreach ($restaurant->getRestaurantCuisines() as $restaurantCuisine): ?>
                                 <?php if ($cuisine->getId() === $restaurantCuisine->getId()): ?>

@@ -19,6 +19,11 @@ class ProgramService
         return $this->repository->getAll();
     }
 
+    public function getAllByEventId(int $eventId)
+    {
+        return $this->repository->getAllByEventId($eventId);
+    }
+
     public function getOneById(int $id)
     {
         return $this->repository->getOneById($id);
@@ -39,14 +44,14 @@ class ProgramService
         return $this->repository->getOneByTitle($title);
     }
 
-    public function insertOne(int $event_id, int $content_id, string $title, float $total_price_program, \DateTime $start_time, \DateTime $end_time)
+    public function insertOne(int $event_id, string $title, float $price, \DateTime $start_time, \DateTime $end_time)
     {
-        $this->repository->insertOne($event_id, $content_id, $title, $total_price_program, $start_time, $end_time);
+        $this->repository->insertOne($event_id, $title, $price, $start_time, $end_time);
     }
 
-    public function updateOne(int $id, int $event_id, int $content_id, string $title, float $total_price_program, \DateTime $start_time, \DateTime $end_time)
+    public function updateOne(int $id, int $event_id, string $title, float $price, \DateTime $start_time, \DateTime $end_time)
     {
-        $this->repository->updateOne($id, $event_id, $content_id, $title, $total_price_program, $start_time, $end_time);
+        $this->repository->updateOne($id, $event_id, $title, $price, $start_time, $end_time);
     }
 
     public function deleteOne(int $id)

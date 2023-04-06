@@ -45,12 +45,11 @@ class RestaurantController {
         require_once __DIR__ . '/../../views/admin/restaurant/newrestaurant.php';
     }
 
-    public function newRestaurantPost() {
-        $restaurant = $this->restaurantService->postRestaurant($_POST);
-        $restaurantCuisines = $this->cuisineService->postCuisines($_POST);
+    public function newRestaurantPost() { //todo: fix this
+        $restaurantCuisines = $this->cuisineService->postCuisines();
 
-        $this->restaurantService->insertOne($restaurant);
-        $restaurant = $this->restaurantService->getOneByName($restaurant->getName());
+        $this->restaurantService->insertOne($_POST['name'], $_POST['description'], $_POST['stars'], $_POST['seats'], $_POST['price'], $_POST['price_child'], $_POST['accessibility'], $_POST['location_id']);
+        $restaurant = $this->restaurantService->getOneByName($_POST['name']);
         $this->cuisineService->updateAllForRestaurant($restaurant->getId(), $restaurantCuisines);
         $this->redirectHelper->redirect("/admin/restaurants");
     }
@@ -62,12 +61,11 @@ class RestaurantController {
         require_once __DIR__ . '/../../views/admin/restaurant/updaterestaurant.php';
     }
 
-    public function updateRestaurantPost(int $restaurantId) {
-        $restaurant = $this->restaurantService->postRestaurant($_POST);
-        $restaurantCuisines = $this->cuisineService->postCuisines($_POST);
+    public function updateRestaurantPost(int $restaurantId) { //todo: fix this
+        $restaurantCuisines = $this->cuisineService->postCuisines();
 
         $this->cuisineService->updateAllForRestaurant($restaurantId, $restaurantCuisines);
-        $this->restaurantService->updateOne($restaurant);
+        $this->restaurantService->updateOne($_POST['name'], $_POST['description'], $_POST['stars'], $_POST['seats'], $_POST['price'], $_POST['price_child'], $_POST['accessibility'], $_POST['location_id'], $restaurantId);
         $this->redirectHelper->redirect("/admin/restaurants");
     }
 

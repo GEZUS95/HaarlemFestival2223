@@ -31,14 +31,14 @@ class SessionService {
         return $this->sessionRepository->getAllFutureSessionsForRestaurant($restaurantId);
     }
 
-    public function insertOne(int $restaurantId, \DateTime $startTime, \DateTime $endTime)
+    public function insertOne(int $restaurantId, int $programId, \DateTime $startTime, \DateTime $endTime)
     {
-        $this->sessionRepository->insertOne($restaurantId, $startTime, $endTime);
+        $this->sessionRepository->insertOne($restaurantId, $programId, $startTime, $endTime);
     }
 
     public function updateOne(Session $session)
     {
-        $this->sessionRepository->updateOne($session->getId(), $session->getRestaurantId(), $session->getStartTime(), $session->getEndTime());
+        $this->sessionRepository->updateOne($session->getId(), $session->getRestaurantId(), $session->getProgramId(), $session->getStartTime(), $session->getEndTime());
     }
 
     public function deleteOne(int $id)
@@ -50,6 +50,7 @@ class SessionService {
     {
         $session = new Session();
         $session->setRestaurantId($_POST["restaurant_id"]);
+        $session->setProgramId($_POST["program_id"]);
         $session->setStartTime(new \DateTime($_POST["start_time"]));
         $session->setEndTime(new \DateTime($_POST["end_time"]));
         $session->setSeatsLeft($_POST["seats_left"]);

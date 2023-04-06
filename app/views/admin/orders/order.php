@@ -22,7 +22,7 @@ include_once __DIR__ . '/../admin-header.php';
         <tr>
             <th scope="row"><?php echo $order['name'] ?></th>
             <td><?php echo $order['quantity'] ?></td>
-            <td><?php echo $order['child'] ? 'yes' : 'no' ?></td>
+            <td><?php if (isset($order['child'])) { echo $order['child'] ? 'yes' : 'no' ;} else {echo 'N/A';}?></td>
             <td>&euro;<?php echo $order['price'] * $order['quantity'] ?></td>
         </tr>
 

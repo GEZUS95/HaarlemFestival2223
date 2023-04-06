@@ -13,6 +13,8 @@ include_once __DIR__ . '../../admin-header.php';
                 <table class="table table-striped table-sm">
                     <thead class="usr-tab-head">
                     <tr class="text-dark">
+                        <th>Customer Name</th>
+                        <th>Customer Email</th>
                         <th>Restaurant Name</th>
                         <th>Start Time</th>
                         <th>End Time</th>
@@ -25,6 +27,20 @@ include_once __DIR__ . '../../admin-header.php';
                     <tbody class="usr-tab-bod">
                     <?php foreach ($model as $reservation) { ?>
                         <tr>
+                            <td><?php
+                                foreach ($users as $user) {
+                                    if ($user->getId() == $reservation->getUserId()) {
+                                        echo $user->getName();
+                                    }
+                                }
+                                ?></td>
+                            <td><?php
+                                foreach ($users as $user) {
+                                    if ($user->getId() == $reservation->getUserId()) {
+                                        echo $user->getEmail();
+                                    }
+                                }
+                                ?></td>
                             <td><?php
                                 foreach ($restaurants as $restaurant) {
                                     $session = $this->sessionService->getOneById($reservation->getSessionId());

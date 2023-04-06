@@ -33,14 +33,7 @@ class EventService {
         $this->repository->updateOne($title, $description, $id);
     }
 
-    public function deleteOne(Event $event){
-        $this->repository->deleteOne($event);
-    }
-
-    public function postEvents(){
-        $event = new Event();
-        $event->setTitle($_POST["title"]);
-        $event->setDescription($_POST["description"]);
-        return $event;
+    public function deleteOne(int $eventId){
+        $this->repository->deleteOne($eventId);
     }
 }

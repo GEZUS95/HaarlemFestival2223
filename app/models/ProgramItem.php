@@ -13,6 +13,7 @@ class ProgramItem {
     private string $end_time;
     private float $price;
     private int $seats_left;
+    private bool $highlight;
 
     /**
      * @return int
@@ -172,6 +173,22 @@ class ProgramItem {
     public function setSeatsLeft(int $seats_left): void
     {
         $this->seats_left = $seats_left;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHighlight(): bool
+    {
+        return $this->highlight;
+    }
+
+    /**
+     * @param bool $highlight
+     */
+    public function setHighlight(bool $highlight): void
+    {
+        $this->highlight = $highlight;
     }
 
 }

@@ -53,15 +53,17 @@ class ProgramItemRepository extends Repository
         }
     }
 
-    public function insertOne(int $program_id, int $location_id, int $artist_id, int $special_guest_id, int $content_id, \DateTime $start_time, \DateTime $end_time, float $price, int $seats_left)
+    public function insertOne(int $program_id, int $location_id, int $artist_id, int $special_guest_id, string $title, \DateTime $start_time, \DateTime $end_time, float $price, int $seats_left)
     {
         try {
-            $stmt = $this->connection->prepare('INSERT INTO programitem (program_id, location_id, artist_id, special_guest_id, content_id, start_time, end_time, price, seats_left) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
+            $stmt = $this->connection->prepare('INSERT INTO programitem (program_id, location_id, artist_id, special_guest_id, title, start_time, end_time, price, seats_left) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
+            $start_time = $start_time->format('Y-m-d H:i:s');
+            $end_time = $end_time->format('Y-m-d H:i:s');
             $stmt->bindParam(1, $program_id);
             $stmt->bindParam(2, $location_id);
             $stmt->bindParam(3, $artist_id);
             $stmt->bindParam(4, $special_guest_id);
-            $stmt->bindParam(5, $content_id);
+            $stmt->bindParam(5, $title);
             $stmt->bindParam(6, $start_time);
             $stmt->bindParam(7, $end_time);
             $stmt->bindParam(8, $price);
@@ -73,15 +75,17 @@ class ProgramItemRepository extends Repository
         }
     }
 
-    public function updateOne(int $id, int $program_id, int $location_id, int $artist_id, int $special_guest_id, int $content_id, \DateTime $start_time, \DateTime $end_time, float $price, int $seats_left)
+    public function updateOne(int $id, int $program_id, int $location_id, int $artist_id, int $special_guest_id, string $title, \DateTime $start_time, \DateTime $end_time, float $price, int $seats_left)
     {
         try {
-            $stmt = $this->connection->prepare('UPDATE programitem SET program_id = ?, location_id = ?, artist_id = ?, special_guest_id = ?, content_id = ?, start_time = ?, end_time = ?, price = ?, seats_left = ? WHERE id = ?');
+            $stmt = $this->connection->prepare('UPDATE programitem SET program_id = ?, location_id = ?, artist_id = ?, special_guest_id = ?, title = ?, start_time = ?, end_time = ?, price = ?, seats_left = ? WHERE id = ?');
+            $start_time = $start_time->format('Y-m-d H:i:s');
+            $end_time = $end_time->format('Y-m-d H:i:s');
             $stmt->bindParam(1, $program_id);
             $stmt->bindParam(2, $location_id);
             $stmt->bindParam(3, $artist_id);
             $stmt->bindParam(4, $special_guest_id);
-            $stmt->bindParam(5, $content_id);
+            $stmt->bindParam(5, $title);
             $stmt->bindParam(6, $start_time);
             $stmt->bindParam(7, $end_time);
             $stmt->bindParam(8, $price);

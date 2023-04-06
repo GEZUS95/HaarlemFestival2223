@@ -14,6 +14,7 @@ include_once __DIR__ . '../../admin-header.php';
                     <thead class="usr-tab-head">
                     <tr class="text-dark">
                         <th>Restaurant Name</th>
+                        <th>Program Name</th>
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th>Seats Left</th>
@@ -31,6 +32,11 @@ include_once __DIR__ . '../../admin-header.php';
                                     }
                                 }
                                 ?></td>
+                            <td><?php foreach ($programs as $program) {
+                                    if ($program->getId() == $session->getProgramId()) {
+                                        echo $program->getTitle();
+                                    }
+                                } ?></td>
                             <td><?=
                                 // create DateTime object from string
                                 (new DateTime($session->getStartTime()))->format('Y-m-d H:i:s')

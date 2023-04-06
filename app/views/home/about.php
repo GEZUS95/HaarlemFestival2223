@@ -1,6 +1,12 @@
 <?php
 include_once __DIR__ . '/../header.php';
+?>
 
-echo "<h1>About page!</h1>";
+<h1><?=$page->getTitle()?></h1>
 
+<p><?=$page->getBody()?></p>
+
+
+
+<?php
 include_once __DIR__ . '/../footer.php';

@@ -6,7 +6,7 @@ use PDOException;
 
 class TicketRepository extends Repository
 {
-    public function createTicket( string $uuid, int $orderlineId)
+    public function createTicket(string $uuid, int $orderlineId)
     {
         try {
             $stmt = $this->connection->prepare("
@@ -23,7 +23,7 @@ class TicketRepository extends Repository
         }
     }
 
-    public function getAllFromOrderlineId(mixed $id)
+    public function getAllFromOrderlineId(int $id)
     {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM tickets WHERE orderline_id = :id");
@@ -34,5 +34,4 @@ class TicketRepository extends Repository
             echo $e;
         }
     }
-
 }

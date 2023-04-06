@@ -56,6 +56,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="/admin/restaurants">Restaurants</a>
+                        <a class="dropdown-item" href="/admin/cuisines">Cuisines</a>
                         <a class="dropdown-item" href="/admin/sessions">Sessions</a>
                         <a class="dropdown-item" href="/admin/reservations">Reservations</a>
                     </div>

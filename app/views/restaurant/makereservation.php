@@ -10,15 +10,15 @@ include_once __DIR__ . '/../header.php';
         <form method="post" action="" class="form">
             <div class="form-group">
                 <label for="remarks">Remarks:</label>
-                <input type="text" id="remarks" name="remarks" class="form-control">
+                <input type="text" id="remarks" name="remarks" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="amount">Amount:</label>
-                <input type="text" id="amount" name="amount" class="form-control">
+                <input type="text" id="amount" name="amount" class="form-control" min="0" max="<?php echo $session->getSeatsLeft(); ?>" required>
             </div>
             <div class="form-group">
                 <label for="amount_child">Amount Child:</label>
-                <input type="text" id="amount_child" name="amount_child" class="form-control">
+                <input type="text" id="amount_child" name="amount_child" class="form-control" min="0" max="<?php echo $session->getSeatsLeft(); ?>" required>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

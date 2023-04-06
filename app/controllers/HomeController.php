@@ -2,30 +2,48 @@
 
 namespace controllers;
 
+use services\ArtistService;
 use services\ContentService;
+use services\LocationService;
 
 class HomeController
 {
 
     private ContentService $contentService;
+    private ArtistService $artistService;
+    private LocationService $locationService;
 
     public function __construct()
     {
         $this->contentService = new ContentService();
+        $this->artistService = new ArtistService();
+        $this->locationService = new LocationService();
     }
 
     public function index()
     {
         $page = $this->contentService->getOneFromTitle('home');
+        $danceHighlights = $this->contentService->getAllHighlightsNonFood(2);
+        $jazzHighlights = $this->contentService->getAllHighlightsNonFood(3);
+        $foodHighlights = $this->contentService->getAllHighlightsFood();
         require_once __DIR__ . '/../views/home/index.php';
     }
 
     public function about()
     {
+        $page = $this->contentService->getOneFromId(6);
         require_once __DIR__ . '/../views/home/about.php';
     }
-    public function login()
+
+    public function artist()
     {
-        require_once __DIR__ . '/../views/home/login.php';
+        $artists = $this->artistService->getAll();
+        require_once __DIR__ . '/../views/home/artist.php';
+    }
+
+    public function venues()
+    {
+        $venues = $this->locationService->getAll();
+        require_once __DIR__ . '/../views/home/venues.php';
     }
 }

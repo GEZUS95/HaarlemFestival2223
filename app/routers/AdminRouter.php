@@ -9,6 +9,12 @@ $router->get('/admin/newrestaurant', 'admin\RestaurantController@newRestaurant')
 $router->post('/admin/newrestaurant', 'admin\RestaurantController@newRestaurantPost');
 $router->get('/admin/restaurants/delete/{id}', 'admin\RestaurantController@deleteRestaurant');
 
+$router->get('/admin/cuisines', 'admin\CuisineController@showCuisines');
+$router->get('/admin/newcuisine', 'admin\CuisineController@newCuisine');
+$router->post('/admin/newcuisine', 'admin\CuisineController@newCuisinePost');
+$router->get('/admin/updatecuisine/{id}', 'admin\CuisineController@updateCuisine');
+$router->post('/admin/updatecuisine/{id}', 'admin\CuisineController@updateCuisinePost');
+
 $router->get('/admin/sessions', 'admin\SessionController@showSessions');
 $router->get('/admin/newsession', 'admin\SessionController@newSession');
 $router->post('/admin/newsession', 'admin\SessionController@newSessionPost');
@@ -41,6 +47,19 @@ $router->post('/admin/newevent', 'admin\EventController@newEventPost');
 $router->get('/admin/events/update/{id}', 'admin\EventController@updateEvent');
 $router->post('/admin/events/update/{id}', 'admin\EventController@updateEventPost');
 $router->get('/admin/events/delete/{id}', 'admin\EventController@deleteEvent');
+
+$router->get('/admin/programs/{id}', 'admin\EventController@showPrograms');
+$router->get('/admin/newprogram/{id}', 'admin\EventController@newProgram');
+$router->post('/admin/newprogram/{id}', 'admin\EventController@newProgramPost');
+$router->get('/admin/updateprogram/{id}', 'admin\EventController@updateProgram');
+$router->post('/admin/updateprogram/{id}', 'admin\EventController@updateProgramPost');
+$router->get('/admin/deleteprogram/{id}', 'admin\EventController@deleteProgram');
+
+$router->get('/admin/newprogramitem/{id}', 'admin\EventController@newProgramItem');
+$router->post('/admin/newprogramitem/{id}', 'admin\EventController@newProgramItemPost');
+$router->get('/admin/updateprogramitem/{id}', 'admin\EventController@updateProgramItem');
+$router->post('/admin/updateprogramitem/{id}', 'admin\EventController@updateProgramItemPost');
+$router->get('/admin/deleteprogramitem/{id}', 'admin\EventController@deleteProgramItem');
 
 $router->get('/admin/users', 'admin\UserController@showUsers');
 $router->get('/admin/users/update/{id}', 'admin\UserController@updateUser');
