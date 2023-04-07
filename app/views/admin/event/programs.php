@@ -57,9 +57,24 @@ include_once __DIR__ . '/../admin-header.php';
                         ?>
                         <tr>
                             <td><?php echo $programItem->getId() ?></td>
-                            <td><?php echo $programItem->getLocationId() ?></td>
-                            <td><?php echo $programItem->getArtistId() ?></td>
-                            <td><?php echo $programItem->getSpecialGuestId() ?></td>
+                            <td><?php foreach ($locations as $location) {
+                                    if ($location->getId() === $programItem->getLocationId())
+                                    {
+                                        echo $location->getName();
+                                    }
+                                } ?></td>
+                            <td><?php foreach ($artists as $artist) {
+                                    if ($artist->getId() === $programItem->getArtistId())
+                                    {
+                                        echo $artist->getName();
+                                    }
+                                }?></td>
+                            <td><?php foreach ($artists as $artist) {
+                                    if ($artist->getId() === $programItem->getSpecialGuestId())
+                                    {
+                                        echo $artist->getName();
+                                    }
+                                }?></td>
                             <td><?php echo $programItem->getTitle() ?></td>
                             <td><?php echo $programItem->getStartTime() ?></td>
                             <td><?php echo $programItem->getEndTime() ?></td>

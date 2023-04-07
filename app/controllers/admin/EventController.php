@@ -72,6 +72,8 @@ class EventController {
         $model = $this->programService->getAllByEventId($eventId);
         $programItems = $this->programItemService->getAll();
         $event = $this->eventService->getOneById($eventId);
+        $locations = $this->locationService->getAll();
+        $artists = $this->artistService->getAll();
         require_once __DIR__ . '/../../views/admin/event/programs.php';
     }
 

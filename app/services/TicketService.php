@@ -15,6 +15,7 @@ class TicketService
     private UuidHelper $uuidHelper;
     private RedirectHelper $redirectHelper;
     private OrderRepository $orderRepository;
+    private SessionService $sessionService;
 
     public function __construct()
     {
@@ -23,6 +24,7 @@ class TicketService
         $this->uuidHelper = new UuidHelper();
         $this->redirectHelper = new RedirectHelper();
         $this->orderRepository = new OrderRepository();
+        $this->sessionService = new SessionService();
     }
 
     public function generateTickets($orderId)
@@ -45,7 +47,15 @@ class TicketService
     public function ticketsAvailable(string $table, int $id, int $quantity)
     {
         $item = $this->orderRepository->getItemFromDB($table, $id);
-        $ticketsAvailable = $item['seats_left'];
+
+        if ($table == 'reservation') {
+            $item = $this->sessionService->getOneById($item['session_id']);
+            $ticketsAvailable = $item->getSeatsLeft();
+        }
+        else {
+            $ticketsAvailable = $item['seats_left'];
+        }
+
         if (!$ticketsAvailable >= $quantity) {
             $this->redirectHelper->redirect('/cart?error=Not enough tickets available');
         }

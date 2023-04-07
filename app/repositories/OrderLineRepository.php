@@ -22,6 +22,11 @@ class OrderLineRepository extends Repository
     public function insertOne(int $orderId, string $table, int $itemId, int $quantity, bool $child)
     {
         try {
+            if ($child) {
+                $child = 1;
+            } elseif (!$child) {
+                $child = 0;
+            }
             $stmt = $this->connection->prepare("
                     INSERT INTO `orderline` (order_id, `table`, item_id, quantity, child)
                     VALUES (:orderid, :table, :itemid, :quantity, :child)
