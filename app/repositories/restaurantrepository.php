@@ -65,13 +65,13 @@ class RestaurantRepository extends Repository
         }
     }
 
-    public function updateOne(string $title, int $location_id, string $description, int $stars, int $seats, float $price, float $price_child, string $accessibility, int $id)
+    public function updateOne(string $title, string $description, int $stars, int $seats, float $price, float $price_child, string $accessibility, int $location_id, int $id)
     {
         try {
             $stmt = $this->connection->prepare("
-                UPDATE restaurant SET title = :title, location_id = :location_id, description = :description, stars = :stars, seats = :seats, price = :price, price_child = :price_child, accessibility = :accessibility WHERE id = :id");
+                UPDATE restaurant SET name = :name, location_id = :location_id, description = :description, stars = :stars, seats = :seats, price = :price, price_child = :price_child, accessibility = :accessibility WHERE id = :id");
 
-            $stmt->bindParam(':title', $title);
+            $stmt->bindParam(':name', $title);
             $stmt->bindParam(':location_id', $location_id);
             $stmt->bindParam(':description', $description);
             $stmt->bindParam(':stars', $stars);
@@ -86,14 +86,14 @@ class RestaurantRepository extends Repository
         }
     }
 
-    public function insertOne(string $title, int $location_id, string $description, int $stars, int $seats, float $price, float $price_child, string $accessibility)
+    public function insertOne(string $title, string $description, int $stars, int $seats, float $price, float $price_child, string $accessibility, int $location_id)
     {
         try {
             $stmt = $this->connection->prepare("
-                INSERT INTO restaurant (title, location_id, description, stars, seats, price, price_child, accessibility)
-                VALUES (:title, :location_id, :description, :stars, :seats, :price, :price_child, :accessibility)");
+                INSERT INTO restaurant (name, location_id, description, stars, seats, price, price_child, accessibility)
+                VALUES (:name, :location_id, :description, :stars, :seats, :price, :price_child, :accessibility)");
 
-            $stmt->bindParam(':title', $title);
+            $stmt->bindParam(':name', $title);
             $stmt->bindParam(':location_id', $location_id);
             $stmt->bindParam(':description', $description);
             $stmt->bindParam(':stars', $stars);

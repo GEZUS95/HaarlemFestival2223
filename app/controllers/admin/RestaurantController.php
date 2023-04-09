@@ -45,7 +45,7 @@ class RestaurantController {
         require_once __DIR__ . '/../../views/admin/restaurant/newrestaurant.php';
     }
 
-    public function newRestaurantPost() { //todo: fix this
+    public function newRestaurantPost() {
         $restaurantCuisines = $this->cuisineService->postCuisines();
 
         $this->restaurantService->insertOne($_POST['name'], $_POST['description'], $_POST['stars'], $_POST['seats'], $_POST['price'], $_POST['price_child'], $_POST['accessibility'], $_POST['location_id']);
@@ -61,7 +61,7 @@ class RestaurantController {
         require_once __DIR__ . '/../../views/admin/restaurant/updaterestaurant.php';
     }
 
-    public function updateRestaurantPost(int $restaurantId) { //todo: fix this
+    public function updateRestaurantPost(int $restaurantId) {
         $restaurantCuisines = $this->cuisineService->postCuisines();
 
         $this->cuisineService->updateAllForRestaurant($restaurantId, $restaurantCuisines);

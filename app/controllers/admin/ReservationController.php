@@ -36,7 +36,6 @@ class ReservationController {
         $model = $this->reservationService->getAll();
         $restaurants = $this->restaurantService->getAll();
         $sessions = $this->sessionService->getAll();
-        $page = $_GET['p'] ?? 0;
         $users = $this->userService->getAll(10000000, 0); // todo: fix this
         require_once __DIR__ . '/../../views/admin/reservation/reservations.php';
     }

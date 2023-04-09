@@ -56,36 +56,38 @@ class SessionRepository extends Repository {
         }
     }
 
-    public function insertOne(int $restaurantId, \DateTime $startTime, \DateTime $endTime, int $seatsLeft) {
+    public function insertOne(int $restaurantId, int $programId, \DateTime $startTime, \DateTime $endTime, int $seatsLeft) {
         try {
-            $stmt = $this->connection->prepare('INSERT INTO session (restaurant_id, start_time, end_time, seats_left) VALUES (?, ?, ?, ?)');
-            $startTimeString = $startTime->format('Y-m-d H:i:s');
-            $endTimeString = $endTime->format('Y-m-d H:i:s');
+            $stmt = $this->connection->prepare('INSERT INTO session (restaurant_id, program_id, start_time, end_time, seats_left) VALUES (?, ?, ?, ?, ?)');
+            $startTime = $startTime->format('Y-m-d H:i:s');
+            $endTime = $endTime->format('Y-m-d H:i:s');
             $stmt->bindParam(1, $restaurantId);
-            $stmt->bindParam(2, $startTimeString);
-            $stmt->bindParam(3, $endTimeString);
-            $stmt->bindParam(4, $seatsLeft);
+            $stmt->bindParam(2, $programId);
+            $stmt->bindParam(3, $startTime);
+            $stmt->bindParam(4, $endTime);
+            $stmt->bindParam(5, $seatsLeft);
             $stmt->execute();
         } catch (PDOException $e) {
             echo $e;
         }
     }
 
-    public function updateOne(int $id, int $restaurantId, \DateTime $startTime, \DateTime $endTime, int $seatsLeft) {
+    public function updateOne(int $id, int $restaurantId, int $programId, \DateTime $startTime, \DateTime $endTime, int $seatsLeft) {
         try {
-            $stmt = $this->connection->prepare('UPDATE session SET restaurant_id = ?, start_time = ?, end_time = ?, seats_left = ? WHERE id = ?');
-            $startTimeString = $startTime->format('Y-m-d H:i:s');
-            $endTimeString = $endTime->format('Y-m-d H:i:s');
+            $stmt = $this->connection->prepare('UPDATE session SET restaurant_id = ?, program_id = ?, start_time = ?, end_time = ?, seats_left = ? WHERE id = ?');
+            $startTime = $startTime->format('Y-m-d H:i:s');
+            $endTime = $endTime->format('Y-m-d H:i:s');
             $stmt->bindParam(1, $restaurantId);
-            $stmt->bindParam(2, $startTimeString);
-            $stmt->bindParam(3, $endTimeString);
-            $stmt->bindParam(4, $seatsLeft);
-            $stmt->bindParam(5, $id);
+            $stmt->bindParam(2, $programId);
+            $stmt->bindParam(3, $startTime);
+            $stmt->bindParam(4, $endTime);
+            $stmt->bindParam(5, $seatsLeft);
+            $stmt->bindParam(6, $id);
             $stmt->execute();
         } catch (PDOException $e) {
             echo $e;
         }
-    }
+}
 
     public function deleteOne(int $id) {
         try {

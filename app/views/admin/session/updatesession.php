@@ -1,7 +1,7 @@
 <?php
 include_once __DIR__ . '/../admin-header.php';
 ?>
-<h1>Update <?php echo $session->getId(); var_dump(); ?></h1>
+<h1>Update <?php echo $session->getId(); ?></h1>
 <form action="/admin/sessions/update/<?php echo $session->getId(); ?>" method="post" class="form-horizontal">
     <fieldset>
         <!-- Selection input-->
@@ -17,6 +17,24 @@ include_once __DIR__ . '/../admin-header.php';
                             <?php endif; ?>
                         >
                             <?php echo $restaurant->getName(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <!-- Selection input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="program_id">Program</label>
+            <div class="col-md-4">
+                <select id="program_id" name="program_id" class="form-control" required>
+                    <?php foreach ($programs as $program): ?>
+                        <option value="<?php echo $program->getId(); ?>"
+                            <?php if ($program->getId() === $session->getProgramId()): ?>
+                                selected
+                            <?php endif; ?>
+                        >
+                            <?php echo $program->getTitle(); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

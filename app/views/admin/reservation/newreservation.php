@@ -22,10 +22,14 @@ include_once __DIR__ . '/../admin-header.php';
             <label class="col-md-4 control-label" for="session_id">Session</label>
             <div class="col-md-4">
                 <select id="session_id" name="session_id" class="form-control" required>
-                    <?php foreach ($sessions as $session): ?>
-                        <option value="<?php echo $session->getId(); ?>">
-                            <?php echo $session->getOptionLabel(); ?>
-                        </option>
+                    <?php foreach ($restaurants as $restaurant): ?>
+                        <optgroup label="<?php echo $restaurant->getName(); ?>">
+                            <?php foreach ($restaurant->getSessions() as $session): ?>
+                                <option value="<?php echo $session->getId(); ?>">
+                                    <?php echo $session->getStartTime(); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </optgroup>
                     <?php endforeach; ?>
                 </select>
 
