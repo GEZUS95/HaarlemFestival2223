@@ -24,10 +24,12 @@ include_once __DIR__ . '/../admin-header.php';
                 <select id="session_id" name="session_id" class="form-control" required>
                     <?php foreach ($restaurants as $restaurant): ?>
                         <optgroup label="<?php echo $restaurant->getName(); ?>">
-                            <?php foreach ($restaurant->getSessions() as $session): ?>
-                                <option value="<?php echo $session->getId(); ?>">
-                                    <?php echo $session->getStartTime(); ?>
-                                </option>
+                            <?php foreach ($sessions as $session): ?>
+                                <?php if ($session->getRestaurantId() == $restaurant->getId()): ?>
+                                    <option value="<?php echo $session->getId(); ?>">
+                                        <?php echo $session->getStartTime(); ?>
+                                    </option>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         </optgroup>
                     <?php endforeach; ?>
