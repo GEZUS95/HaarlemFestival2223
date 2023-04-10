@@ -43,4 +43,9 @@ class ProgramItemService
     {
         $this->repository->deleteOne($id);
     }
+
+    public function getAllByProgramTitle(int $programId)
+    {
+        return $this->repository->getAllByProgramTitle($programId);
+    }
 }

@@ -109,4 +109,17 @@ class ProgramItemRepository extends Repository
             echo $e;
         }
     }
+
+    public function getAllByProgramTitle(int $program_id)
+    {
+        try {
+            $stmt = $this->connection->prepare('SELECT * FROM programitem WHERE program_id = :program_id');
+            $stmt->bindParam(':program_id', $program_id);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, ProgramItem::class);
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
 }

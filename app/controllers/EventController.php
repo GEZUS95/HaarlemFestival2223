@@ -39,6 +39,13 @@ class EventController
         require_once __DIR__ . '/../views/event/eventpage.php';
     }
 
+    public function showProgram(int $eventId, string $programTitle)
+    {
+        $program = $this->programService->getOneByTitle($programTitle);
+        $items = $this->programItemService->getAllByProgramTitle($program->getId());
+        require_once __DIR__ . '/../views/event/programpage.php';
+    }
+
     public function addProgramItemToCart(int $programItemId)
     {
         $programItem = $this->programItemService->getOneById($programItemId);

@@ -1,8 +1,6 @@
 <?php
 include_once __DIR__ . '/../header.php';
 ?>
-
-<body>
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
@@ -39,7 +37,7 @@ include_once __DIR__ . '/../header.php';
                 if ($session['seats_left'] > 0): ?>
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title"><?=$session['restaurant_name'] ?></h5>
+                            <h5 class="card-title"><?=$session['restaurant_name'] . '   ' . date('d-M', strtotime($session['start_time'])); ?></h5>
                         </div>
                         <div class="card-body">
                             <p class="card-text">
@@ -57,8 +55,6 @@ include_once __DIR__ . '/../header.php';
     <?php endif; ?>
     <div class="col-3"></div>
 </div>
-
-</body>
 
 <?php
 include_once __DIR__ . '/../footer.php';
