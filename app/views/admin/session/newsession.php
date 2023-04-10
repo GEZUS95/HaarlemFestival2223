@@ -18,6 +18,20 @@ include_once __DIR__ . '/../admin-header.php';
             </div>
         </div>
 
+        <!-- Selection input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="program_id">Program</label>
+            <div class="col-md-4">
+                <select id="program_id" name="program_id" class="form-control" required>
+                    <?php foreach ($programs as $program): ?>
+                        <option value="<?php echo $program->getId(); ?>">
+                            <?php echo $program->getTitle(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
         <!-- Datetime input for start time -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="start_time">Start Time</label>

@@ -59,40 +59,29 @@ class ReservationRepository extends Repository {
         }
     }
 
-    public function insertOne (Reservation $reservation) {
+    public function insertOne (int $userId, int $sessionId, string $remarks, string $status) {
         try {
-            $stmt = $this->connection->prepare('INSERT INTO reservation (user_id, session_id, remarks, status) VALUES (?, ?, ?)');
-            $user_id = $reservation->getUserId();
-            $session_id = $reservation->getSessionId();
-            $remarks = $reservation->getRemarks();
-            $status = $reservation->getStatus();
-            $stmt->bindParam(1, $user_id);
-            $stmt->bindParam(2, $session_id);
+            $stmt = $this->connection->prepare('INSERT INTO reservation (user_id, session_id, remarks, status) VALUES (?, ?, ?, ?)');
+            $stmt->bindParam(1, $userId);
+            $stmt->bindParam(2, $sessionId);
             $stmt->bindParam(3, $remarks);
             $stmt->bindParam(4, $status);
             $stmt->execute();
-            return $this->connection->lastInsertId();
         } catch (PDOException $e)
         {
             echo $e;
         }
     }
 
-    public function updateOne (Reservation $reservation) {
+    public function updateOne (int $id, int $userId, int $sessionId, string $remarks, string $status) {
         try {
             $stmt = $this->connection->prepare('UPDATE reservation SET user_id = ?, session_id = ?, remarks = ?, status = ? WHERE id = ?');
-            $user_id = $reservation->getUserId();
-            $session_id = $reservation->getSessionId();
-            $remarks = $reservation->getRemarks();
-            $status = $reservation->getStatus();
-            $id = $reservation->getId();
-            $stmt->bindParam(1, $user_id);
-            $stmt->bindParam(2, $session_id);
+            $stmt->bindParam(1, $userId);
+            $stmt->bindParam(2, $sessionId);
             $stmt->bindParam(3, $remarks);
             $stmt->bindParam(4, $status);
             $stmt->bindParam(5, $id);
             $stmt->execute();
-            return $reservation->getId();
         } catch (PDOException $e)
         {
             echo $e;

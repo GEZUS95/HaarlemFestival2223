@@ -41,18 +41,20 @@ class RestaurantController {
     }
 
     public function confirmReservation(int $sessionId) {
-        var_dump($_SESSION['user']['id']);
         $order = $this->orderService->getOneOrderFromUserId($_SESSION['user']['id']);
-        $this->reservationService->insertOne($this->reservationService->postReservation($sessionId));
+        $restaurant = $this->restaurantService->getOneById($this->sessionService->getOneById($sessionId)->getRestaurantId());
+        $this->reservationService->insertOne($_SESSION['user']['id'], $sessionId, $_POST['remarks'], "active");
 
-        // if adult is above 0 then add adult to order
-        if ($_POST['amount'] > 0) {
-            $this->orderService->addOrderLine($order->getId(), "reservation", 1, $_POST['amount'], false);
+        // check amount, then add orderline
+        if ($_POST['amount'] > 0 && $_POST['amount_child'] > 0) {
+            $this->orderService->addOrderLine($order->getId(), "reservation", $restaurant->getId(), $_POST['amount'], false);
+            $this->orderService->addOrderLine($order->getId(), "reservation", $restaurant->getId(), $_POST['amount_child'], true);
         }
-
-        // if child is above 0 then add child to order
-        if ($_POST['amount_child'] > 0) {
-            $this->orderService->addOrderLine($order->getId(), "reservation", 2, $_POST['amount_child'], true);
+        elseif ($_POST['amount'] > 0) {
+            $this->orderService->addOrderLine($order->getId(), "reservation", $restaurant->getId(), $_POST['amount'], false);
+        }
+        elseif ($_POST['amount_child'] > 0) {
+            $this->orderService->addOrderLine($order->getId(), "reservation", $restaurant->getId(), $_POST['amount_child'], true);
         }
 
         $this->redirectHelper->redirect('/cart');

@@ -28,21 +28,12 @@ class ReservationService {
         return $this->repository->getAllBySessionId($id);
     }
 
-    public function insertOne(Reservation $reservation){
-        $this->repository->insertOne($reservation);
+    public function insertOne(int $userId, int $sessionId, string $remarks, string $status){
+        $this->repository->insertOne($userId, $sessionId, $remarks, $status);
     }
 
-    public function updateOne(Reservation $reservation){
-        $this->repository->updateOne($reservation);
-    }
-
-    public function postReservation(int $sessionId){
-        $reservation = new Reservation();
-        $reservation->setSessionId($sessionId);
-        $reservation->setUserId($_SESSION['user']['id']);
-        $reservation->setRemarks($_POST['remarks']);
-        $reservation->setStatus('active');
-        return $reservation;
+    public function updateOne(int $id, int $userId, int $sessionId, string $remarks, string $status){
+        $this->repository->updateOne($id, $userId, $sessionId, $remarks, $status);
     }
 
     public function getOptionLabel()

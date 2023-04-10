@@ -78,7 +78,7 @@ include_once __DIR__ . '/../admin-header.php';
                                 selected
                             <?php endif; ?>
                         >
-                            <?php echo $location->getCity(); ?>
+                            <?php echo $location->getAddress(); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

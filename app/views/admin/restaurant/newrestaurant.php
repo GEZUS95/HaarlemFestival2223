@@ -74,7 +74,7 @@ include_once __DIR__ . '/../admin-header.php';
                 <select id="location_id" name="location_id" class="form-control" required>
                     <?php foreach ($locations as $location): ?>
                         <option value="<?php echo $location->getId(); ?>">
-                            <?php echo $location->getCity(); ?>
+                            <?php echo $location->getAddress(); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

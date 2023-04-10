@@ -38,7 +38,7 @@ include_once __DIR__ . '/../header.php';
                 <div class="container">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title"><?php echo date('l F jS'); ?></h5>
+                            <h5 class="card-title"><?php echo date('l F jS Y', strtotime($session->getEndTime())) ?></h5>
                         </div>
                         <div class="card-body">
                             <p class="card-text"><strong>Time:</strong> <?php echo date('H:i', strtotime($session->getStartTime())); ?>

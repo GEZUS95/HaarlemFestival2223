@@ -36,7 +36,6 @@ class ReservationController {
         $model = $this->reservationService->getAll();
         $restaurants = $this->restaurantService->getAll();
         $sessions = $this->sessionService->getAll();
-        $page = $_GET['p'] ?? 0;
         $users = $this->userService->getAll(10000000, 0); // todo: fix this
         require_once __DIR__ . '/../../views/admin/reservation/reservations.php';
     }
@@ -48,8 +47,7 @@ class ReservationController {
     }
 
     public function newReservationPost() {
-        $reservation = $this->reservationService->postReservation($_POST);
-        $this->reservationService->insertOne($reservation);
+        $this->reservationService->insertOne($_SESSION['user']['id'], $_POST['session_id'], $_POST['remarks'], "active");
         $this->redirectHelper->redirect("/admin/reservations");
     }
 
@@ -60,7 +58,7 @@ class ReservationController {
         } else {
             $reservation->setStatus("active");
         }
-        $this->reservationService->updateOne($reservation);
+        $this->reservationService->updateOne($reservation->getId(), $reservation->getUserId(), $reservation->getSessionId(), $reservation->getRemarks(), $reservation->getStatus());
         $this->redirectHelper->redirect("/admin/reservations");
     }
 

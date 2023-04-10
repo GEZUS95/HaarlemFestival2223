@@ -42,26 +42,28 @@ class SessionController {
     }
 
     public function newSession(){
+        $programs = $this->programService->getAll();
         $restaurants = $this->restaurantService->getAll();
         require_once __DIR__ . '/../../views/admin/session/newsession.php';
     }
 
     public function newSessionPost() {
-        $session = $this->sessionService->postSession($_POST);
-        $this->sessionService->insertOne($session->getRestaurantId(), $session->getStartTime(), $session->getEndTime(), $session->getSeatsLeft());
+        $startTime = new \DateTime($_POST['start_time']); // Convert string to DateTime object
+        $endTime = new \DateTime($_POST['end_time']); // Convert string to DateTime object
+        $this->sessionService->insertOne($_POST['restaurant_id'], $_POST['program_id'], $startTime, $endTime, $_POST['seats_left']);
         $this->redirectHelper->redirect("/admin/sessions");
     }
 
+
     public function updateSession(int $sessionId){
+        $programs = $this->programService->getAll();
         $session = $this->sessionService->getOneById($sessionId);
         $restaurants = $this->restaurantService->getAll();
         require_once __DIR__ . '/../../views/admin/session/updatesession.php';
     }
 
     public function updateSessionPost(int $sessionId) {
-        $session = $this->sessionService->postSession($_POST);
-        $session->setId($sessionId);
-        $this->sessionService->updateOne($session);
+        $this->sessionService->updateOne($sessionId, $_POST['restaurant_id'], $_POST['program_id'], new \DateTime($_POST['start_time']), new \DateTime($_POST['end_time']) , $_POST['seats_left']);
         $this->redirectHelper->redirect("/admin/sessions");
     }
 
