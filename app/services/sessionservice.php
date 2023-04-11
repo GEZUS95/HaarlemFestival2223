@@ -54,4 +54,9 @@ class SessionService
     {
         $this->sessionRepository->deleteOne($id);
     }
+
+    public function getAllWithRestaurant()
+    {
+        return $this->sessionRepository->getAllWithRestaurant();
+    }
 }

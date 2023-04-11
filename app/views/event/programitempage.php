@@ -23,7 +23,7 @@ include_once __DIR__ . '/../header.php';
             <input type="submit" value="Put in cart" class="btn btn-primary">
         </form>
         <?php } else { ?>
-            <p>Please <a href="/login" class="btn btn-primary">login</a> to put items in your cart.</p>
+            <p><a href="/login" class="btn btn-primary">Login to put in cart</a></p>
         <?php } ?>
     </div>
     <div class="col-3"></div>

@@ -38,7 +38,7 @@ class EventController
     {
         $page_event = $this->eventService->getOneById($eventId);
         $programs = $this->programService->getAllByEventId($eventId);
-        $sessions = $this->sessionService->getAll();
+        $sessions = $this->sessionService->getAllWithRestaurant();
         require_once __DIR__ . '/../views/event/eventpage.php';
     }
 
