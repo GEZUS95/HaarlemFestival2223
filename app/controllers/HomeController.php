@@ -31,7 +31,7 @@ class HomeController
 
     public function about()
     {
-        $page = $this->contentService->getOneFromId(6);
+        $about = $this->contentService->getOneFromId(6);
         require_once __DIR__ . '/../views/home/about.php';
     }
 
