@@ -14,7 +14,8 @@ $events = (new services\EventService)->getAll();
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.cdnfonts.com/css/comic-sans" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/papyrus" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"></head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
 <body style="font-family: 'Comic Sans', 'Papyrus', sans-serif;">
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
@@ -36,7 +37,7 @@ $events = (new services\EventService)->getAll();
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <?php foreach ($events as $event) : ?>
-                            <a class="dropdown-item" href="/event/<?=$event->getId()?>"><?=$event->getTitle()?></a>
+                            <a class="dropdown-item" href="/event/<?= $event->getId() ?>"><?= $event->getTitle() ?></a>
                         <?php endforeach; ?>
                     </div>
                 </li>
@@ -57,19 +58,18 @@ $events = (new services\EventService)->getAll();
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="/about-haarlem">About haarlem</a>
                         <?php foreach ($pages as $page) : ?>
-                            <a class="dropdown-item" href="/page/<?= $page->getTitle(); ?>"><?= $page->getTitle(); ?></a>
+                            <a class="dropdown-item"
+                               href="/page/<?= $page->getTitle(); ?>"><?= $page->getTitle(); ?></a>
                         <?php endforeach; ?>
                     </div>
                 </li>
                 <?php
-                if ((isset($_SESSION['user']))
-                    &&
-                    ($_SESSION['user']['role_id'] == 2)
-                    ||
-                    ($_SESSION['user']['role_id'] == 3)) {
-                    echo '<li class="nav-item">
+                if (isset($_SESSION['user'])) {
+                    if (($_SESSION['user']['role_id'] == 2) || ($_SESSION['user']['role_id'] == 3)) {
+                        echo '<li class="nav-item">
                             <a class="nav-link" href="/admin">Admin Panel</a>
                         </li>';
+                    }
                 }
                 ?>
             </ul>
