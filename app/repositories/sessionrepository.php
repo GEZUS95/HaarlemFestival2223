@@ -63,6 +63,20 @@ class SessionRepository extends Repository
         }
     }
 
+    public function getAllFromProgram(int $programId)
+    {
+        try {
+            $stmt = $this->connection->prepare('SELECT * FROM session WHERE program_id = ?');
+            $stmt->bindParam(1, $programId);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, Session::class);
+            $sessions = $stmt->fetchAll();
+            return $sessions;
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
     public function insertOne(int $restaurantId, int $programId, \DateTime $startTime, \DateTime $endTime, int $seatsLeft)
     {
         try {

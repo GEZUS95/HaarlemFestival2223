@@ -45,9 +45,8 @@ class RestaurantController {
         $restaurant = $this->restaurantService->getOneById($this->sessionService->getOneById($sessionId)->getRestaurantId());
         $this->reservationService->insertOne($_SESSION['user']['id'], $sessionId, $_POST['remarks'], "active");
 
-        // check amount, then add orderline
-        if ($_POST['amount'] > 0 && $_POST['amount_child'] > 0) {
-            $this->orderService->addOrderLine($order->getId(), "reservation", $restaurant->getId(), $_POST['amount'], false);
+        if ($_POST['amount'] > 0  && $_POST['amount_child'] > 0) {
+            $this->orderService->addOrderLine($order->getId(), "reservation", $restaurant->getId(), $_POST['amount'], false, false);
             $this->orderService->addOrderLine($order->getId(), "reservation", $restaurant->getId(), $_POST['amount_child'], true);
         }
         elseif ($_POST['amount'] > 0) {
@@ -56,7 +55,5 @@ class RestaurantController {
         elseif ($_POST['amount_child'] > 0) {
             $this->orderService->addOrderLine($order->getId(), "reservation", $restaurant->getId(), $_POST['amount_child'], true);
         }
-
-        $this->redirectHelper->redirect('/cart');
     }
 }

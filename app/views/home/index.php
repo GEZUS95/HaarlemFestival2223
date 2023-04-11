@@ -3,7 +3,6 @@ include_once __DIR__ . '/../header.php';
 ?>
 <?= $page->getBody() ?>
 
-<!--todo: add links to the cards-->
     <div class="container">
         <div class="row">
             <h1> Dance Highlights </h1>
@@ -19,6 +18,7 @@ include_once __DIR__ . '/../header.php';
                             <h5>With: <?= $highlight['special_guest_name'] ?></h5>
                             <p><?= $highlight['special_guest_description'] ?></p>
                             <p>Starts at: <?= $highlight['start_time'] ?></p>
+                            <a href="/item/<?= $highlight['id'] ?>" class="btn btn-primary">Go to</a>
                         </div>
                     </div>
                 </div>
@@ -38,6 +38,7 @@ include_once __DIR__ . '/../header.php';
                             <h5>With: <?= $highlight['special_guest_name'] ?></h5>
                             <p><?= $highlight['special_guest_description'] ?></p>
                             <p>Starts at: <?= $highlight['start_time'] ?></p>
+                            <a href="/item/<?= $highlight['id'] ?>" class="btn btn-primary">Go to</a>
                         </div>
                     </div>
                 </div>
@@ -54,6 +55,7 @@ include_once __DIR__ . '/../header.php';
                         <div class="card-body">
                             <p><?= $highlight->getDescription() ?></p>
                             <p>Stars: <?= $highlight->getStars() ?></p>
+                            <a href="/restaurant/<?= $highlight->getId() ?>" class="btn btn-primary">Go to</a>
                         </div>
                     </div>
                 </div>

@@ -24,7 +24,6 @@ include __DIR__ . '/../header.php';
     <?php
     foreach ($orderItems as $item) {
         ?>
-
         <tr>
             <th scope="row"><?= $item['name'] ?></th>
             <td><?= $item['start_time'] ?></td>
@@ -49,9 +48,9 @@ include __DIR__ . '/../header.php';
                     </div>
                 </form>
             </td>
-            <td><?= $item['child'] ? 'yes' : 'no' ?></td>
-            <td><?= $item['price'] * $item['quantity'] ?></td>
-            <td><?= ($item['price'] * $item['quantity']) * $_ENV['VAT'] ?></td>
+            <td><?= isset($item['child']) ? ($item['child'] ? 'yes' : 'no') : '' ?></td>
+            <td>€<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
+            <td>€<?= number_format(($item['price'] * $item['quantity']) * $_ENV['VAT'], 2) ?></td>
             <td><a href="/cart/delete/<?= $item['id'] ?>" class="btn btn-danger">Remove from cart</a></td>
         </tr>
 

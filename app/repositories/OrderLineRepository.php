@@ -141,7 +141,7 @@ class OrderLineRepository extends Repository
                 LEFT JOIN location ON programitem.location_id = location.id
                 INNER JOIN artist ON programitem.artist_id = artist.id
                 LEFT JOIN artist AS specialguest ON programitem.special_guest_id = specialguest.id
-                WHERE orderline.order_id = :id
+                WHERE orderline.id = :id
                 ");
             $stmt->bindParam(':id', $orderId);
             $stmt->execute();

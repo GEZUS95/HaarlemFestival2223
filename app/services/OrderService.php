@@ -67,11 +67,13 @@ class OrderService
         $this->orderRepository->insertOne($userid, $uuid, 'open');
     }
 
-    public function addOrderline(int $orderId, string $table, int $itemId, int $quantity, bool $child)
+    public function addOrderline(int $orderId, string $table, int $itemId, int $quantity, bool $child, bool $redirect = true)
     {
         $this->ticketService->ticketsAvailable($table, $itemId, $quantity);
         $this->orderLineRepository->insertOne($orderId, $table, $itemId, $quantity, $child);
-        $this->redirectHelper->redirect('/cart?success=Item added to cart');
+        if ($redirect) {
+            $this->redirectHelper->redirect('/cart?success=Item added to cart');
+        }
     }
 
     public function updateOrderStatus(int $id, string $status, string $payedAt = '00-00-0000 00:00:00')
@@ -217,7 +219,8 @@ class OrderService
                 }
                 $temp[] = $item;
             } else {
-                $temp[] = $this->orderLineRepository->getOrderlineNonFood($orderline->getId());
+                $item = $this->orderLineRepository->getOrderlineNonFood($orderline->getId());
+                $temp[] = $item;
             }
         }
         return $temp;

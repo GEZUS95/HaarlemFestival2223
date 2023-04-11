@@ -35,6 +35,11 @@ class SessionService
         return $this->sessionRepository->getAllFutureSessionsForRestaurant($restaurantId);
     }
 
+    public function getAllFromProgram(int $programId)
+    {
+        return $this->sessionRepository->getAllFromProgram($programId);
+    }
+
     public function insertOne(int $restaurantId, int $programId, \DateTime $startTime, \DateTime $endTime, int $seatsLeft)
     {
         $this->sessionRepository->insertOne($restaurantId, $programId, $startTime, $endTime, $seatsLeft);

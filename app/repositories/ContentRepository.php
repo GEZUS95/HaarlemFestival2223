@@ -108,15 +108,19 @@ class ContentRepository extends Repository
         try {
             $stmt = $this->connection->prepare("
                     SELECT
+                        programitem.id,
                         programitem.title,
                         programitem.start_time,
                         artist.name,
                         artist.description,
+                        program.title AS program_title,
+                        event.id AS event_id,
                         specialguest.name AS special_guest_name,
                         specialguest.description AS special_guest_description
                     FROM programitem
                     INNER JOIN program ON programitem.program_id = program.id
                     INNER JOIN artist ON programitem.artist_id = artist.id
+                    INNER JOIN event ON program.event_id = event.id
                     LEFT JOIN artist AS specialguest ON programitem.special_guest_id = specialguest.id
                     WHERE highlight = 1 AND program.event_id = :event LIMIT 5
                     ");
