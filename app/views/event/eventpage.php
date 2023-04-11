@@ -49,7 +49,7 @@ include_once __DIR__ . '/../header.php';
                     -<?php echo date('H:i', strtotime($session['end_time'])); ?></p>
                 <p class="card-text"><strong>Seats Left:</strong>
                     <?php echo $session['seats_left']; ?></p>
-                <a href="/session/<?php echo $session['id']; ?>" class="btn btn-primary">Put in cart</a>
+                <a href="/reservation/<?php echo $session['id']; ?>" class="btn btn-primary">Put in cart</a>
             </div>
         </div>
     <br>

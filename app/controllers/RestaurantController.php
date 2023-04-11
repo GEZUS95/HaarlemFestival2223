@@ -43,7 +43,7 @@ class RestaurantController {
     public function confirmReservation(int $sessionId) {
         $order = $this->orderService->getOneOrderFromUserId($_SESSION['user']['id']);
         $restaurant = $this->restaurantService->getOneById($this->sessionService->getOneById($sessionId)->getRestaurantId());
-        $this->reservationService->insertOne($_SESSION['user']['id'], $sessionId, $_POST['remarks'], "active");
+        $this->reservationService->insertOne($_SESSION['user']['id'], $sessionId, $_POST['remarks'] = 'none', "active");
 
         if ($_POST['amount'] > 0  && $_POST['amount_child'] > 0) {
             $this->orderService->addOrderLine($order->getId(), "reservation", $restaurant->getId(), $_POST['amount'], false, false);

@@ -10,7 +10,7 @@ include_once __DIR__ . '/../header.php';
         <form method="post" action="" class="form">
             <div class="form-group">
                 <label for="remarks">Remarks:</label>
-                <input type="text" id="remarks" name="remarks" class="form-control" required>
+                <input type="text" id="remarks" name="remarks" class="form-control" >
             </div>
             <div class="form-group">
                 <label for="amount">Amount:</label>
