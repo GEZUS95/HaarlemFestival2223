@@ -22,7 +22,7 @@ class PaymentController
         $this->orderService = new OrderService();
         $this->ticketService = new TicketService();
         $this->mollie = new MollieApiClient();
-        $this->mollie->setApiKey("test_Ds3fz4U9vNKxzCfVvVHJT2sgW5ECD8");
+        $this->mollie->setApiKey($_ENV['MOLLIE_API_KEY']);
     }
 
     public function pay($value, $orderID)
