@@ -17,10 +17,14 @@ include_once __DIR__ . '/../header.php';
         <p><?php echo $location->getName(); ?></p>
         <p>Address: <?php echo $location->getAddress(); ?>, <?php echo $location->getCity(); ?></p>
         <p>Stage: <?php echo $location->getStage(); ?></p>
+        <?php if (isset($_SESSION['user'])) { ?>
         <form action="/item/<?php echo $programItem->getId(); ?>" method="post">
             <input type="number" name="quantity" value="1" min="1" max="<?php echo $programItem->getSeatsLeft(); ?>" class="form-control-sm">
             <input type="submit" value="Put in cart" class="btn btn-primary">
         </form>
+        <?php } else { ?>
+            <p>Please <a href="/login" class="btn btn-primary">login</a> to put items in your cart.</p>
+        <?php } ?>
     </div>
     <div class="col-3"></div>
 </div>
