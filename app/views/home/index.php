@@ -1,7 +1,7 @@
 <?php
 include_once __DIR__ . '/../header.php';
 ?>
-<?= $page->getBody() ?>
+<?= $home->getBody() ?>
 
     <div class="container">
         <div class="row">

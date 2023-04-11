@@ -28,22 +28,6 @@ include_once __DIR__ . '/../admin-header.php';
             <span id="bodyHelpBlock" class="form-text text-muted">Please put here the content of the page</span>
         </div>
     </div>
-    <!-- If page title = home or has "event" in it display 5 selection boxes for restaurant and programitem highlights -->
-    <?php for ($i = 0; $i < 5; $i++) { ?>
-    <!-- Selection input-->
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="restaurant<?php echo $i + 1 ?>">Restaurant #<?php echo $i + 1 ?></label>
-        <div class="col-md-4">
-            <select id="cuisines" name="cuisines[]" class="form-control" multiple required>
-                <?php foreach ($restaurants as $restaurant): ?>
-                    <option value="<?php echo $restaurant->getName(); ?>"
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-    </div>
-    <?php } ?>
-
     <div class="form-group row">
         <div class="offset-4 col-8">
             <button name="submit" type="submit" class="btn btn-primary">Update Page</button>

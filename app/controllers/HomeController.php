@@ -22,7 +22,7 @@ class HomeController
 
     public function index()
     {
-        $page = $this->contentService->getOneFromTitle('home');
+        $home = $this->contentService->getOneFromTitle('Home');
         $danceHighlights = $this->contentService->getAllHighlightsNonFood(2);
         $jazzHighlights = $this->contentService->getAllHighlightsNonFood(3);
         $foodHighlights = $this->contentService->getAllHighlightsFood();
@@ -45,5 +45,11 @@ class HomeController
     {
         $venues = $this->locationService->getAll();
         require_once __DIR__ . '/../views/home/venues.php';
+    }
+
+    public function showContent(string $title)
+    {
+        $content = $this->contentService->getOneFromTitle($title);
+        require_once __DIR__ . '/../views/home/showContent.php';
     }
 }

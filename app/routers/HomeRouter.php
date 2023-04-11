@@ -9,3 +9,4 @@ $router->get('/about-haarlem', 'HomeController@about');
 $router->get('/artist', 'HomeController@artist');
 $router->get('/locations', 'HomeController@locations');
 $router->get('/venues', 'HomeController@venues');
+$router->get('/page/{title}', 'HomeController@showContent');
