@@ -37,12 +37,12 @@
         $quantity = $item['quantity'];
         $price = $item['price'];
 
-        $priceExclTax = $price;
-        $taxAmount = $price * $_ENV['VAT'];
+        $priceExclTax = $price * $quantity;
+        $taxAmount = $price * $_ENV['VAT'] * $quantity;
         $priceInclTax = $priceExclTax + $taxAmount;
 
-        $totalExclTax += $priceExclTax * $quantity;
-        $totalInclTax += $priceInclTax * $quantity;
+        $totalExclTax += $priceExclTax;
+        $totalInclTax += $priceInclTax;
         ?>
         <tr>
             <td><?php echo $name; ?></td>
