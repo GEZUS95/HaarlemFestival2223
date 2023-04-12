@@ -14,11 +14,11 @@ include_once __DIR__ . '/../header.php';
             </div>
             <div class="form-group">
                 <label for="amount">Amount:</label>
-                <input type="text" id="amount" name="amount" class="form-control" min="0" max="<?php echo $session->getSeatsLeft(); ?>" required>
+                <input type="number" id="amount" name="amount" class="form-control" min="0" max="<?php echo $session->getSeatsLeft(); ?>" required>
             </div>
             <div class="form-group">
                 <label for="amount_child">Amount Child:</label>
-                <input type="text" id="amount_child" name="amount_child" class="form-control" min="0" max="<?php echo $session->getSeatsLeft(); ?>" required>
+                <input type="number" id="amount_child" name="amount_child" class="form-control" min="0" max="<?php echo $session->getSeatsLeft(); ?>" required>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
