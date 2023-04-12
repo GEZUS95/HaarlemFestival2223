@@ -14,9 +14,12 @@ $events = (new services\EventService)->getAll();
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.cdnfonts.com/css/comic-sans" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/papyrus" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
-<body style="font-family: 'Comic Sans', 'Papyrus', sans-serif;">
+<body style="font-family: 'Open Sans' ,'Papyrus', sans-serif;">
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <div class="container">
