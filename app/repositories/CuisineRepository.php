@@ -1,6 +1,5 @@
 <?php
 namespace repositories;
-use models\Restaurant;
 use models\Cuisine;
 use PDO;
 use PDOException;

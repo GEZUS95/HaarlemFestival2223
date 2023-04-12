@@ -1,9 +1,6 @@
 <?php
 namespace models;
 
-use DateTime;
-use Exception;
-
 class Session {
     private int $id;
     private int $restaurant_id;

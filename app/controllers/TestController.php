@@ -5,10 +5,7 @@ use helpers\EmailHelper;
 use helpers\PDFHelper;
 use helpers\UuidHelper;
 use models\Attachment;
-use repositories\OrderRepository;
-use repositories\UserRepository;
 use services\OrderService;
-use services\UserService;
 
 class TestController
 {
@@ -18,7 +15,6 @@ class TestController
     }
     public function testTicket()
     {
-
         $email = new EmailHelper();
 
         //make pdfs
@@ -45,6 +41,7 @@ class TestController
 
         //send email
         $email->sendEmailWithAttachments('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your Ticket(s)','Ticket(s) just arrived!',$attachments,'HaarlemFestival_Ticket(s).pdf');
+        echo "Email successfully sent";
     }
 
     public function testInvoice(){
@@ -92,6 +89,7 @@ class TestController
         );
         $pdf = (new PDFHelper)->generateInvoice($customerName, $orderNumber, $orderDate, $items);
         $email->sendEmailWithAttachments('no-reply@haarlemfestival.com','florisbeentjes@ziggo.nl','Your Invoice','Invoice has arrived!',array(new Attachment($pdf, "pdf1")),'HaarlemFestival_Invoice.pdf');
+        echo "Email successfully sent";
     }
 
     public function testHTMLEmail(){

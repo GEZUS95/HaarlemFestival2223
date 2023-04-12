@@ -2,9 +2,9 @@
 
 namespace repositories;
 
+use models\Location;
 use PDO;
 use PDOException;
-use models\Location;
 
 class LocationRepository extends Repository {
     function getAll() {

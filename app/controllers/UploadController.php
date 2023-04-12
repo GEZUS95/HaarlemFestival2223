@@ -9,7 +9,7 @@ class UploadController
       /***************************************************
        * Only these origins are allowed to upload images *
        ***************************************************/
-      $accepted_origins = array("http://localhost", "http://192.168.1.1", "https://407a-145-81-192-114.eu.ngrok.io");
+      $accepted_origins = array("http://localhost", "http://192.168.1.1", "https://haarlemfestival.com");
 
       /*********************************************
        * Change this line to set the upload folder *

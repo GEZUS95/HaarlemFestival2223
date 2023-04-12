@@ -4,4 +4,3 @@ $router->get('/api/orders', 'ApiController@getAllOrders');
 $router->get('/api/reservations', 'ApiController@getAllReservations');
 $router->get('/api/reservations/{id}', 'ApiController@getOneReservation');
 $router->put('/api/reservations/{id}', 'ApiController@putOneReservation');
-
