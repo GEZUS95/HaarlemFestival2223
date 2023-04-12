@@ -16,6 +16,7 @@ class TicketService
     private RedirectHelper $redirectHelper;
     private OrderRepository $orderRepository;
     private SessionService $sessionService;
+    private ReservationService $reservationService;
 
     public function __construct()
     {
@@ -25,6 +26,7 @@ class TicketService
         $this->redirectHelper = new RedirectHelper();
         $this->orderRepository = new OrderRepository();
         $this->sessionService = new SessionService();
+        $this->reservationService = new ReservationService();
     }
 
     public function generateTickets($orderId)
@@ -65,13 +67,27 @@ class TicketService
     {
         $orderlines = $this->orderLineRepository->getAllFromOrderId($orderId);
         foreach ($orderlines as $orderline) {
-            $item = $this->orderRepository->getItemFromDB($orderline->getTable(), $orderline->getItemId());
-            $ticketsAvailable = $item['seats_left'] - $orderline->getQuantity();
-            $this->orderRepository->updateTicketsAvailable(
-                $orderline->getTable(),
-                $orderline->getItemId(),
-                $ticketsAvailable
-            );
+
+            if ($orderline->getTable() === 'reservation') {
+                $reservation = $this->reservationService->getOneById($orderline->getItemId());
+                $session = $this->sessionService->getOneById($reservation->getSessionId());
+
+                $ticketsAvailable = $session->getSeatsLeft() - $orderline->getQuantity();
+
+                $this->orderRepository->updateTicketsAvailable(
+                    'session',
+                    $session->getId(),
+                    $ticketsAvailable
+                );
+            } else {
+                $item = $this->orderRepository->getItemFromDB($orderline->getTable(), $orderline->getItemId());
+                $ticketsAvailable = $item['seats_left'] - $orderline->getQuantity();
+                $this->orderRepository->updateTicketsAvailable(
+                    $orderline->getTable(),
+                    $orderline->getItemId(),
+                    $ticketsAvailable
+                );
+            }
         }
     }
 

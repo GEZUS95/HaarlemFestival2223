@@ -76,7 +76,7 @@ class OrderService
         }
     }
 
-    public function updateOrderStatus(int $id, string $status, string $payedAt = '00-00-0000 00:00:00')
+    public function updateOrderStatus(int $id, string $status, string $payedAt = '0000-00-00 00:00:00')
     {
         $this->orderRepository->updateStatus($id, $status, $payedAt);
     }
@@ -170,7 +170,7 @@ class OrderService
     {
         $order = $this->getOneOrderFromId($orderId);
         $user = $this->userService->getOneById($order->getUserId());
-        $items = $this->getFullOrder($order);
+        $items = $this->getFullOrder($orderId);
         $userEmail = $user->getEmail();
         $attachments = array();
 
@@ -184,7 +184,7 @@ class OrderService
                     $this->PDFHelper->generateTicket(
                         $user->getName(),
                         $item['name'],
-                        $ticket->getUuid(),
+                        $ticket['uuid'],
                         $item['start_time']
                     ),
                     "Ticket #$i for " . $item['name']

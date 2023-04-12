@@ -15,7 +15,7 @@ class TicketRepository extends Repository
                     ");
             $stmt->bindParam(':uuid', $uuid);
             $stmt->bindParam(':orderline_id', $orderlineId);
-            $false = false;
+            $false = 0;
             $stmt->bindParam(':used', $false);
             return $stmt->execute();
         } catch (PDOException $e) {

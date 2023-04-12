@@ -6,6 +6,7 @@ use helpers\PDFHelper;
 use helpers\UuidHelper;
 use models\Attachment;
 use services\OrderService;
+use services\TicketService;
 
 class TestController
 {
@@ -111,5 +112,30 @@ class TestController
         $service = new OrderService();
         $orders = $service->getFullOrder(1);
         print_r($orders);
+    }
+
+    public function testTicketGen()
+    {
+        $service = new TicketService();
+        $service->generateTickets(1);
+    }
+
+    public function testUpdateOrderStatus()
+    {
+        $service = new OrderService();
+        $date = new \DateTime();
+        $service->updateOrderStatus(4, 'paid', $date->format('Y-m-d H:i:s'));
+    }
+
+    public function testUpdateTicketsAvailable()
+    {
+        $service = new TicketService();
+        $service->updateTicketsAvailable(4);
+    }
+
+    public function testSendTickets()
+    {
+        $service = new OrderService();
+        $service->sendTickets(4);
     }
 }

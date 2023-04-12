@@ -1,9 +1,12 @@
 <?php
+
 namespace services;
+
 use models\Reservation;
 use repositories\ReservationRepository;
 
-class ReservationService {
+class ReservationService
+{
 
     private ReservationRepository $repository;
 
@@ -12,27 +15,33 @@ class ReservationService {
         $this->repository = new ReservationRepository();
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         return $this->repository->getAll();
     }
 
-    public function getOneById(int $id){
+    public function getOneById(int $id)
+    {
         return $this->repository->getOneById($id);
     }
 
-    public function getAllByRestaurantId(int $id){
+    public function getAllByRestaurantId(int $id)
+    {
         return $this->repository->getAllByRestaurantId($id);
     }
 
-    public function getAllBySessionId(int $id){
+    public function getAllBySessionId(int $id)
+    {
         return $this->repository->getAllBySessionId($id);
     }
 
-    public function insertOne(int $userId, int $sessionId, string $remarks, string $status){
+    public function insertOne(int $userId, int $sessionId, string $remarks, string $status)
+    {
         $this->repository->insertOne($userId, $sessionId, $remarks, $status);
     }
 
-    public function updateOne(int $id, int $userId, int $sessionId, string $remarks, string $status){
+    public function updateOne(int $id, int $userId, int $sessionId, string $remarks, string $status)
+    {
         $this->repository->updateOne($id, $userId, $sessionId, $remarks, $status);
     }
 
