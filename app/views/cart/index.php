@@ -40,6 +40,7 @@ include __DIR__ . '/../header.php';
                                    required="required"
                                    value="<?= $item['quantity'] ?>"
                                    min="1"
+                                   max="<?= $item['seats_left'] ?>"
                             >
                         </div>
                         <div class="col">
