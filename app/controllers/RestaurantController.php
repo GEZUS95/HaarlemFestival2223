@@ -45,7 +45,9 @@ class RestaurantController {
         $restaurant = $this->restaurantService->getOneById($this->sessionService->getOneById($sessionId)->getRestaurantId());
         $this->reservationService->insertOne($_SESSION['user']['id'], $sessionId, $_POST['remarks'] = 'none', "active");
 
+        // add separate orderlines for adults and children
         if ($_POST['amount'] > 0  && $_POST['amount_child'] > 0) {
+            // don't redirect after first orderline
             $this->orderService->addOrderLine($order->getId(), "reservation", $restaurant->getId(), $_POST['amount'], false, false);
             $this->orderService->addOrderLine($order->getId(), "reservation", $restaurant->getId(), $_POST['amount_child'], true);
         }
