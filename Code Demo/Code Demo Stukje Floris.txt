@@ -1,0 +1,11 @@
+Code Demo HF2223 Floris
+
+Stukje betalen:
+- Betalen -> Pay() function
+- Webhook
+- Genereren Invoice, Tickets en QR
+
+Overige:
+- Email
+- WYSIWYG image upload script
+- Router indien tijd over
